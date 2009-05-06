@@ -28,6 +28,7 @@ namespace DecomposeLib
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> EPSs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> TAUs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
         private Dictionary<int, Partition<TInput>> Ns = new Dictionary<int, Partition<TInput>>();
+        List<List<HashSet<FSMState<TInput, TOutput>>>> TTs = new List<List<HashSet<FSMState<TInput, TOutput>>>>();
 
         private HashSet<FSMState<TInput, TOutput>> F(FSMState<TInput, TOutput> a, TInput z, Partition<FSMState<TInput,TOutput>> pi)
         {
@@ -118,24 +119,35 @@ namespace DecomposeLib
             return PIs[i].GetBlock(FSM.Sigma(r.First(), gamma.First()));
         }
 
-        private Partition<FSMState<TInput, TOutput>> F(IEnumerable<Partition<FSMState<TInput, TOutput>>> pis)
+        private void SolveTTs(IEnumerable<Partition<FSMState<TInput, TOutput>>> pis)
         {
-            List<HashSet<FSMState<TInput, TOutput>>> Ts = fRec(pis);
-            List<HashSet<FSMState<TInput, TOutput>>> TTs = new List<HashSet<FSMState<TInput, TOutput>>>();
+            List<List<HashSet<FSMState<TInput, TOutput>>>> Ts = fRec(pis);
+            foreach (var t in Ts)
+            {
+                HashSet<FSMState<TInput, TOutput>> ti = t.Intersect();
+                if (ti.Count > 0)
+                {
+                    TTs.Add(t);
+                }
+            }
+
+
             throw new NotImplementedException();
         }
 
-        private List<HashSet<FSMState<TInput, TOutput>>> fRec(IEnumerable<Partition<FSMState<TInput, TOutput>>> items)
+        private List<List<HashSet<FSMState<TInput, TOutput>>>> fRec(IEnumerable<Partition<FSMState<TInput, TOutput>>> items)
         {
-            List<HashSet<FSMState<TInput, TOutput>>> result = new List<HashSet<FSMState<TInput, TOutput>>>();
+            List<List<HashSet<FSMState<TInput, TOutput>>>> result = new List<List<HashSet<FSMState<TInput, TOutput>>>>();
             if (items.Count() > 0)
             {
-                List<HashSet<FSMState<TInput, TOutput>>> a = fRec(items.Skip(1));
+                List<List<HashSet<FSMState<TInput, TOutput>>>> a = fRec(items.Skip(1));
                 foreach (var hashSet in items.First())
                 {
                     foreach (var innerArray in a)
                     {
-                        result.Add(new HashSet<FSMState<TInput, TOutput>>(hashSet.Union(innerArray)));
+                        List<HashSet<FSMState<TInput, TOutput>>> newLst = new List<HashSet<FSMState<TInput, TOutput>>>(innerArray);
+                        newLst.Add(hashSet);
+                        result.Add(newLst);
                     }
                 }
             }

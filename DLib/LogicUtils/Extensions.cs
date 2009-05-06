@@ -135,5 +135,19 @@ namespace LogicUtils
         //    }
         //    return result;
         //}
+
+        public static HashSet<T> Intersect<T>(this IEnumerable<HashSet<T>> hashsets)
+        {
+            IEnumerable<T> result = new List<T>();
+            if(hashsets.Count() > 0)
+            {
+                result = hashsets.First();
+                foreach (var item in hashsets.Skip(1))
+                {
+                    result = item.Intersect(result);
+                }
+            }
+            return new HashSet<T>(result);
+        }
     }
 }
