@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms.DataGrid", "WinForms\DLib.WinForms.DataGrid.csproj", "{768BDDDA-91B4-45F0-BCA8-F98C2FC3F67C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms.Common", "DLib.WinForms.Common\DLib.WinForms.Common.csproj", "{1F29C2CF-1EF9-4586-BBE6-623D35124DDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms", "DLib.WinForms\DLib.WinForms.csproj", "{835A8828-8B9A-4491-BF29-18B942AAC8FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{768BDDDA-91B4-45F0-BCA8-F98C2FC3F67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{768BDDDA-91B4-45F0-BCA8-F98C2FC3F67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{768BDDDA-91B4-45F0-BCA8-F98C2FC3F67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{768BDDDA-91B4-45F0-BCA8-F98C2FC3F67C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F29C2CF-1EF9-4586-BBE6-623D35124DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F29C2CF-1EF9-4586-BBE6-623D35124DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F29C2CF-1EF9-4586-BBE6-623D35124DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F29C2CF-1EF9-4586-BBE6-623D35124DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835A8828-8B9A-4491-BF29-18B942AAC8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835A8828-8B9A-4491-BF29-18B942AAC8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835A8828-8B9A-4491-BF29-18B942AAC8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835A8828-8B9A-4491-BF29-18B942AAC8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
