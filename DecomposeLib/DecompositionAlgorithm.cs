@@ -130,9 +130,17 @@ namespace DecomposeLib
                     TTs.Add(t);
                 }
             }
+        }
 
-
-            throw new NotImplementedException();
+        private HashSet<FSMState<TInput, TOutput>> Fi(IEnumerable<HashSet<FSMState<TInput, TOutput>>> ts, int i)
+        {
+            HashSet<FSMState<TInput, TOutput>> result = null;
+            HashSet<FSMState<TInput, TOutput>> tIntersect = ts.Intersect();
+            if (tIntersect.Count > 0)
+            {
+                result = EPSs[i].FirstOrDefault(b => tIntersect.IsSubsetOf(b));
+            }
+            return result;
         }
 
         private List<List<HashSet<FSMState<TInput, TOutput>>>> fRec(IEnumerable<Partition<FSMState<TInput, TOutput>>> items)
