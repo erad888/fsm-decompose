@@ -7,7 +7,7 @@ using LogicUtils;
 
 namespace DecomposeLib
 {
-    public class DecompositionAlgorithm<TInput, TOutput>
+    public class DecompositionAlgorithm<TInput, TOutput>: IDecompositionAlg<TInput, TOutput>
         where TInput : FSMAtomBase, IStringKeyable
         where TOutput : FSMAtomBase, IStringKeyable
     {
@@ -23,6 +23,40 @@ namespace DecomposeLib
             }
         }
 
+        public FSMNet<TInput, TOutput> Solve()
+        {
+            if (FSM == null)
+                throw new NullReferenceException();
+
+            FSMNet<TInput, TOutput> result = null;
+            try
+            {
+                SolveTAUs();
+                SolveNs();
+                SolveEPSs();
+                SolveTTs(PIs.Values);
+
+                result = new FSMNet<TInput, TOutput>();
+                foreach (var pi in PIs)
+                {
+                    result.AddToEnd(new FSMNet<TInput, TOutput>.NetComponent()
+                        {
+                            FiniteStateMachine = new ComponentFSM<TInput, TOutput>(this, pi.Value, FSM.InitialState, pi.Key),
+
+                        });
+                }
+            }
+            catch (Exception exc)
+            {
+                EPSs.Clear();
+                TAUs.Clear();
+                Ns.Clear();
+                TTs.Clear();
+                throw exc;
+            }
+            return result;
+        }
+
         public FiniteStateMachine<TInput, TOutput> FSM { get; private set; }
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> PIs = null;
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> EPSs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
@@ -30,7 +64,7 @@ namespace DecomposeLib
         private Dictionary<int, Partition<TInput>> Ns = new Dictionary<int, Partition<TInput>>();
         List<List<HashSet<FSMState<TInput, TOutput>>>> TTs = new List<List<HashSet<FSMState<TInput, TOutput>>>>();
 
-        private HashSet<FSMState<TInput, TOutput>> F(FSMState<TInput, TOutput> a, TInput z, Partition<FSMState<TInput,TOutput>> pi)
+        public HashSet<FSMState<TInput, TOutput>> F(FSMState<TInput, TOutput> a, TInput z, Partition<FSMState<TInput,TOutput>> pi)
         {
             return pi.GetBlock(FSM.Sigma(a, z));
         }
@@ -103,7 +137,7 @@ namespace DecomposeLib
                 throw new ArithmeticException();
         }
 
-        private HashSet<FSMState<TInput, TOutput>> Sigma(
+        public HashSet<FSMState<TInput, TOutput>> Sigma(
             int i,
             HashSet<FSMState<TInput, TOutput>> alpha,
             HashSet<FSMState<TInput, TOutput>> beta,

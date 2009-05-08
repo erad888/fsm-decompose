@@ -49,7 +49,7 @@ namespace FSM
         /// <summary>
         /// Начальное состояние
         /// </summary>
-        protected FSMState<TInput, TOutput> InitialState
+        public FSMState<TInput, TOutput> InitialState
         {
             get { return initialState; }
             set
