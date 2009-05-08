@@ -10,9 +10,9 @@ namespace FSM
         where TOutput : FSMAtomBase, IStringKeyable
     {
         #region
-        public class ComponentFSM
+        public class NetComponent
         {
-            public FSM FiniteStateMachine { get; set; }
+            public ComponentFSM<TInput, TOutput> FiniteStateMachine { get; set; }
             public FuncKsi Ksi {get; set;}
             public FuncF F{get; set;}
         }
@@ -23,13 +23,23 @@ namespace FSM
 
         private HashSet<TOutput> outputSet = new HashSet<TOutput>();
         private HashSet<TInput> inputSet = new HashSet<TInput>();
-        private List<ComponentFSM> componentFSMs = new List<ComponentFSM>();
+        private Dictionary<int, NetComponent> componentFSMs = new Dictionary<int, NetComponent>();
         public FuncG G { get; set; }
+        public FSMState<TInput, TOutput> InitialState { get; set; }
 
-        public bool AddComponent(FSM finiteStateMachine, FuncKsi ksi, FuncF f)
+        public void AddToEnd(NetComponent fsm)
         {
-            bool result = true;
-            return result;
+            if (fsm == null)
+                throw new ArgumentNullException("fsm");
+            if (componentFSMs.ContainsKey(fsm.FiniteStateMachine.OrderNumber))
+                throw new ArgumentException();
+
+            componentFSMs.Add(fsm.FiniteStateMachine.OrderNumber, fsm);
+        }
+
+        public TOutput ProcessInput(TInput input)
+        {
+            throw new NotImplementedException();
         }
 
         #region IFSM<TInput,TOutput> Members
