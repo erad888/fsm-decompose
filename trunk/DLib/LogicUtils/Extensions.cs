@@ -149,5 +149,15 @@ namespace LogicUtils
             }
             return new HashSet<T>(result);
         }
+
+        public static string GetContentKey<T>(this HashSet<T> hashSet)
+        {
+            string result = string.Empty;
+            foreach (var element in hashSet)
+            {
+                result += element.ToString();
+            }
+            return result;
+        }
     }
 }

@@ -6,36 +6,37 @@ using LogicUtils;
 
 namespace FSM
 {
-    public abstract class FSM : IFSM
-    {
-        #region IFSM Members
+    //public abstract class FSM : IFSM
+    //{
+    //    #region IFSM Members
 
-        public virtual FSMAtomBase[] OutputSet
-        {
-            get { throw new NotImplementedException(); }
-        }
+    //    public virtual FSMAtomBase[] OutputSet
+    //    {
+    //        get { throw new NotImplementedException(); }
+    //    }
 
-        public virtual FSMAtomBase[] InputSet
-        {
-            get { throw new NotImplementedException(); }
-        }
+    //    public virtual TInput[] InputSet
+    //    {
+    //        get { throw new NotImplementedException(); }
+    //    }
 
-        public virtual Type OutputType
-        {
-            get { throw new NotImplementedException(); }
-        }
+    //    public virtual Type OutputType
+    //    {
+    //        get { throw new NotImplementedException(); }
+    //    }
 
-        public virtual Type InputType
-        {
-            get { throw new NotImplementedException(); }
-        }
+    //    public virtual Type InputType
+    //    {
+    //        get { throw new NotImplementedException(); }
+    //    }
 
-        #endregion
-    }
+    //    #endregion
+    //}
+
     /// <summary>
     /// Конечный автомат
     /// </summary>
-    public /*abstract*/ class FiniteStateMachine<TInput, TOutput> : FSM
+    public /*abstract*/ class FiniteStateMachine<TInput, TOutput> : IFSM<TInput, TOutput>
         where TInput : FSMAtomBase, IStringKeyable
         where TOutput : FSMAtomBase, IStringKeyable
     {
@@ -105,15 +106,22 @@ namespace FSM
         /// </summary>
         /// <param name="state">Состояние</param>
         /// <returns></returns>
-        internal bool AddState(FSMState<TInput, TOutput> state)
+        public bool AddState(FSMState<TInput, TOutput> state)
         {
             bool result = false;
             if (state.FSM == this)
             {
-                result = stateSet.Add(state);
+                if (!stateSet.Contains(state))
+                    result = stateSet.Add(state);
             }
             return result;
         }
+
+        public bool AddState(Enum stateCore)
+        {
+            return stateSet.Add(new FSMState<TInput, TOutput>(this, stateCore));
+        }
+
         /// <summary>
         /// Добавить выходной символ
         /// </summary>
@@ -135,46 +143,65 @@ namespace FSM
             return inputSet.Add(input);
         }
 
-        public void AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState, TOutput output)
+        public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState, TOutput output)
         {
+            return AddOutgoing(sourceState, action, destinationState, output, 1);
+        }
+
+        public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState, TOutput output, double probability)
+        {
+            if ((probability <= 0) || (probability > 1)) throw new ArgumentException("Probability must be in (0;1]", "probability");
+
+            bool result = false;
             var st = stateSet.FirstOrDefault(s => s.StateCore == sourceState.StateCore);
             if (st != null)
             {
                 Transition<TInput, TOutput> transition = new Transition<TInput, TOutput>
-                                                             {
-                                                                 SourceState = sourceState,
-                                                                 Input = action,
-                                                                 DestinationState = destinationState,
-                                                                 Output = output
-                                                             };
+                {
+                    SourceState = sourceState,
+                    Input = action,
+                    //DestinationState = destinationState,
+                    //Output = output
+                };
+                transition.AddDestination(destinationState, output, probability);
                 if (!Transitions.ContainsKey(transition.ToString()))
-                    if (st.AddOutgoing(action, destinationState, output))
+                {
+                    if (st.AddOutgoing(action, destinationState, output, probability))
                     {
                         Transitions.Add(transition.ToString(), transition);
+                        result = true;
                     }
+                }
+                else
+                {
+                    if (st.AddOutgoing(action, destinationState, output, probability))
+                        result = Transitions[transition.ToString()].AddDestination(destinationState, output, probability);
+                }
             }
+            return result;
         }
 
-        public void AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState)
+        public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState)
         {
-            var st = stateSet.FirstOrDefault(s => s.StateCore == sourceState.StateCore);
-            if (st != null)
-            {
-                Transition<TInput, TOutput> transition = new Transition<TInput, TOutput>
-                                                             {
-                                                                 SourceState = sourceState,
-                                                                 Input = action,
-                                                                 DestinationState = destinationState
-                                                             };
-                if (!Transitions.ContainsKey(transition.ToString()))
-                    if (st.AddOutgoing(action, destinationState))
-                    {
-                        Transitions.Add(transition.ToString(), transition);
-                    }
-            }
+            return AddOutgoing(sourceState, action, destinationState, null);
         }
 
+        public bool AddOutgoing(Enum sourceState, TInput action, Enum destinationState, TOutput output)
+        {
+            var sState = stateSet.FirstOrDefault(s => s.StateCore == sourceState);
+            var dState = stateSet.FirstOrDefault(s => s.StateCore == destinationState);
 
+            bool result = false;
+            if (sState != null && dState != null)
+                result = AddOutgoing(sState, action, dState, output);
+
+            return result;
+        }
+
+        public bool AddOutgoing(Enum sourceState, TInput action, Enum destinationState)
+        {
+            return AddOutgoing(sourceState, action, destinationState, null);
+        }
 
         private Dictionary<string, Transition<TInput, TOutput>> Transitions = new Dictionary<string, Transition<TInput, TOutput>>();
 
@@ -202,10 +229,13 @@ namespace FSM
             try
             {
                 var oldState = CurrentState;
-                var newState = CurrentState.Transit(initialEvent, out tempOutput);
+                var newState = CurrentState.Transit(initialEvent, out tempOutput, random);
 
-                CurrentState = newState;
-                NotifyStateChanging(oldState, newState);
+                if (newState != null)
+                {
+                    CurrentState = newState;
+                    NotifyStateChanging(oldState, newState);
+                }
             }
             catch (Exception)
             {
@@ -215,12 +245,49 @@ namespace FSM
             return result;
         }
 
+        public TOutput ProcessInput(TInput input)
+        {
+            TOutput output = null;
+            ProcessMessage(input, out output);
+            return output;
+        }
+
+        public TOutput ProcessInput(FSMState<TInput, TOutput> state, TInput input)
+        {
+            var oldState = CurrentState;
+            CurrentState = state;
+            var result = ProcessInput(input);
+            CurrentState = oldState;
+            return result;
+        }
+
         public FSMState<TInput, TOutput> Sigma(FSMState<TInput, TOutput> a, TInput z)
         {
             FSMState<TInput, TOutput> result = null;
             var thisA = StateSet.FirstOrDefault(s => s.StateCore == a.StateCore);
+            if (thisA == null)
+                throw new NullReferenceException();
             if (thisA.Outgoing.ContainsKey(z.KeyName))
-                result = thisA.Outgoing[z.KeyName].ToState;
+            {
+                var tr = thisA.Outgoing[z.KeyName].GetTransRes(random);
+                if (tr != null)
+                    result = tr.DestState;
+            }
+            return result;
+        }
+
+        public TOutput Lambda(FSMState<TInput, TOutput> a, TInput z)
+        {
+            TOutput result = null;
+            var thisA = StateSet.FirstOrDefault(s => s.StateCore == a.StateCore);
+            if (thisA == null)
+                throw new NullReferenceException();
+            if (thisA.Outgoing.ContainsKey(z.KeyName))
+            {
+                var tr = thisA.Outgoing[z.KeyName].GetTransRes(random);
+                if (tr != null)
+                    result = tr.Output;
+            }
             return result;
         }
 
@@ -230,6 +297,78 @@ namespace FSM
         protected void Reset()
         {
             CurrentState = InitialState;
+        }
+
+        public void Randomize()
+        {
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            random = rnd.NextDouble();
+        }
+
+        private double random = 0;
+
+        private class Transition<TInput, TOutput>
+            where TInput : FSMAtomBase, IStringKeyable
+            where TOutput : FSMAtomBase, IStringKeyable
+        {
+            public FSMState<TInput, TOutput> SourceState { get; set; }
+            //public FSMState<TInput, TOutput> DestinationState { get; set; }
+            public TInput Input { get; set; }
+            //public TOutput Output { get; set; }
+
+            private Dictionary<TransitionRes<TInput, TOutput>, double> destinationStates = new Dictionary<TransitionRes<TInput, TOutput>, double>();
+
+            public TransitionRes<TInput, TOutput> GetDestination(double probability)
+            {
+                TransitionRes<TInput, TOutput> result = null;
+                double sum = 0.0;
+                foreach (var pair in destinationStates)
+                {
+                    if ((probability >= sum) && (probability <= sum + pair.Value))
+                    {
+                        result = pair.Key;
+                        break;
+                    }
+                    sum += pair.Value;
+                }
+                return result;
+            }
+
+            public bool AddDestination(FSMState<TInput, TOutput> state, TOutput output, double probability)
+            {
+                if (state == null) throw new ArgumentNullException("state");
+
+                if ((probability <= 0) || (probability > 1)) throw new ArgumentException("Probability must be in (0;1]", "probability");
+
+                double available = 0;
+                foreach (var pair in destinationStates)
+                {
+                    available += pair.Value;
+                }
+
+                if (probability + available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
+
+                TransitionRes<TInput, TOutput> tr = new TransitionRes<TInput, TOutput>()
+                    {
+                        DestState = state,
+                        Output = output
+                    };
+                bool result = false;
+                if (!destinationStates.ContainsKey(tr))
+                {
+                    destinationStates.Add(tr, probability);
+                }
+                else
+                {
+                    destinationStates[tr] = probability;
+                }
+                return result;
+            }
+
+            public override string ToString()
+            {
+                return SourceState.StateCore.ToString() + " " + Input.KeyName;// + " " + DestinationState.StateCore.ToString();
+            }
         }
 
         #region Isomorphic
@@ -253,8 +392,9 @@ namespace FSM
                                 var trans = Transitions.FirstOrDefault(tr => (tr.Value.SourceState.StateCore == a.StateCore) &&
                                     (tr.Value.Input.KeyName == z.KeyName));
 
-                                bool flagOut = otherTrans.Value.Output.KeyName == trans.Value.Output.KeyName;
-                                bool flagSt = otherTrans.Value.DestinationState.StateCore == trans.Value.DestinationState.StateCore;
+                                bool flagOut = otherTrans.Value.GetDestination(random).Output.KeyName == trans.Value.GetDestination(random).Output.KeyName;
+                                //bool flagSt = otherTrans.Value.DestinationState.StateCore == trans.Value.DestinationState.StateCore;
+                                bool flagSt = otherTrans.Value.GetDestination(random).DestState.StateCore == trans.Value.GetDestination(random).DestState.StateCore;
                                 transitionOk = flagSt && flagOut;
 
                                 if (!transitionOk)
@@ -445,25 +585,23 @@ namespace FSM
             {
                 foreach (var outgoingPair in a.State.Outgoing)
                 {
-                    var isOk = isomorphicInfo.StatesCorrespondence.GetSecond(outgoingPair.Value.ToState) ==
+                    var isOk = isomorphicInfo.StatesCorrespondence.GetSecond(outgoingPair.Value.GetTransRes(random).DestState) ==
                                isomorphicInfo.StatesCorrespondence.GetSecond(outgoingPair.Value.FromState).Outgoing.
                                    Where(
                                    o =>
                                    o.Value.ActionCore ==
                                    isomorphicInfo.InputCorrespondence.GetSecond(
-                                       new InputInfo(outgoingPair.Value.ActionCore)).Input).FirstOrDefault().Value.
-                                   ToState;
+                                       new InputInfo(outgoingPair.Value.ActionCore)).Input).FirstOrDefault().Value.GetTransRes(random).DestState;
 
                     if (isOk)
                     {
-                        var w = outgoingPair.Value.Output;
+                        var w = outgoingPair.Value.GetTransRes(random).Output;
                         var w1 =
                             isomorphicInfo.StatesCorrespondence.GetSecond(a.State).Outgoing.Where(
                                 o =>
                                 o.Value.ActionCore ==
                                 isomorphicInfo.InputCorrespondence.GetSecond(
-                                    new InputInfo(outgoingPair.Value.ActionCore)).Input).FirstOrDefault().Value.
-                                Output;
+                                    new InputInfo(outgoingPair.Value.ActionCore)).Input).FirstOrDefault().Value.GetTransRes(random).Output;
                         isomorphicInfo.OutputCorrespondence.AddAssociation(w, w1);
                     }
                     else
@@ -486,11 +624,12 @@ namespace FSM
                 statistics.TryAdd(state, ref thisInfo);
                 foreach (var outgoing in state.Outgoing)
                 {
-                    StateInfo info = new StateInfo(outgoing.Value.ToState);
-                    if (!statistics.TryAdd(outgoing.Value.ToState, ref info))
-                        info = statistics[outgoing.Value.ToState];
+                    StateInfo info = new StateInfo(outgoing.Value.GetTransRes(random).DestState);
+                    var destState = outgoing.Value.GetTransRes(random).DestState;
+                    if (!statistics.TryAdd(destState, ref info))
+                        info = statistics[destState];
                     ++info.InputCount;
-                    if (outgoing.Value.ToState.StateCore == state.StateCore)
+                    if (destState.StateCore == state.StateCore)
                         ++info.LoopCount;
                     //thisInfo = info;
                 }
@@ -611,20 +750,6 @@ namespace FSM
             public BidirectionalDictionary<TOutput, TOutput> OutputCorrespondence { get; set; }
         }
 
-        private class Transition<TInput, TOutput>
-            where TInput : FSMAtomBase, IStringKeyable
-            where TOutput : FSMAtomBase, IStringKeyable
-        {
-            public FSMState<TInput, TOutput> SourceState { get; set; }
-            public FSMState<TInput, TOutput> DestinationState { get; set; }
-            public TInput Input { get; set; }
-            public TOutput Output { get; set; }
-
-            public override string ToString()
-            {
-                return SourceState.StateCore.ToString() + " " + Input.KeyName + " " + DestinationState.StateCore.ToString();
-            }
-        }
         #endregion
     }
 }

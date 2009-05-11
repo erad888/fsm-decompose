@@ -19,7 +19,7 @@ namespace FSM
         /// <param name="fromState">Откуда ведёт дуга</param>
         /// <param name="toState">Куда ведёт дуга</param>
         public FSMAction(TInput actionCore, FSMState<TInput, TOutput> fromState, FSMState<TInput, TOutput> toState)
-            : this(actionCore, fromState, toState, null)
+            : this(actionCore, fromState)
         {
         }
         /// <summary>
@@ -27,22 +27,59 @@ namespace FSM
         /// </summary>
         /// <param name="actionCore">Суть действия</param>
         /// <param name="fromState">Откуда ведёт дуга</param>
-        /// <param name="toState">Куда ведёт дуга</param>
-        /// <param name="output">Выходной символ</param>
-        public FSMAction(TInput actionCore, FSMState<TInput, TOutput> fromState, FSMState<TInput, TOutput> toState, TOutput output)
+        public FSMAction(TInput actionCore, FSMState<TInput, TOutput> fromState)
         {
             if (actionCore == null) throw new ArgumentNullException("actionCore");
             if (fromState == null) throw new ArgumentNullException("fromState");
-            if (toState == null) throw new ArgumentNullException("toState");
-
-            if (fromState.FSM == toState.FSM)
-            {
-                FromState = fromState;
-                ToState = toState;
-                ActionCore = actionCore;
-                Output = output;
-            }
+            FromState = fromState;
+            ActionCore = actionCore;
         }
+
+        public bool AddTransitionRes(FSMState<TInput, TOutput> destState, TOutput output, double probability)
+        {
+            if (destState == null) throw new ArgumentNullException("destState");
+
+            if ((probability <= 0) || (probability > 1)) throw new ArgumentException("Probability must be in (0;1]", "probability");
+
+            double available = 0;
+            foreach (var pair in SubTransitions)
+            {
+                available += pair.Value;
+            }
+
+            if (probability + available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
+
+            bool result = false;
+            var transRes = new TransitionRes<TInput, TOutput>()
+            {
+                DestState = destState,
+                Output = output
+            };
+            if (!SubTransitions.ContainsKey(transRes))
+            {
+                SubTransitions.Add(transRes, probability);
+                result = true;
+            }
+            return result;
+        }
+
+        public TransitionRes<TInput, TOutput> GetTransRes(double probability)
+        {
+            TransitionRes<TInput, TOutput> result = null;
+            double sum = 0.0;
+            foreach (var pair in SubTransitions)
+            {
+                if ((probability >= sum) && (probability <= sum + pair.Value))
+                {
+                    result = pair.Key;
+                    break;
+                }
+                sum += pair.Value;
+            }
+            return result;
+        }
+
+        private Dictionary<TransitionRes<TInput, TOutput>, double> SubTransitions = new Dictionary<TransitionRes<TInput, TOutput>, double>();
 
         /// <summary>
         /// Ключевое имя действия
@@ -65,11 +102,11 @@ namespace FSM
         /// <summary>
         /// Конец дуги
         /// </summary>
-        public FSMState<TInput, TOutput> ToState { get; private set; }
+        //public FSMState<TInput, TOutput> ToState { get; private set; }
         /// <summary>
         /// Выходной символ
         /// </summary>
-        public TOutput Output { get; private set; }
+        //public TOutput Output { get; private set; }
 
         /// <summary>
         /// Осуществлён переход
@@ -87,14 +124,49 @@ namespace FSM
         /// Осуществить переход по дуге
         /// </summary>
         /// <returns>Куда перешли</returns>
-        internal FSMState<TInput, TOutput> DoTransition(out TOutput output)
+        internal FSMState<TInput, TOutput> DoTransition(out TOutput output, double probability)
         {
-            if (ToState == null)
-                throw new NullReferenceException("ToState");
-            NotifyTransitionPerformed(FromState, ToState, Output);
-            output = Output;
-            return ToState;
+            var trR = GetTransRes(probability);
+
+            NotifyTransitionPerformed(FromState, trR.DestState, trR.Output);
+            output = trR.Output;
+            return trR.DestState;
         }
     }
 
+
+    public class TransitionRes<TInput, TOutput> : IStringKeyable
+        where TInput : FSMAtomBase, IStringKeyable
+        where TOutput : FSMAtomBase, IStringKeyable
+    {
+        public FSMState<TInput, TOutput> DestState { get; set; }
+        public TOutput Output { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as TransitionRes<TInput, TOutput>;
+            if (other == null)
+                return false;
+            return KeyName == other.KeyName;
+        }
+
+        public override int GetHashCode()
+        {
+            return KeyName.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return KeyName;
+        }
+
+        #region Implementation of IStringKeyable
+
+        public string KeyName
+        {
+            get { return DestState.StateCore + Output.KeyName; }
+        }
+
+        #endregion
+    }
 }

@@ -39,10 +39,8 @@ namespace DecomposeLib
                 result = new FSMNet<TInput, TOutput>();
                 foreach (var pi in PIs)
                 {
-                    result.AddToEnd(new FSMNet<TInput, TOutput>.NetComponent()
+                    result.AddToEnd(new FSMNet<TInput, TOutput>.NetComponent(new ComponentFSM<TInput, TOutput>(this, pi.Value, FSM.InitialState, pi.Key))
                         {
-                            FiniteStateMachine = new ComponentFSM<TInput, TOutput>(this, pi.Value, FSM.InitialState, pi.Key),
-
                         });
                 }
             }
@@ -64,9 +62,12 @@ namespace DecomposeLib
         private Dictionary<int, Partition<TInput>> Ns = new Dictionary<int, Partition<TInput>>();
         List<List<HashSet<FSMState<TInput, TOutput>>>> TTs = new List<List<HashSet<FSMState<TInput, TOutput>>>>();
 
-        public HashSet<FSMState<TInput, TOutput>> F(FSMState<TInput, TOutput> a, TInput z, Partition<FSMState<TInput,TOutput>> pi)
+        private HashSet<FSMState<TInput, TOutput>> F(FSMState<TInput, TOutput> a, TInput z, Partition<FSMState<TInput,TOutput>> pi)
         {
-            return pi.GetBlock(FSM.Sigma(a, z));
+            FSMState<TInput, TOutput> state = FSM.Sigma(a, z);
+            if(state == null)
+                state = a;
+            return pi.GetBlock(state);
         }
         private void SolveTAUs()
         {
@@ -78,9 +79,9 @@ namespace DecomposeLib
                                                          string result = string.Empty;
                                                          foreach (var z in FSM.InputSet)
                                                          {
-                                                             result += F(a, z, pi.Value).ToString();
+                                                             result += F(a, z, pi.Value).GetContentKey();
                                                          }
-                                                         return string.Empty;
+                                                         return result;
                                                      }
                     );
                 TAUs.Add(pi.Key, p);
@@ -98,7 +99,7 @@ namespace DecomposeLib
                                                          string result = string.Empty;
                                                          foreach (var a in FSM.StateSet)
                                                          {
-                                                             result += F(a, z, pi.Value).ToString();
+                                                             result += F(a, z, pi.Value).GetContentKey();
                                                          }
                                                          return result;
                                                      }
@@ -146,11 +147,28 @@ namespace DecomposeLib
             HashSet<FSMState<TInput, TOutput>> r = alpha;
             if (!EPSs[i].IsEmpty)
             {
-                r = new HashSet<FSMState<TInput, TOutput>>(alpha.Intersect(beta));
+                IEnumerable<FSMState<TInput, TOutput>> res = alpha;
+                if (beta != null)
+                    res = alpha.Intersect(beta);
+                r = new HashSet<FSMState<TInput, TOutput>>(res);
                 if (r.Count == 0)
-                    return null;
+                {
+                    // result = Sigma не определена, т.к. равна произвольному блоку разбиения PI
+                    return PIs[i].First();
+                    //return null;
+                }
             }
-            return PIs[i].GetBlock(FSM.Sigma(r.First(), gamma.First()));
+            FSMState<TInput, TOutput> state = FSM.Sigma(r.First(), gamma.First());
+            if (state == null)
+                state = r.First();
+            return PIs[i].GetBlock(state);
+        }
+
+        public HashSet<TInput> Ksi(int i, TInput input)
+        {
+            if(!Ns.ContainsKey(i))
+                throw new ArgumentOutOfRangeException("i");
+            return Ns[i].GetBlock(input);
         }
 
         private void SolveTTs(IEnumerable<Partition<FSMState<TInput, TOutput>>> pis)
@@ -166,7 +184,7 @@ namespace DecomposeLib
             }
         }
 
-        private HashSet<FSMState<TInput, TOutput>> Fi(IEnumerable<HashSet<FSMState<TInput, TOutput>>> ts, int i)
+        public HashSet<FSMState<TInput, TOutput>> F(int i, IEnumerable<HashSet<FSMState<TInput, TOutput>>> ts)
         {
             HashSet<FSMState<TInput, TOutput>> result = null;
             HashSet<FSMState<TInput, TOutput>> tIntersect = ts.Intersect();
@@ -174,6 +192,15 @@ namespace DecomposeLib
             {
                 result = EPSs[i].FirstOrDefault(b => tIntersect.IsSubsetOf(b));
             }
+            return result;
+        }
+
+        public TOutput G(IEnumerable<HashSet<FSMState<TInput, TOutput>>> ts, TInput input)
+        {
+            TOutput result = null;
+            HashSet<FSMState<TInput, TOutput>> tIntersect = ts.Intersect();
+            if (tIntersect.Count == 1)
+                result = FSM.Lambda(tIntersect.First(), input);
             return result;
         }
 
