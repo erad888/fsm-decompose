@@ -57,7 +57,13 @@ namespace FSM
         /// <param name="output">Выходной элемент автомата</param>
         internal bool AddOutgoing(TInput action, FSMState<TInput, TOutput> destinationState, TOutput output)
         {
-            var act = new FSMAction<TInput, TOutput>(action, this, destinationState, output);
+            return AddOutgoing(action, destinationState, output, 1.0);
+        }
+
+        internal bool AddOutgoing(TInput action, FSMState<TInput, TOutput> destinationState, TOutput output, double probability)
+        {
+            var act = new FSMAction<TInput, TOutput>(action, this);
+            act.AddTransitionRes(destinationState, output, probability);
             bool result = false;
             if (!Outgoing.ContainsKey(act.Name))
             {
@@ -67,6 +73,10 @@ namespace FSM
                     FSM.AddInput(action);
                 Outgoing.Add(act.Name, act);
                 result = true;
+            }
+            else
+            {
+                Outgoing[act.Name].AddTransitionRes(destinationState, output, probability);
             }
             return result;
         }
@@ -87,12 +97,21 @@ namespace FSM
         /// <param name="initialEvent"></param>
         /// <exception cref="IndexOutOfRangeException">Переход невозможен</exception>
         /// <returns>В какое состояние перешлт</returns>
-        public FSMState<TInput, TOutput> Transit(TInput initialEvent, out TOutput output)
+        public FSMState<TInput, TOutput> Transit(TInput initialEvent, out TOutput output, double probabilityLevel)
         {
             var key = initialEvent.KeyName;
             if (!Outgoing.ContainsKey(key))
                 throw new IndexOutOfRangeException("initialEvent");
-            return Outgoing[key].DoTransition(out output);
+            return Outgoing[key].DoTransition(out output, probabilityLevel);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as FSMState<TInput, TOutput>;
+            if(other == null)
+                return false;
+
+            return StateCore.Equals(other.StateCore);
         }
 
         public override int GetHashCode()

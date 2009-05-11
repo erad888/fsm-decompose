@@ -5,14 +5,19 @@ using System.Text;
 
 namespace FSM
 {
-    public interface IFSM/*<TInput, TOutput>
+    public interface IFSM<TInput, TOutput>
         where TInput : FSMAtomBase, IStringKeyable
-        where TOutput : FSMAtomBase, IStringKeyable*/
+        where TOutput : FSMAtomBase, IStringKeyable
     {
-        //FSMState<TInput, TOutput>[] StateSet { get; }
-        FSMAtomBase[] OutputSet { get; }
-        FSMAtomBase[] InputSet { get; }
-        Type OutputType { get; }
-        Type InputType { get; }
+        FSMState<TInput, TOutput>[] StateSet { get; }
+        
+        //FSMAtomBase[] OutputSet { get; }
+        TInput[] InputSet { get; }
+        //Type OutputType { get; }
+        //Type InputType { get; }
+
+        TOutput ProcessInput(TInput input);
+        TOutput ProcessInput(FSMState<TInput, TOutput> state, TInput input);
+        FSMState<TInput, TOutput> CurrentState { get; }
     }
 }
