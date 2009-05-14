@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms.Common", "DLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms", "DLib.WinForms\DLib.WinForms.csproj", "{835A8828-8B9A-4491-BF29-18B942AAC8FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms.Drawing", "DLib.WinForms.Drawing\DLib.WinForms.Drawing.csproj", "{310E86A6-8D2B-433E-88D7-766486EA6FF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{835A8828-8B9A-4491-BF29-18B942AAC8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{835A8828-8B9A-4491-BF29-18B942AAC8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{835A8828-8B9A-4491-BF29-18B942AAC8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
