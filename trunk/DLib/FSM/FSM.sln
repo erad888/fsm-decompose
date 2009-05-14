@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicUtils", "..\LogicUtils
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{CF82D732-B3C0-46A4-A0D5-D72FD0933289}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSMWinControls", "FSMWinControls\FSMWinControls.csproj", "{5419F9FE-AC0F-465E-A34D-2B4E324FD8F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms.Drawing", "..\WinForms\DLib.WinForms.Drawing\DLib.WinForms.Drawing.csproj", "{310E86A6-8D2B-433E-88D7-766486EA6FF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{CF82D732-B3C0-46A4-A0D5-D72FD0933289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF82D732-B3C0-46A4-A0D5-D72FD0933289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF82D732-B3C0-46A4-A0D5-D72FD0933289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5419F9FE-AC0F-465E-A34D-2B4E324FD8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5419F9FE-AC0F-465E-A34D-2B4E324FD8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5419F9FE-AC0F-465E-A34D-2B4E324FD8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5419F9FE-AC0F-465E-A34D-2B4E324FD8F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

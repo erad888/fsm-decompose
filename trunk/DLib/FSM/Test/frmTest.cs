@@ -15,7 +15,7 @@ namespace Test
         public frmTest()
         {
             InitializeComponent();
-            Init();
+            //Init();
         }
 
         private void Init()
