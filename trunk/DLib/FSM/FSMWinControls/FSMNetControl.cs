@@ -10,18 +10,19 @@ using DLib.WinForms.Drawing;
 
 namespace FSM.FSMWinControls
 {
-    public partial class FSMNetControl : Panel
+    public partial class FSMNetControl : UserControl
     {
         public FSMNetControl()
         {
             InitializeComponent();
-
-            base.Paint += new PaintEventHandler(FSMNetControl_Paint);
+            SetStyle(ControlStyles.UserPaint, true);
+           // SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
         }
 
         //public FSMNetControl()
         //{
-            
+
         //}
 
         public FSMNetControl(IContainer container)
@@ -55,13 +56,29 @@ namespace FSM.FSMWinControls
 
         private Pen BlockPen = Pens.Black;
 
-        void FSMNetControl_Paint(object sender, PaintEventArgs e)
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
-            //Pen pen = Pens.Black;
-            //e.Graphics.DrawArrow(pen, 200, 20, 100, 100, 10, Math.PI/6);
-
-
+            base.OnPaintBackground(e);
         }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+        Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            var old = e.Graphics.SmoothingMode;
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            Pen pen = Pens.Black;
+            e.Graphics.DrawArrow(pen, 200, 20, 100, 100, 10, Math.PI / 6);
+            RectangleF rect = e.Graphics.ClipBounds;
+            Rectangle f = ClientRectangle;// Rectangle.Ceiling(rect);
+            e.Graphics.DrawPath(pen, f.ToRoundedRect());
+            e.Graphics.SmoothingMode = old;
+        }
+
 
         //private void DrawSubFSMBlock()
         private void DrawSubFSMBlock(Graphics graphics, Point blockCenter)

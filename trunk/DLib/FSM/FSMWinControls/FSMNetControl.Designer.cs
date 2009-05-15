@@ -28,7 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FSMNetControl
+            // 
+            this.Name = "FSMNetControl";
+            this.Size = new System.Drawing.Size(235, 207);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

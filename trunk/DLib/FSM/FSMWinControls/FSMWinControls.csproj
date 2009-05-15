@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FSMNetControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FSMNetControl.Designer.cs">
       <DependentUpon>FSMNetControl.cs</DependentUpon>
@@ -64,6 +64,11 @@
       <Project>{D14D9F6B-9637-445A-B697-8529DDD9963E}</Project>
       <Name>FSM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FSMNetControl.resx">
+      <DependentUpon>FSMNetControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
