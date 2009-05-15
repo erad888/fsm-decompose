@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AtomWraps.cs" />
     <Compile Include="FSM.cs" />
+    <Compile Include="FSMInfos\ElementInfo.cs" />
     <Compile Include="FSMNet.cs" />
     <Compile Include="FSM\ComponentFSM.cs" />
     <Compile Include="FSM\FiniteStateMachine.cs" />

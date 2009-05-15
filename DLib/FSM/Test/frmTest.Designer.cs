@@ -37,14 +37,14 @@
             this.fsmNetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fsmNetControl1.Location = new System.Drawing.Point(0, 0);
             this.fsmNetControl1.Name = "fsmNetControl1";
-            this.fsmNetControl1.Size = new System.Drawing.Size(284, 264);
+            this.fsmNetControl1.Size = new System.Drawing.Size(424, 307);
             this.fsmNetControl1.TabIndex = 0;
             // 
             // frmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 264);
+            this.ClientSize = new System.Drawing.Size(424, 307);
             this.Controls.Add(this.fsmNetControl1);
             this.Name = "frmTest";
             this.Text = "Form1";

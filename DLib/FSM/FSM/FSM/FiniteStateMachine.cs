@@ -6,37 +6,14 @@ using LogicUtils;
 
 namespace FSM
 {
-    //public abstract class FSM : IFSM
-    //{
-    //    #region IFSM Members
-
-    //    public virtual FSMAtomBase[] OutputSet
-    //    {
-    //        get { throw new NotImplementedException(); }
-    //    }
-
-    //    public virtual TInput[] InputSet
-    //    {
-    //        get { throw new NotImplementedException(); }
-    //    }
-
-    //    public virtual Type OutputType
-    //    {
-    //        get { throw new NotImplementedException(); }
-    //    }
-
-    //    public virtual Type InputType
-    //    {
-    //        get { throw new NotImplementedException(); }
-    //    }
-
-    //    #endregion
-    //}
+    public abstract class FSM //: IFSM
+    {
+    }
 
     /// <summary>
     /// Конечный автомат
     /// </summary>
-    public /*abstract*/ class FiniteStateMachine<TInput, TOutput> : IFSM<TInput, TOutput>
+    public /*abstract*/ class FiniteStateMachine<TInput, TOutput> : FSM, IFSM<TInput, TOutput>
         where TInput : FSMAtomBase, IStringKeyable
         where TOutput : FSMAtomBase, IStringKeyable
     {
