@@ -48,6 +48,7 @@
     <Compile Include="AtomWraps.cs" />
     <Compile Include="FSM.cs" />
     <Compile Include="FSMInfos\ElementInfo.cs" />
+    <Compile Include="FSMInfos\IInformable.cs" />
     <Compile Include="FSMNet.cs" />
     <Compile Include="FSM\ComponentFSM.cs" />
     <Compile Include="FSM\FiniteStateMachine.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="FSM\FSMState.cs" />
     <Compile Include="IDecompositionAlg.cs" />
     <Compile Include="IFSM.cs" />
+    <Compile Include="FSMInfos\INetComponentInfosContainer.cs" />
     <Compile Include="IStringKeyable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
