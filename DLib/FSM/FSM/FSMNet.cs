@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FSM.FSMInfos;
 using LogicUtils;
 
 namespace FSM
 {
-    public class FSMNet<TInput, TOutput>: IFSM<TInput, TOutput>
+    public class FSMNet<TInput, TOutput> : INetComponentInfosContainer, IFSM<TInput, TOutput>
         where TInput : FSMAtomBase, IStringKeyable
         where TOutput : FSMAtomBase, IStringKeyable
     {
         #region
-        public class NetComponent
+        public class NetComponent : FSM, IInformable
         {
             public NetComponent(ComponentFSM<TInput, TOutput> componentFSM)
             {
@@ -30,6 +31,25 @@ namespace FSM
             {
                 return FiniteStateMachine.DecomposeAlg.F(FiniteStateMachine.OrderNumber, stateSets);
             }
+
+            #region Implementation of IInformable
+
+            public FSMInfo Info
+            {
+                get
+                {
+                    if(info == null)
+                        info = new FSMInfo(this, No.ToString());
+                    ++No;
+                    return info;
+                }
+            }
+
+            private FSMInfo info = null;
+
+            private static int No = 0;
+
+            #endregion
         }
         public delegate object FuncKsi(TInput input);
         public delegate object FuncF(params object[] As);
@@ -135,6 +155,15 @@ namespace FSM
                 }
                 return new TInput[0];
             }
+        }
+
+        #endregion
+
+        #region Implementation of INetComponentInfosContainer
+
+        public IEnumerable<FSMInfo> Components
+        {
+            get { return componentFSMs.Select(c => c.Value.Info); }
         }
 
         #endregion

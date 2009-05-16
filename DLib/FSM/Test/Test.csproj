@@ -79,6 +79,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\DecomposeLib\DecomposeLib.csproj">
+      <Project>{A4E7C152-CA25-4E56-A99D-33719F99EC98}</Project>
+      <Name>DecomposeLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LogicUtils\LogicUtils.csproj">
+      <Project>{F1172195-C45E-43CD-B7E3-CC89BB6D8219}</Project>
+      <Name>LogicUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FSMWinControls\FSMWinControls.csproj">
       <Project>{5419F9FE-AC0F-465E-A34D-2B4E324FD8F0}</Project>
       <Name>FSMWinControls</Name>

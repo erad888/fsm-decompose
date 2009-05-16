@@ -11,9 +11,10 @@ namespace FSM
     {
         public FSM Element { get; set; }
 
-        public FSMInfo(FSM element)
+        public FSMInfo(FSM element, string KeyName)
         {
             Element = element;
+            this.KeyName = KeyName;
         }
     }
 }
