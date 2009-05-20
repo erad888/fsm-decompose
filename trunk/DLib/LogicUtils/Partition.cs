@@ -145,6 +145,29 @@ namespace LogicUtils
             return result;
         }
 
+        public static List<List<Partition<T>>> GetAllOrtPartitionSets(Partition<T>[] partitions, Partition<T>[] fixedPartitions, HashSet<T> genuieSet, int minPartitionsCountInSet, int maxPartitionsCountInSet)
+        {
+            if (minPartitionsCountInSet >= maxPartitionsCountInSet) throw new ArgumentException("min >= max");
+            if (minPartitionsCountInSet <= 1) throw new ArgumentException("min is too low (<=1)");
+            if (maxPartitionsCountInSet >= partitions.Count()) throw new ArgumentException("max is too high (>= elements count)");
+
+            HashSet<Partition<T>> partitionsSet = new HashSet<Partition<T>>(partitions);
+            partitionsSet.ExceptWith(fixedPartitions);
+            List<List<Partition<T>>> result = new List<List<Partition<T>>>();
+            List<List<Partition<T>>> allCombs = new List<List<Partition<T>>>();
+            for (int i = minPartitionsCountInSet-fixedPartitions.Length; i <= maxPartitionsCountInSet-fixedPartitions.Length; i++)
+            {
+                allCombs.AddRange(partitionsSet.GetSubsets(i).Select(s => new List<Partition<T>>(s)));
+            }
+            foreach (var comb in allCombs)
+            {
+                var test = new List<Partition<T>>(comb.Union(fixedPartitions));
+                if (IsOrtPartitionSet(genuieSet, test.ToArray()))
+                    result.Add(test);
+            }
+            return result;
+        }
+
         //private static List<HashSet<T>> gen(T[] set, T[] subset, int rest, int start, int subsetSize)
         //{
         //    List<HashSet<T>> result = new List<HashSet<T>>();
