@@ -120,7 +120,6 @@ namespace FSM.FSMWinControls
         #endregion
 
         private Pen BlockPen;// = Pens.Black;
-
         private Brush BlockBrush = Brushes.Black;
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -196,7 +195,7 @@ namespace FSM.FSMWinControls
             var pt = new Point(block.RightConnector.X + SubFSMBlockSpace / 3,
                               block.RightConnector.Y + SubFSMBlockSpace + dY);
 
-            graphics.DrawArrow(BlockPen, pt.X, pt.Y, GBlock.X, pt.Y, ArrowheadLength, ArrowheadAngle);
+            graphics.DrawArrow(block.ArrowPen, pt.X, pt.Y, GBlock.X, pt.Y, ArrowheadLength, ArrowheadAngle);
         }
 
         private void DrawInputArrows(Graphics graphics, Point inputPoint)
@@ -213,7 +212,7 @@ namespace FSM.FSMWinControls
                                                  pt2
                                              });
             graphics.DrawArrow(BlockPen, pt2.X, pt2.Y, GBlock.X, pt2.Y, ArrowheadLength, ArrowheadAngle);
-
+            
             foreach (var block in SubMachineBlocks)
             {
                 graphics.DrawArrow(BlockPen,
@@ -238,7 +237,7 @@ namespace FSM.FSMWinControls
                                      pt.X,
                                      block.RightConnector.Y);
 
-            graphics.DrawLine(BlockPen,
+            graphics.DrawLine(block.ArrowPen,
                               pt.X,
                               block.RightConnector.Y,
                               pt.X,
@@ -251,7 +250,7 @@ namespace FSM.FSMWinControls
                 DrawPoint(graphics, BlockBrush, pt);
 
                 var firstBlock = destinationBlocks.First(b => b.No == minDestNo);
-                graphics.DrawLine(BlockPen,
+                graphics.DrawLine(block.ArrowPen,
                                   pt.X,
                                   pt.Y,
                                   firstBlock.LeftConnector.X - SubFSMBlockSpace/2 + dX,
@@ -263,7 +262,7 @@ namespace FSM.FSMWinControls
             if (block.No < maxDestNo - 1)
             {
                 var lastBlock = destinationBlocks.First(b => b.No == maxDestNo);
-                graphics.DrawLine(BlockPen,
+                graphics.DrawLine(block.ArrowPen,
                                   pt.X,
                                   pt.Y,
                                   lastBlock.LeftConnector.X - SubFSMBlockSpace / 2 + dX,
@@ -280,14 +279,14 @@ namespace FSM.FSMWinControls
                                          destinationBlock.LeftConnector.X - SubFSMBlockSpace / 2 + dX,
                                          pt.Y);
 
-                    graphics.DrawLine(BlockPen,
+                    graphics.DrawLine(block.ArrowPen,
                                       destinationBlock.LeftConnector.X - SubFSMBlockSpace/2 + dX,
                                       pt.Y,
                                       destinationBlock.LeftConnector.X - SubFSMBlockSpace/2 + dX,
                                       destinationBlock.LeftConnector.Y + dY
                         );
 
-                    graphics.DrawArrow(BlockPen,
+                    graphics.DrawArrow(block.ArrowPen,
                                        destinationBlock.LeftConnector.X - SubFSMBlockSpace/2 + dX,
                                        destinationBlock.LeftConnector.Y + dY,
                                        destinationBlock.LeftConnector.X,
@@ -309,7 +308,7 @@ namespace FSM.FSMWinControls
             //                   ArrowheadLength,
             //                   ArrowheadAngle);
 
-            graphics.DrawArrow(BlockPen,
+            graphics.DrawArrow(lastBlock.ArrowPen,
                                lastBlock.RightConnector.X,
                                lastBlock.RightConnector.Y,
                                GBlock.X,
@@ -329,7 +328,7 @@ namespace FSM.FSMWinControls
 
         private void DrawArrowsBetweenBlocks(Graphics graphics, SubMachineBlock firstBlock, SubMachineBlock secondBlock)
         {
-            graphics.DrawArrow(BlockPen,
+            graphics.DrawArrow(firstBlock.ArrowPen,
                                firstBlock.RightConnector,
                                secondBlock.LeftConnector,
                                ArrowheadLength,
@@ -346,23 +345,23 @@ namespace FSM.FSMWinControls
 
         private void DrawSubFSMBlock(Graphics graphics, Point point, SubMachineBlock block)
         {
-            graphics.DrawPath(BlockPen, block.FSMBlock.ToRoundedRect(SubFSMBlockRadius));
+            graphics.DrawPath(block.FSMBlockPen, block.FSMBlock.ToRoundedRect(SubFSMBlockRadius));
             graphics.DrawString(block.FSMInfo.KeyName, Font, BlockBrush, point.X, point.Y - Font.Size / 2);
         }
 
         private void DrawFBlock(Graphics graphics, Point point, SubMachineBlock block)
         {
-            graphics.DrawPath(BlockPen, block.F.ToRoundedRect(FBlockRadius));
+            graphics.DrawPath(block.FBlockPen, block.F.ToRoundedRect(FBlockRadius));
         }
 
         private void DrawKsiBlock(Graphics graphics, Point point, SubMachineBlock block)
         {
-            graphics.DrawPath(BlockPen, block.Ksi.ToRoundedRect(KsiBlockRadius));
+            graphics.DrawPath(block.KsiBlockPen, block.Ksi.ToRoundedRect(KsiBlockRadius));
         }
 
         private void DrawArrows(Graphics graphics, Point point, SubMachineBlock block)
         {
-            graphics.DrawArrow(BlockPen,
+            graphics.DrawArrow(block.ArrowPen,
                 block.F.X + block.F.Width,
                 block.F.Y + block.F.Height / 2,
                 block.FSMBlock.X,
@@ -370,7 +369,7 @@ namespace FSM.FSMWinControls
                 ArrowheadLength,
                 ArrowheadAngle);
 
-            graphics.DrawArrow(BlockPen,
+            graphics.DrawArrow(block.ArrowPen,
                 block.Ksi.X + block.Ksi.Width / 2,
                 block.Ksi.Y + block.Ksi.Height,
                 block.FSMBlock.X + block.FSMBlock.Width / 2,
@@ -390,60 +389,6 @@ namespace FSM.FSMWinControls
                                          pointY - PointRadius,
                                          2 * PointRadius,
                                          2 * PointRadius);
-        }
-
-        private class SubMachineBlock
-        {
-            public SubMachineBlock(int No, FSMNetControl control, Point basePoint, FSMInfo fsmInfo)
-            {
-                if (control == null) throw new ArgumentNullException("control");
-
-                this.No = No;
-                this.control = control;
-                this.BasePoint = basePoint;
-                this.FSMInfo = fsmInfo;
-
-                SolveCoords();
-            }
-            private void SolveCoords()
-            {
-                FSMBlock = new Rectangle(BasePoint.X - control.SubFSMBlockWidth / 2, BasePoint.Y - control.SubFSMBlockHeight / 2, control.SubFSMBlockWidth, control.SubFSMBlockHeight);
-                F = new Rectangle(BasePoint.X - control.FBlockWidth - control.SubFSMBlockWidth / 2 - control.SubFSMBlockSpace, BasePoint.Y - control.FBlockHeigth / 2, control.FBlockWidth, control.FBlockHeigth);
-                Ksi = new Rectangle(BasePoint.X - control.KsiBlockWidth / 2,
-                    BasePoint.Y - control.KsiBlockHeigth / 2 - control.SubFSMBlockSpace - control.KsiBlockHeigth,
-                    control.KsiBlockWidth,
-                    control.KsiBlockHeigth);
-            }
-
-            private FSMNetControl control = null;
-            private Point BasePoint;
-
-            public FSMInfo FSMInfo { get; private set; }
-
-            public int X { get { return F.X; } }
-            public int Y { get { return Ksi.Y; } }
-
-            public Point TopConnector
-            {
-                get { return new Point(Ksi.X + Ksi.Width / 2, Ksi.Y); }
-            }
-            public Point BottomConnector
-            {
-                get { return new Point(FSMBlock.X + FSMBlock.Width / 2, FSMBlock.Y + FSMBlock.Height); }
-            }
-            public Point LeftConnector
-            {
-                get { return new Point(F.X, F.Y + F.Height / 2); }
-            }
-            public Point RightConnector
-            {
-                get { return new Point(FSMBlock.X + FSMBlock.Width, FSMBlock.Y + FSMBlock.Height / 2); }
-            }
-
-            public int No { get; set; }
-            public Rectangle FSMBlock { get; set; }
-            public Rectangle F { get; set; }
-            public Rectangle Ksi { get; set; }
         }
     }
 }

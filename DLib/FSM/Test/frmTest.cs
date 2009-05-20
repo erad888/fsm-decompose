@@ -17,7 +17,7 @@ namespace Test
         public frmTest()
         {
             InitializeComponent();
-
+            
             fsmNetControl1.LogicComponent = GetNet();
             
         }

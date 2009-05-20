@@ -164,25 +164,76 @@ namespace TestConsole
             ProcessFSM(net);
 
             var inputs = new StructAtom<string>[]
-            {
-                z1,
-                z2,
-                z3,
-                z4,
-                z4,
-                z3,
-                z2,
-                z1,
-                z3,
-                z2,
-                z4,
-                z1
-            };
+                             {
+                                 z1,
+                                 z2,
+                                 z3,
+                                 z4,
+                                 z4,
+                                 z3,
+                                 z2,
+                                 z1,
+                                 z3,
+                                 z2,
+                                 z4,
+                                 z1
+                             };
 
             ProcessFSMLin(inputs, fsm, net);
             fsm.Randomize();
             ProcessFSMLin(inputs, fsm, net);
 
+
+            HashSet<FSMState<StructAtom<string>, StructAtom<string>>> set = new HashSet<FSMState<StructAtom<string>, StructAtom<string>>>(new []
+                                                          {
+                                                              a1,
+                                                              a2,
+                                                              a3,
+                                                              a4,
+                                                              a5,
+                                                              a6
+                                                          });
+            var res = set.GetSubsets();
+            foreach (var re in res)
+            {
+                foreach (var i in re)
+                {
+                    Console.Write(" {0}", i);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("----------");
+
+
+
+
+
+            IEnumerable<Partition<FSMState<StructAtom<string>, StructAtom<string>>>> partitions =
+                Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllPartitions(set, 2).Where(p => p.Count() >= 2 && p.Count() <= 4);
+            List<List<Partition<FSMState<StructAtom<string>, StructAtom<string>>>>> partsLists = Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllOrtPartitionSets(
+                Partition<FSMState<StructAtom<string>, StructAtom<string>>>.FilterSamePartitions(partitions).ToArray(),
+                new[] {pi1, pi2},
+                set,
+                2,
+                3);
+            //Console.WriteLine(Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllPartitions(set,1).Count().ToString());
+            foreach (var partsList in partsLists.Take(100))
+            {
+                foreach (var partition in partsList)
+                {
+                    foreach (var hashSet in partition)
+                    {
+                        foreach (var item in hashSet)
+                        {
+                            Console.Write("{0}", item);
+                        }
+                        Console.Write(" ");
+                    }
+                    Console.Write("\t");
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine();
             Console.ReadKey();
         }
 
