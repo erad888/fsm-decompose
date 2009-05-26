@@ -16,7 +16,7 @@ namespace FSM.FSMWinControls
         private class SubMachineBlock
         {
             #region static
-            static ColorCarouselPicker ColorPicker = new ColorCarouselPicker(new [] {Color.Blue, Color.Red, Color.DarkGreen, Color.DeepPink, Color.DarkMagenta});
+            static ColorCarouselPicker ColorPicker = new ColorCarouselPicker(new[] { Color.Blue, Color.Red, Color.DarkGreen, Color.DeepPink, Color.DarkMagenta });
             #endregion
 
             public SubMachineBlock(int No, FSMNetControl control, Point basePoint, FSMInfo fsmInfo)
@@ -51,17 +51,17 @@ namespace FSM.FSMWinControls
                 else
                     FSMBlockPen.Color = color;
 
-                if(KsiBlockPen == null)
+                if (KsiBlockPen == null)
                     KsiBlockPen = new Pen(color);
                 else
                     FSMBlockPen.Color = color;
-                
-                if(FBlockPen == null)
+
+                if (FBlockPen == null)
                     FBlockPen = new Pen(color);
                 else
                     FSMBlockPen.Color = color;
-                
-                if(ArrowPen == null)
+
+                if (ArrowPen == null)
                     ArrowPen = new Pen(color);
                 else
                     FSMBlockPen.Color = color;
@@ -101,6 +101,20 @@ namespace FSM.FSMWinControls
             public Rectangle FSMBlock { get; set; }
             public Rectangle F { get; set; }
             public Rectangle Ksi { get; set; }
+
+            public Rectangle BoundRect
+            {
+                get
+                {
+                    var result = new Rectangle();
+                    result.X = Math.Min(Ksi.X, F.X);
+                    result.Y = Math.Min(Ksi.Y, F.Y);
+                    result.Width = Math.Max(Ksi.X, FSMBlock.X) - result.X;
+                    result.Height = Math.Max(F.Y, FSMBlock.Y) - result.Y;
+
+                    return result;
+                }
+            }
         }
 	}
 }
