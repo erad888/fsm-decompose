@@ -15,11 +15,23 @@ namespace FSM.FSMWinControls
         public FSMNetControl()
         {
             InitializeComponent();
+            InitHandlers();
+
             SetStyle(ControlStyles.UserPaint, true);
-           // SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            //SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
 
             BlockPen = new Pen(Color.Black, 1);
+        }
+
+        public void InitHandlers()
+        {
+            this.MouseClick += new MouseEventHandler(FSMNetControl_MouseClick);
+        }
+
+        void FSMNetControl_MouseClick(object sender, MouseEventArgs e)
+        {
+            
         }
 
         public FSMNetControl(INetComponentInfosContainer netComponentInfosContainer):this()
