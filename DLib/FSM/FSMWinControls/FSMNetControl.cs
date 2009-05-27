@@ -31,7 +31,14 @@ namespace FSM.FSMWinControls
 
         void FSMNetControl_MouseClick(object sender, MouseEventArgs e)
         {
-            
+            foreach (var subMachineBlock in SubMachineBlocks.Values)
+            {
+                if (subMachineBlock.BoundRect.Contains(e.X, e.Y))
+                    subMachineBlock.SetPenWidth(2);
+                else
+                    subMachineBlock.SetPenWidth(1);
+                Invalidate();
+            }
         }
 
         public FSMNetControl(INetComponentInfosContainer netComponentInfosContainer):this()
@@ -47,7 +54,7 @@ namespace FSM.FSMWinControls
         }
 
         public INetComponentInfosContainer LogicComponent { get; set; }
-        private List<SubMachineBlock> SubMachineBlocks = new List<SubMachineBlock>();
+        private Dictionary<string, SubMachineBlock> SubMachineBlocks = new Dictionary<string, SubMachineBlock>();
         private Rectangle GBlock;
         private Point InputPoint;
 
@@ -158,7 +165,11 @@ namespace FSM.FSMWinControls
                 Point pt = new Point(InputPoint.X + SubFSMBlockSpace*4,
                                      InputPoint.Y + SubFSMBlockSpace*2 +SubFSMBlockHeight/2 + KsiBlockHeigth);
 
-                SubMachineBlocks.Clear();
+                //SubMachineBlocks.Clear();
+                foreach (var block in SubMachineBlocks.Values)
+                {
+                    block.Exists = false;
+                }
 
                 int index = 0;
                 foreach (var fsmInfo in LogicComponent.Components)
@@ -166,32 +177,48 @@ namespace FSM.FSMWinControls
                     if (index > 0)
                         pt.X += SubFSMBlockSpace * 3 + SubFSMBlockWidth;
 
-                    SubMachineBlock block = new SubMachineBlock(index, this, pt, fsmInfo);
-                    SubMachineBlocks.Add(block);
+                    SubMachineBlock block = null;
+                    if (SubMachineBlocks.ContainsKey(fsmInfo.KeyName))
+                    {
+                        block = SubMachineBlocks[fsmInfo.KeyName];
+                        block.SolveCoords(pt);
+                        block.Exists = true;
+                    }
+                    else
+                    {
+                        block = new SubMachineBlock(index, this, pt, fsmInfo);
+                        block.Exists = true;
+                        SubMachineBlocks.Add(block.KeyName, block);
+                    }
                     DrawSubMachine(e.Graphics, pt, block);
 
                     ++index;
                 }
 
+                foreach (var blockKeyToDelete in SubMachineBlocks.Where(b=> !b.Value.Exists).Select(b=>b.Key).ToArray())
+                {
+                    SubMachineBlocks.Remove(blockKeyToDelete);
+                }
+
                 var pointG = new Point(pt.X + SubFSMBlockWidth / 2 + SubFSMBlockSpace * 2, pt.Y);
                 DrawGBlock(e.Graphics, pointG);
-                DrawBoundArrows(e.Graphics, SubMachineBlocks.First(), SubMachineBlocks.Last());
+                DrawBoundArrows(e.Graphics, SubMachineBlocks.Values.First(), SubMachineBlocks.Values.Last());
                 DrawInputArrows(e.Graphics, InputPoint);
 
                 for (int i = 0; i < SubMachineBlocks.Count; ++i)
                 {
                     if (i + 1 < SubMachineBlocks.Count)
                     {
-                        DrawArrowsBetweenBlocks(e.Graphics, SubMachineBlocks[i], SubMachineBlocks[i + 1]);
+                        DrawArrowsBetweenBlocks(e.Graphics, SubMachineBlocks.Values.ElementAt(i), SubMachineBlocks.Values.ElementAt(i + 1));
                     }
                 }
 
-                foreach (var block in SubMachineBlocks)
+                foreach (var block in SubMachineBlocks.Values)
                 {
-                    DrawConnectionArrows(e.Graphics, block, SubMachineBlocks.Except(new[] {block}));
+                    DrawConnectionArrows(e.Graphics, block, SubMachineBlocks.Values.Except(new[] {block}));
                 }
 
-                foreach (var block in SubMachineBlocks.Take(SubMachineBlocks.Count - 1))
+                foreach (var block in SubMachineBlocks.Values.Take(SubMachineBlocks.Count - 1))
                 {
                     DrawOutputArrows(e.Graphics, block);
                 }
@@ -214,7 +241,7 @@ namespace FSM.FSMWinControls
         {
             DrawPoint(graphics, BlockBrush, inputPoint);
 
-            var pt1 = new Point((SubMachineBlocks.Last().RightConnector.X + GBlock.X) / 2, inputPoint.Y);
+            var pt1 = new Point((SubMachineBlocks.Values.Last().RightConnector.X + GBlock.X) / 2, inputPoint.Y);
             var pt2 = new Point(pt1.X, GBlock.Y + GBlock.Height / 4);
 
             graphics.DrawLines(BlockPen, new[]
@@ -225,7 +252,7 @@ namespace FSM.FSMWinControls
                                              });
             graphics.DrawArrow(BlockPen, pt2.X, pt2.Y, GBlock.X, pt2.Y, ArrowheadLength, ArrowheadAngle);
             
-            foreach (var block in SubMachineBlocks)
+            foreach (var block in SubMachineBlocks.Values)
             {
                 graphics.DrawArrow(BlockPen,
                                    block.TopConnector.X,

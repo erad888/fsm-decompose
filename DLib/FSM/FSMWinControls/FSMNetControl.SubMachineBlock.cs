@@ -13,7 +13,7 @@ namespace FSM.FSMWinControls
         /// <summary>
         /// Описывает блок сети автоматов
         /// </summary>
-        private class SubMachineBlock
+        private class SubMachineBlock:IStringKeyable
         {
             #region static
             static ColorCarouselPicker ColorPicker = new ColorCarouselPicker(new[] { Color.Blue, Color.Red, Color.DarkGreen, Color.DeepPink, Color.DarkMagenta });
@@ -28,10 +28,28 @@ namespace FSM.FSMWinControls
                 this.BasePoint = basePoint;
                 this.FSMInfo = fsmInfo;
 
+                this.KeyName = fsmInfo.KeyName;
+
                 SolveCoords();
                 SetColors();
             }
 
+            public void SetPenWidth(int width)
+            {
+                if (width >= 0)
+                {
+                    FSMBlockPen.Width = width;
+                    FBlockPen.Width = width;
+                    KsiBlockPen.Width = width;
+                    ArrowPen.Width = width;
+                }
+            }
+
+            public void SolveCoords(Point BasePoint)
+            {
+                this.BasePoint = BasePoint;
+                SolveCoords();
+            }
             private void SolveCoords()
             {
                 FSMBlock = new Rectangle(BasePoint.X - control.SubFSMBlockWidth / 2, BasePoint.Y - control.SubFSMBlockHeight / 2, control.SubFSMBlockWidth, control.SubFSMBlockHeight);
@@ -44,29 +62,35 @@ namespace FSM.FSMWinControls
 
             private void SetColors()
             {
-                Color color = ColorPicker.Value;
+                if (!ColorsInitialized)
+                {
+                    Color color = ColorPicker.Value;
 
-                if (FSMBlockPen == null)
-                    FSMBlockPen = new Pen(color);
-                else
-                    FSMBlockPen.Color = color;
+                    if (FSMBlockPen == null)
+                        FSMBlockPen = new Pen(color);
+                    else
+                        FSMBlockPen.Color = color;
 
-                if (KsiBlockPen == null)
-                    KsiBlockPen = new Pen(color);
-                else
-                    FSMBlockPen.Color = color;
+                    if (KsiBlockPen == null)
+                        KsiBlockPen = new Pen(color);
+                    else
+                        FSMBlockPen.Color = color;
 
-                if (FBlockPen == null)
-                    FBlockPen = new Pen(color);
-                else
-                    FSMBlockPen.Color = color;
+                    if (FBlockPen == null)
+                        FBlockPen = new Pen(color);
+                    else
+                        FSMBlockPen.Color = color;
 
-                if (ArrowPen == null)
-                    ArrowPen = new Pen(color);
-                else
-                    FSMBlockPen.Color = color;
+                    if (ArrowPen == null)
+                        ArrowPen = new Pen(color);
+                    else
+                        FSMBlockPen.Color = color;
+
+                    ColorsInitialized = true;
+                }
             }
 
+            private bool ColorsInitialized = false;
             private FSMNetControl control = null;
             private Point BasePoint;
 
@@ -115,6 +139,14 @@ namespace FSM.FSMWinControls
                     return result;
                 }
             }
+
+            public bool Exists { get; set; }
+
+            #region IStringKeyable Members
+
+            public string KeyName { get; set; }
+
+            #endregion
         }
 	}
 }
