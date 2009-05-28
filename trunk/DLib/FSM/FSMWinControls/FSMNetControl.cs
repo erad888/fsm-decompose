@@ -27,6 +27,19 @@ namespace FSM.FSMWinControls
         public void InitHandlers()
         {
             this.MouseClick += new MouseEventHandler(FSMNetControl_MouseClick);
+            //this.MouseMove += FSMNetControl_MouseClick;
+            //this.MouseMove += new MouseEventHandler(FSMNetControl_MouseMove);
+        }
+
+        void FSMNetControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            foreach (var block in SubMachineBlocks.Values)
+            {
+                if (block.BoundRect.Contains(e.X, e.Y))
+                    Cursor = Cursors.Hand;
+                else
+                    Cursor = Cursors.Arrow;
+            }
         }
 
         void FSMNetControl_MouseClick(object sender, MouseEventArgs e)
@@ -119,7 +132,7 @@ namespace FSM.FSMWinControls
         }
         public int GBlockHeigth
         {
-            get { return 5 * SubFSMBlockSpace / 2 + SubMachineBlocks.Count * 20; }
+            get { return 5 * SubFSMBlockSpace / 2 + SubMachineBlocks.Values.Where(b=>b.Exists).Count() * 20; }
         }
         public int GBlockRadius
         {
@@ -380,6 +393,8 @@ namespace FSM.FSMWinControls
             DrawFBlock(graphics, point, block);
             DrawKsiBlock(graphics, point, block);
             DrawArrows(graphics, point, block);
+
+            //graphics.DrawRectangle(BlockPen, block.BoundRect);
         }
 
         private void DrawSubFSMBlock(Graphics graphics, Point point, SubMachineBlock block)

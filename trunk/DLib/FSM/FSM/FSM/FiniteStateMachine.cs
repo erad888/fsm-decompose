@@ -180,9 +180,7 @@ namespace FSM
             return AddOutgoing(sourceState, action, destinationState, null);
         }
 
-        private Dictionary<string, Transition<TInput, TOutput>> Transitions = new Dictionary<string, Transition<TInput, TOutput>>();
-
-
+        public Dictionary<string, Transition<TInput, TOutput>> Transitions = new Dictionary<string, Transition<TInput, TOutput>>();
 
         /// <summary>
         /// Возможен ли переход?
@@ -268,6 +266,27 @@ namespace FSM
             return result;
         }
 
+        public FSMState<TInput, TOutput> Sigma(FSMState<TInput, TOutput> state, TInput input, double p)
+        {
+            FSMState<TInput, TOutput> result = null;
+            var oldRandom = random;
+            random = p;
+            result = Sigma(state, input);
+            random = oldRandom;
+            return result;
+        }
+
+        public TOutput Lambda(FSMState<TInput, TOutput> state, TInput input, double p)
+        {
+            TOutput result = null;
+            var oldRandom = random;
+            random = p;
+            result = Lambda(state, input);
+            random = oldRandom;
+            return result;
+        }
+
+
         /// <summary>
         /// Сбросить автомат
         /// </summary>
@@ -284,7 +303,7 @@ namespace FSM
 
         private double random = 0;
 
-        private class Transition<TInput, TOutput>
+        public class Transition<TInput, TOutput>
             where TInput : FSMAtomBase, IStringKeyable
             where TOutput : FSMAtomBase, IStringKeyable
         {
@@ -293,20 +312,20 @@ namespace FSM
             public TInput Input { get; set; }
             //public TOutput Output { get; set; }
 
-            private Dictionary<TransitionRes<TInput, TOutput>, double> destinationStates = new Dictionary<TransitionRes<TInput, TOutput>, double>();
+            internal List<TransitionRes<TInput, TOutput>> destinationStates = new List<TransitionRes<TInput, TOutput>>();
 
             public TransitionRes<TInput, TOutput> GetDestination(double probability)
             {
                 TransitionRes<TInput, TOutput> result = null;
                 double sum = 0.0;
-                foreach (var pair in destinationStates)
+                foreach (var destinationState in destinationStates)
                 {
-                    if ((probability >= sum) && (probability <= sum + pair.Value))
+                    if ((probability >= sum) && (probability <= sum + destinationState.Probability))
                     {
-                        result = pair.Key;
+                        result = destinationState;
                         break;
                     }
-                    sum += pair.Value;
+                    sum += destinationState.Probability;
                 }
                 return result;
             }
@@ -318,9 +337,9 @@ namespace FSM
                 if ((probability <= 0) || (probability > 1)) throw new ArgumentException("Probability must be in (0;1]", "probability");
 
                 double available = 0;
-                foreach (var pair in destinationStates)
+                foreach (var destinationState in destinationStates)
                 {
-                    available += pair.Value;
+                    available += destinationState.Probability;
                 }
 
                 if (probability + available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
@@ -328,23 +347,29 @@ namespace FSM
                 TransitionRes<TInput, TOutput> tr = new TransitionRes<TInput, TOutput>()
                     {
                         DestState = state,
-                        Output = output
+                        Output = output,
+                        Probability = probability
                     };
                 bool result = false;
-                if (!destinationStates.ContainsKey(tr))
+                if (!destinationStates.Contains(tr))
                 {
-                    destinationStates.Add(tr, probability);
+                    destinationStates.Add(tr);
                 }
                 else
                 {
-                    destinationStates[tr] = probability;
+                    destinationStates.First(d => d.KeyName == tr.KeyName).Probability = probability;
                 }
                 return result;
             }
 
             public override string ToString()
             {
-                return SourceState.StateCore.ToString() + " " + Input.KeyName;// + " " + DestinationState.StateCore.ToString();
+                //string result = string.Empty;
+                //foreach (var destinationState in destinationStates)
+                //{
+                //    result += destinationState.ToString() + "; ";
+                //}
+                return SourceState.StateCore.ToString() + " " + Input.KeyName;// +" : " + result;
             }
         }
 

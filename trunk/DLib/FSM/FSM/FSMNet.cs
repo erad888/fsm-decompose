@@ -60,7 +60,6 @@ namespace FSM
         private HashSet<TInput> inputSet = new HashSet<TInput>();
         private Dictionary<int, NetComponent> componentFSMs = new Dictionary<int, NetComponent>();
         
-        //public FuncG G { get; set; }
         private TOutput G(IEnumerable<HashSet<FSMState<TInput, TOutput>>> states, TInput input)
         {
             TOutput result = null;
@@ -144,7 +143,6 @@ namespace FSM
                 return new FSMState<TInput, TOutput>[0];
             }
         }
-
         public TInput[] InputSet
         {
             get
@@ -155,6 +153,24 @@ namespace FSM
                 }
                 return new TInput[0];
             }
+        }
+        public Type OutputType
+        {
+            get { return typeof(TOutput); }
+        }
+        public Type InputType
+        {
+            get { return typeof(TInput); }
+        }
+
+        public FSMState<TInput, TOutput> Sigma(FSMState<TInput, TOutput> state, TInput input, double p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TOutput Lambda(FSMState<TInput, TOutput> state, TInput input, double p)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

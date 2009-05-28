@@ -22,6 +22,8 @@ namespace Test
             
         }
 
+        public FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm = new FiniteStateMachine<StructAtom<string>, StructAtom<string>>();
+
         public FSMNet<StructAtom<string>, StructAtom<string>> GetNet()
         {
 
@@ -35,8 +37,8 @@ namespace Test
             var w2 = new StructAtom<string>("w2");
             var w3 = new StructAtom<string>("w3");
 
-            FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm =
-                new FiniteStateMachine<StructAtom<string>, StructAtom<string>>();
+            //FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm =
+            //    new FiniteStateMachine<StructAtom<string>, StructAtom<string>>();
 
             var a1 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a1);
             var a2 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a2);
@@ -52,7 +54,7 @@ namespace Test
             fsm.AddState(a5);
             fsm.AddState(a6);
 
-            //fsm.AddOutgoing(a1, z1, a1, w2, 0.5);
+            fsm.AddOutgoing(a1, z1, a1, w2, 0.5);
             fsm.AddOutgoing(a1, z1, a2, w1, 0.5);
             fsm.AddOutgoing(a1, z2, a6, w2);
             fsm.AddOutgoing(a1, z3, a6, w1);
@@ -181,6 +183,14 @@ namespace Test
             x1,
             x2,
             x3
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmFSMEdit frm = new frmFSMEdit();
+            frm.fsm = fsm;
+            frm.SetFSMToView();
+            frm.Show();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FSM
     /// <summary>
     /// Состояние КА
     /// </summary>
-    public class FSMState<TInput, TOutput>
+    public class FSMState<TInput, TOutput>:IStringKeyable
         where TInput : FSMAtomBase, IStringKeyable
         where TOutput : FSMAtomBase, IStringKeyable
     {
@@ -76,7 +76,7 @@ namespace FSM
             }
             else
             {
-                Outgoing[act.Name].AddTransitionRes(destinationState, output, probability);
+                result = Outgoing[act.Name].AddTransitionRes(destinationState, output, probability);
             }
             return result;
         }
@@ -123,5 +123,14 @@ namespace FSM
         {
             return StateCore.ToString();
         }
+
+        #region IStringKeyable Members
+
+        public string KeyName
+        {
+            get { return StateCore.ToString(); }
+        }
+
+        #endregion
     }
 }
