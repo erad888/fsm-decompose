@@ -133,8 +133,8 @@ namespace FSM.FSMWinControls
                     var result = new Rectangle();
                     result.X = Math.Min(Ksi.X, F.X);
                     result.Y = Math.Min(Ksi.Y, F.Y);
-                    result.Width = Math.Max(Ksi.X, FSMBlock.X) - result.X;
-                    result.Height = Math.Max(F.Y, FSMBlock.Y) - result.Y;
+                    result.Width = Math.Max(Ksi.X + Ksi.Width, FSMBlock.X + FSMBlock.Width) - result.X;
+                    result.Height = Math.Max(F.Y + F.Height, FSMBlock.Y + FSMBlock.Height) - result.Y;
 
                     return result;
                 }

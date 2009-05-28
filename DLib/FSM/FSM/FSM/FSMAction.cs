@@ -141,6 +141,7 @@ namespace FSM
     {
         public FSMState<TInput, TOutput> DestState { get; set; }
         public TOutput Output { get; set; }
+        public double Probability { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -157,7 +158,7 @@ namespace FSM
 
         public override string ToString()
         {
-            return KeyName;
+            return "(" + DestState.StateCore + ", " + Output.KeyName + ") - " + Probability;
         }
 
         #region Implementation of IStringKeyable
