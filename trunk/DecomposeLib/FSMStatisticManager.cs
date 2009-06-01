@@ -27,12 +27,16 @@ namespace DecomposeLib
                 throw new ArgumentException("Не совместимое начальное состояние", "conditions.InitialState");
 
             StatisticsResult<TInput, TOutput> result = new StatisticsResult<TInput, TOutput>();
+            result.InputCollection.AddRange(conditions.InputSequence);
+
             for (int i = 0; i < conditions.RepeatsNumber; ++i)
             {
                 TargetFSM.InitialState = conditions.InitialState;
+                result.ProcessData(TargetFSM.CurrentState);
                 for (int j = 0; j < conditions.InputSequence.Count; ++j)
                 {
-
+                    TOutput output = TargetFSM.ProcessInput(conditions.InputSequence[j]);
+                    result.ProcessData(TargetFSM.CurrentState, output);
                 }
             }
             return result;
@@ -77,6 +81,7 @@ namespace DecomposeLib
             InputCollection = new List<TInput>();
             OutputFrequency = new Dictionary<TOutput, int>();
             StateFrequency = new Dictionary<FSMState<TInput, TOutput>, int>();
+            RejectionCount = 0;
         }
 
         public string Name { get; set; }
@@ -84,5 +89,29 @@ namespace DecomposeLib
         public List<TInput> InputCollection { get; private set; }
         public Dictionary<TOutput, int> OutputFrequency { get; private set; }
         public Dictionary<FSMState<TInput, TOutput>, int> StateFrequency { get; private set; }
+        public int RejectionCount { get; private set; }
+
+        public void ProcessData(FSMState<TInput, TOutput> state)
+        {
+            if (!StateFrequency.ContainsKey(state))
+                StateFrequency.Add(state, 1);
+            ++StateFrequency[state];
+        }
+        public void ProcessData(TOutput output)
+        {
+            if (!OutputFrequency.ContainsKey(output))
+                OutputFrequency.Add(output, 1);
+            ++OutputFrequency[output];
+        }
+        public void ProcessData(FSMState<TInput, TOutput> state, TOutput output)
+        {
+            if (output != null)
+            {
+                ProcessData(state);
+                ProcessData(output);
+            }
+            else
+                ++RejectionCount;
+        }
     }
 }
