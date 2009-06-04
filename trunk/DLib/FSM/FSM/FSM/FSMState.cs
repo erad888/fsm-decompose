@@ -18,7 +18,7 @@ namespace FSM
         /// </summary>
         /// <param name="fsm">КА</param>
         /// <param name="stateCore">Суть события</param>
-        public FSMState(FiniteStateMachine<TInput, TOutput> fsm, Enum stateCore)
+        public FSMState(FiniteStateMachine<TInput, TOutput> fsm, object stateCore)
         {
             if (fsm == null) throw new ArgumentNullException("fsm");
 
@@ -30,11 +30,11 @@ namespace FSM
         /// <summary>
         /// Суть события
         /// </summary>
-        public Enum StateCore { get; private set; }
+        public object StateCore { get; private set; }
         /// <summary>
         /// КА
         /// </summary>
-        public FiniteStateMachine<TInput, TOutput> FSM { get; private set; }
+        public FiniteStateMachine<TInput, TOutput> FSM { get; set; }
         /// <summary>
         /// Исходящие дуги
         /// </summary>
@@ -111,7 +111,7 @@ namespace FSM
             if(other == null)
                 return false;
 
-            return StateCore.Equals(other.StateCore);
+            return StateCore == other.StateCore;
         }
 
         public override int GetHashCode()

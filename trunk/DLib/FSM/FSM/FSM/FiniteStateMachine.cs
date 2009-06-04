@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using LogicUtils;
@@ -40,7 +41,7 @@ namespace FSM
         /// <summary>
         /// Текущее состояние
         /// </summary>
-        public FSMState<TInput, TOutput> CurrentState { get; private set; }
+        public FSMState<TInput, TOutput> CurrentState { get; set; }
 
         /// <summary>
         /// Состояние изменилось
@@ -58,11 +59,11 @@ namespace FSM
         {
             get { return stateSet.ToArray(); }
         }
-        public new TOutput[] OutputSet
+        public TOutput[] OutputSet
         {
             get { return outputSet.ToArray(); }
         }
-        public new TInput[] InputSet
+        public TInput[] InputSet
         {
             get { return inputSet.ToArray(); }
         }
@@ -88,15 +89,21 @@ namespace FSM
             bool result = false;
             if (state.FSM == this)
             {
-                if (!stateSet.Contains(state))
+                if (stateSet.FirstOrDefault(s => s.StateCore == state.StateCore) == null)
                     result = stateSet.Add(state);
             }
             return result;
         }
 
-        public bool AddState(Enum stateCore)
+        public bool AddState(object stateCore)
         {
-            return stateSet.Add(new FSMState<TInput, TOutput>(this, stateCore));
+            var st = stateSet.FirstOrDefault(s => s.StateCore.Equals(stateCore));
+            if (st == null)
+            {
+                var state = new FSMState<TInput, TOutput>(this, stateCore);
+                return stateSet.FirstOrDefault(s => s.StateCore == stateCore) != null;
+            }
+            return false;
         }
 
         /// <summary>
@@ -104,7 +111,7 @@ namespace FSM
         /// </summary>
         /// <param name="output">Выходной символ</param>
         /// <returns></returns>
-        internal bool AddOutput(TOutput output)
+        public bool AddOutput(TOutput output)
         {
             if (output == null) throw new ArgumentNullException("output");
             return outputSet.Add(output);
@@ -114,10 +121,73 @@ namespace FSM
         /// </summary>
         /// <param name="input">Входной символ</param>
         /// <returns></returns>
-        internal bool AddInput(TInput input)
+        public bool AddInput(TInput input)
         {
             if (input == null) throw new ArgumentNullException("input");
             return inputSet.Add(input);
+        }
+
+        //public bool RemoveInput(TInput input)
+        //{
+
+        //}
+
+        public bool RemoveState(object StateCore)
+        {
+            var state = stateSet.FirstOrDefault(s => s.StateCore == StateCore);
+            if (state == null)
+                return false;
+            return RemoveState(state);
+        }
+
+        public bool RemoveState(FSMState<TInput, TOutput> state)
+        {
+            bool result = false;
+            if (stateSet.Contains(state))
+            {
+                try
+                {
+                    // Удаляем все переходы, которые ведут в удаляемое состояние
+                    foreach (var transition in Transitions.Values)
+                    {
+                        TransitionRes<TInput, TOutput> destState =
+                            transition.destinationStates.FirstOrDefault(ds => ds.DestState.StateCore == state.StateCore);
+                        while (destState != null)
+                        {
+                            transition.destinationStates.Remove(destState);
+                            destState = transition.destinationStates.FirstOrDefault(
+                                ds => ds.DestState.StateCore == state.StateCore);
+                        }
+                    }
+
+                    // Чистим пустые переходы
+                    var tr = Transitions.Values.FirstOrDefault(t => t.destinationStates.Count == 0);
+                    while (tr != null)
+                    {
+                        Transitions.Remove(tr.ToString());
+                        tr = Transitions.Values.FirstOrDefault(t => t.destinationStates.Count == 0);
+                    }
+
+                    // Удаляем все переходы, исходящие из удаляемого состояния
+                    var tr1 = Transitions.Values.FirstOrDefault(t => t.SourceState.StateCore == state.StateCore);
+                    while (tr1 != null)
+                    {
+                        Transitions.Remove(tr1.ToString());
+                        tr1 = Transitions.Values.FirstOrDefault(t => t.SourceState.StateCore == state.StateCore);
+                    }
+
+                    // Собсно мочим само состояние
+                    stateSet.Remove(state);
+                    state.FSM = null;
+                    state.Outgoing.Clear();
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
+            return result;
         }
 
         public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState, TOutput output)
@@ -133,7 +203,7 @@ namespace FSM
             var st = stateSet.FirstOrDefault(s => s.StateCore == sourceState.StateCore);
             if (st != null)
             {
-                Transition<TInput, TOutput> transition = new Transition<TInput, TOutput>
+                Transition<TInput, TOutput> transition = new Transition<TInput, TOutput>(this)
                 {
                     SourceState = sourceState,
                     Input = action,
@@ -158,12 +228,40 @@ namespace FSM
             return result;
         }
 
+        public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, string actionKeyName)
+        {
+            var input = inputSet.FirstOrDefault(i => i.KeyName == actionKeyName);
+            if (input != null)
+                return AddOutgoing(sourceState, input);
+            return false;
+        }
+
+        public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action)
+        {
+            bool result = false;
+            var st = stateSet.FirstOrDefault(s => s.StateCore == sourceState.StateCore);
+            if (st != null)
+            {
+                Transition<TInput, TOutput> transition = new Transition<TInput, TOutput>(this)
+                {
+                    SourceState = sourceState,
+                    Input = action
+                };
+                if (!Transitions.ContainsKey(transition.ToString()))
+                {
+                    Transitions.Add(transition.ToString(), transition);
+                    result = true;
+                }
+            }
+            return result;
+        }
+
         public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState)
         {
             return AddOutgoing(sourceState, action, destinationState, null);
         }
 
-        public bool AddOutgoing(Enum sourceState, TInput action, Enum destinationState, TOutput output)
+        public bool AddOutgoing(object sourceState, TInput action, object destinationState, TOutput output)
         {
             var sState = stateSet.FirstOrDefault(s => s.StateCore == sourceState);
             var dState = stateSet.FirstOrDefault(s => s.StateCore == destinationState);
@@ -175,7 +273,7 @@ namespace FSM
             return result;
         }
 
-        public bool AddOutgoing(Enum sourceState, TInput action, Enum destinationState)
+        public bool AddOutgoing(object sourceState, TInput action, object destinationState)
         {
             return AddOutgoing(sourceState, action, destinationState, null);
         }
@@ -303,75 +401,7 @@ namespace FSM
 
         private double random = 0;
 
-        public class Transition<TInput, TOutput>
-            where TInput : FSMAtomBase, IStringKeyable
-            where TOutput : FSMAtomBase, IStringKeyable
-        {
-            public FSMState<TInput, TOutput> SourceState { get; set; }
-            //public FSMState<TInput, TOutput> DestinationState { get; set; }
-            public TInput Input { get; set; }
-            //public TOutput Output { get; set; }
 
-            internal List<TransitionRes<TInput, TOutput>> destinationStates = new List<TransitionRes<TInput, TOutput>>();
-
-            public TransitionRes<TInput, TOutput> GetDestination(double probability)
-            {
-                TransitionRes<TInput, TOutput> result = null;
-                double sum = 0.0;
-                foreach (var destinationState in destinationStates)
-                {
-                    if ((probability >= sum) && (probability <= sum + destinationState.Probability))
-                    {
-                        result = destinationState;
-                        break;
-                    }
-                    sum += destinationState.Probability;
-                }
-                return result;
-            }
-
-            public bool AddDestination(FSMState<TInput, TOutput> state, TOutput output, double probability)
-            {
-                if (state == null) throw new ArgumentNullException("state");
-
-                if ((probability <= 0) || (probability > 1)) throw new ArgumentException("Probability must be in (0;1]", "probability");
-
-                double available = 0;
-                foreach (var destinationState in destinationStates)
-                {
-                    available += destinationState.Probability;
-                }
-
-                if (probability + available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
-
-                TransitionRes<TInput, TOutput> tr = new TransitionRes<TInput, TOutput>()
-                    {
-                        DestState = state,
-                        Output = output,
-                        Probability = probability
-                    };
-                bool result = false;
-                if (!destinationStates.Contains(tr))
-                {
-                    destinationStates.Add(tr);
-                }
-                else
-                {
-                    destinationStates.First(d => d.KeyName == tr.KeyName).Probability = probability;
-                }
-                return result;
-            }
-
-            public override string ToString()
-            {
-                //string result = string.Empty;
-                //foreach (var destinationState in destinationStates)
-                //{
-                //    result += destinationState.ToString() + "; ";
-                //}
-                return SourceState.StateCore.ToString() + " " + Input.KeyName;// +" : " + result;
-            }
-        }
 
         #region Isomorphic
         public bool IsSubMachineOf(FiniteStateMachine<TInput, TOutput> other)
@@ -753,5 +783,93 @@ namespace FSM
         }
 
         #endregion
+    }
+
+    public class Transition<TInput, TOutput>
+        where TInput : FSMAtomBase, IStringKeyable
+        where TOutput : FSMAtomBase, IStringKeyable
+    {
+        public Transition(IFSM<TInput, TOutput> fsm)
+        {
+            OwnerFSM = fsm;
+        }
+        public IFSM<TInput, TOutput> OwnerFSM { get; private set; }
+        public FSMState<TInput, TOutput> SourceState { get; set; }
+        //public FSMState<TInput, TOutput> DestinationState { get; set; }
+        public TInput Input { get; set; }
+        //public TOutput Output { get; set; }
+
+        public List<TransitionRes<TInput, TOutput>> destinationStates = new List<TransitionRes<TInput, TOutput>>();
+
+        public TransitionRes<TInput, TOutput> GetDestination(double probability)
+        {
+            TransitionRes<TInput, TOutput> result = null;
+            double sum = 0.0;
+            foreach (var destinationState in destinationStates)
+            {
+                if ((probability >= sum) && (probability <= sum + destinationState.Probability))
+                {
+                    result = destinationState;
+                    break;
+                }
+                sum += destinationState.Probability;
+            }
+            return result;
+        }
+
+        public bool AddDestination(FSMState<TInput, TOutput> state, TOutput output, double probability)
+        {
+            if (state == null) throw new ArgumentNullException("state");
+
+            if ((probability <= 0) || (probability > 1)) throw new ArgumentException("Probability must be in (0;1]", "probability");
+
+            double available = 0;
+            foreach (var destinationState in destinationStates)
+            {
+                available += destinationState.Probability;
+            }
+
+            if (probability + available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
+
+            TransitionRes<TInput, TOutput> tr = new TransitionRes<TInput, TOutput>(this)
+            {
+                DestState = state,
+                Output = output,
+                Probability = probability
+            };
+            bool result = true;
+            if (!destinationStates.Contains(tr))
+            {
+                destinationStates.Add(tr);
+            }
+            else
+            {
+                destinationStates.First(d => d.KeyName == tr.KeyName).Probability = probability;
+            }
+            return result;
+        }
+
+        public double ProbabilityOfReject
+        {
+            get
+            {
+                double result = 0;
+                foreach (var destinationState in destinationStates)
+                {
+                    result += destinationState.Probability;
+                }
+                return 1 - result;
+            }
+        }
+
+        public override string ToString()
+        {
+            //string result = string.Empty;
+            //foreach (var destinationState in destinationStates)
+            //{
+            //    result += destinationState.ToString() + "; ";
+            //}
+            return SourceState.StateCore.ToString() + " " + Input.KeyName;// +" : " + result;
+        }
     }
 }

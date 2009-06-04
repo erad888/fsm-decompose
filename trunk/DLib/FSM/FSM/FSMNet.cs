@@ -21,7 +21,7 @@ namespace FSM
             }
 
             public ComponentFSM<TInput, TOutput> FiniteStateMachine { get; private set; }
-             
+
 
             public virtual HashSet<TInput> Ksi(TInput input)
             {
@@ -38,7 +38,7 @@ namespace FSM
             {
                 get
                 {
-                    if(info == null)
+                    if (info == null)
                         info = new FSMInfo(this, No.ToString());
                     ++No;
                     return info;
@@ -59,7 +59,7 @@ namespace FSM
         private HashSet<TOutput> outputSet = new HashSet<TOutput>();
         private HashSet<TInput> inputSet = new HashSet<TInput>();
         private Dictionary<int, NetComponent> componentFSMs = new Dictionary<int, NetComponent>();
-        
+
         private TOutput G(IEnumerable<HashSet<FSMState<TInput, TOutput>>> states, TInput input)
         {
             TOutput result = null;
@@ -128,6 +128,13 @@ namespace FSM
         public FSMState<TInput, TOutput> CurrentState
         {
             get { return componentFSMs.Select(c => c.Value.FiniteStateMachine.CurrentState).Intersect().First(); }
+            set
+            {
+                foreach (var componentFSM in componentFSMs)
+                {
+                    componentFSM.Value.FiniteStateMachine.InitialState = value;
+                }
+            }
         }
 
         #region IFSM<TInput,TOutput> Members
@@ -154,6 +161,18 @@ namespace FSM
                 return new TInput[0];
             }
         }
+        public TOutput[] OutputSet
+        {
+            get
+            {
+                if (componentFSMs.Count > 0)
+                {
+                    return componentFSMs.First().Value.FiniteStateMachine.DecomposeAlg.FSM.OutputSet;
+                }
+                return new TOutput[0];
+            }
+        }
+
         public Type OutputType
         {
             get { return typeof(TOutput); }
