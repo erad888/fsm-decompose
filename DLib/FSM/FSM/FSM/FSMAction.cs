@@ -139,9 +139,35 @@ namespace FSM
         where TInput : FSMAtomBase, IStringKeyable
         where TOutput : FSMAtomBase, IStringKeyable
     {
+        public TransitionRes()
+        {
+            
+        }
+
+        public TransitionRes(Transition<TInput, TOutput> Transition)
+        {
+            this.Transition = Transition;
+        }
+
         public FSMState<TInput, TOutput> DestState { get; set; }
         public TOutput Output { get; set; }
         public double Probability { get; set; }
+
+        public Transition<TInput, TOutput> Transition { get; set; }
+
+        public bool RemoveFromTransition()
+        {
+            if (Transition == null)
+                throw new NullReferenceException("Transition");
+
+            bool result = false;
+            if (Transition.destinationStates.Contains(this))
+            {
+                result = Transition.destinationStates.Remove(this);
+            }
+
+            return result;
+        }
 
         public override bool Equals(object obj)
         {

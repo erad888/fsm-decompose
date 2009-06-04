@@ -24,7 +24,7 @@ namespace FSM
             StructAtom<T> other = obj as StructAtom<T>;
             if (other == null)
                 return false;
-            return Value.Equals(other.Value);
+            return Value == other.Value;
         }
 
         public override int GetHashCode()
