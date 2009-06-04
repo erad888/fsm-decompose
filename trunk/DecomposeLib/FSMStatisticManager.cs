@@ -47,7 +47,7 @@ namespace DecomposeLib
 
             for (int i = 0; i < conditions.RepeatsNumber; ++i)
             {
-                TargetFSM.InitialState = conditions.InitialState;
+                TargetFSM.CurrentState = conditions.InitialState;
                 result.ProcessData(TargetFSM.CurrentState);
                 for (int j = 0; j < conditions.InputSequence.Count; ++j)
                 {
