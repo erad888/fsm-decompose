@@ -127,10 +127,92 @@ namespace FSM
             return inputSet.Add(input);
         }
 
-        //public bool RemoveInput(TInput input)
-        //{
+        public bool RemoveInput(string inputKeyName)
+        {
+            if (string.IsNullOrEmpty(inputKeyName)) throw new ArgumentNullException("inputKeyName");
 
-        //}
+            var input = inputSet.FirstOrDefault(s => s.KeyName == inputKeyName);
+            if (input == null)
+                return false;
+            return RemoveInput(input);
+        }
+
+        public bool RemoveInput(TInput input)
+        {
+            bool result = false;
+            if (inputSet.Contains(input))
+            {
+                try
+                {
+                    // Удаляем все переходы, в которых участвует данный входной сигнал
+                    var tr = Transitions.Values.FirstOrDefault(t => t.Input.KeyName == input.KeyName);
+                    while (tr != null)
+                    {
+                        Transitions.Remove(tr.ToString());
+                        tr = Transitions.Values.FirstOrDefault(t => t.Input.KeyName == input.KeyName);
+                    }
+
+                    // Удаляет входной сигнал
+                    inputSet.Remove(input);
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
+            return result;
+        }
+
+        public bool RemoveOutput(string outputKeyName)
+        {
+            if (string.IsNullOrEmpty(outputKeyName)) throw new ArgumentNullException("outputKeyName");
+
+            var output = outputSet.FirstOrDefault(s => s.KeyName == outputKeyName);
+            if (output == null)
+                return false;
+            return RemoveOutput(output);
+        }
+
+        public bool RemoveOutput(TOutput output)
+        {
+            bool result = false;
+            if (outputSet.Contains(output))
+            {
+                try
+                {
+                    // Удаляем все переходы, которые ведут к удаляемому символу
+                    foreach (var transition in Transitions.Values)
+                    {
+                        TransitionRes<TInput, TOutput> dest =
+                            transition.destinationStates.FirstOrDefault(ds => ds.Output.KeyName == output.KeyName);
+                        while (dest != null)
+                        {
+                            transition.destinationStates.Remove(dest);
+                            dest = transition.destinationStates.FirstOrDefault(
+                                ds => ds.Output.KeyName == output.KeyName);
+                        }
+                    }
+
+                    // Чистим пустые переходы
+                    var tr = Transitions.Values.FirstOrDefault(t => t.destinationStates.Count == 0);
+                    while (tr != null)
+                    {
+                        Transitions.Remove(tr.ToString());
+                        tr = Transitions.Values.FirstOrDefault(t => t.destinationStates.Count == 0);
+                    }
+
+                    // Собсно мочим сам выходной символ
+                    outputSet.Remove(output);
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
+            return result;
+        }
 
         public bool RemoveState(object StateCore)
         {
@@ -823,14 +905,6 @@ namespace FSM
 
             if ((probability <= 0) || (probability > 1)) throw new ArgumentException("Probability must be in (0;1]", "probability");
 
-            double available = 0;
-            foreach (var destinationState in destinationStates)
-            {
-                available += destinationState.Probability;
-            }
-
-            if (probability + available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
-
             TransitionRes<TInput, TOutput> tr = new TransitionRes<TInput, TOutput>(this)
             {
                 DestState = state,
@@ -840,11 +914,32 @@ namespace FSM
             bool result = true;
             if (!destinationStates.Contains(tr))
             {
+                double available = 0;
+                foreach (var destinationState in destinationStates)
+                {
+                    available += destinationState.Probability;
+                }
+
+                if (probability + available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
+
                 destinationStates.Add(tr);
             }
             else
             {
-                destinationStates.First(d => d.KeyName == tr.KeyName).Probability = probability;
+                var v = destinationStates.First(d => d.KeyName == tr.KeyName);
+
+                double available = 0;
+                foreach (var destinationState in destinationStates)
+                {
+                    if (destinationState.KeyName != v.KeyName)
+                        available += destinationState.Probability;
+                    else
+                        available += probability;
+                }
+
+                if (available > 1) throw new ArgumentException("Sum probability must be in (0;1]", "probability");
+
+                v.Probability = probability;
             }
             return result;
         }
