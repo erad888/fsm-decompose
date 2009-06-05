@@ -40,12 +40,12 @@ namespace Test
             //FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm =
             //    new FiniteStateMachine<StructAtom<string>, StructAtom<string>>();
 
-            var a1 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a1);
-            var a2 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a2);
-            var a3 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a3);
-            var a4 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a4);
-            var a5 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a5);
-            var a6 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a6);
+            var a1 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a1.ToString());
+            var a2 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a2.ToString());
+            var a3 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a3.ToString());
+            var a4 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a4.ToString());
+            var a5 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a5.ToString());
+            var a6 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a6.ToString());
 
             fsm.AddState(a1);
             fsm.AddState(a2);
