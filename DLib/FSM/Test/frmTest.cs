@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DecomposeLib;
+using DevExpress.XtraTreeList.Nodes;
 using FSM;
 using LogicUtils;
 
@@ -18,11 +19,82 @@ namespace Test
         {
             InitializeComponent();
             
-            fsmNetControl1.LogicComponent = GetNet();
-            
+            //fsmNetControl1.LogicComponent = GetNet();
+
+            GetNet();
+            InitListEdit(leFSMs);
         }
 
-        public FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm = new FiniteStateMachine<StructAtom<string>, StructAtom<string>>();
+        private void InitListEdit(ListEdit le)
+        {
+            le.CreationRule = s => new FiniteStateMachine<StructAtom<string>, StructAtom<string>>(s);
+            le.ItemAdded += le_ItemAdded;
+            le.ItemRemoved += le_ItemRemoved;
+            le.SelectedValueChanged += le_SelectedValueChanged;
+            le.gcMain.Text = "Список автоматов";
+        }
+
+        void le_SelectedValueChanged(object sender, TemplateEventArgs<object> e)
+        {
+            var fsm = e.Value as FiniteStateMachine<StructAtom<string>, StructAtom<string>>;
+            fsmEditControl.fsm = fsm;
+            fsmEditControl.SetFSMToView();
+            if (fsm != null)
+            {
+                gcFSMEdit.Text = "    Автомат :  " + fsm.KeyName;
+            }
+            else
+                gcFSMEdit.Text = string.Empty;
+        }
+
+        private void UpdateFSMList()
+        {
+            leFSMs.SaveSelectedPosition();
+            leFSMs.Items.Clear();
+            leFSMs.Items.AddRange(FSMs.Values.ToArray());
+            leFSMs.SyncControl();
+            leFSMs.RestoreSelectedPosition();
+        }
+
+        Dictionary<string, FiniteStateMachine<StructAtom<string>, StructAtom<string>>> FSMs = new Dictionary<string, FiniteStateMachine<StructAtom<string>, StructAtom<string>>>();
+
+        void le_ItemRemoved(object sender, TemplateEventArgs<object> e)
+        {
+            var fsm = e.Value as FiniteStateMachine<StructAtom<string>, StructAtom<string>>;
+            if (fsm != null)
+            {
+                if (FSMs.ContainsKey(fsm.KeyName))
+                {
+                    if (FSMs.Remove(fsm.KeyName))
+                    {
+                        UpdateFSMList();
+                    }
+                    else
+                        e.Cancel = true;
+                }
+                else
+                    e.Cancel = true;
+            }
+        }
+
+        void le_ItemAdded(object sender, TemplateEventArgs<object> e)
+        {
+            var fsm = e.Value as FiniteStateMachine<StructAtom<string>, StructAtom<string>>;
+            if (fsm != null)
+            {
+                if (!FSMs.ContainsKey(fsm.KeyName))
+                {
+                    FSMs.Add(fsm.KeyName, fsm);
+                    UpdateFSMList();
+                }
+                else
+                    e.Cancel = true;
+            }
+            else
+                e.Cancel = true;
+        }
+
+        public FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm = new FiniteStateMachine<StructAtom<string>, StructAtom<string>>("fsm");
 
         public FSMNet<StructAtom<string>, StructAtom<string>> GetNet()
         {
@@ -153,7 +225,7 @@ namespace Test
             Enum x1 = X.x1; Enum x2 = X.x2; Enum x3 = X.x3;
 
             //TODO: Добавить средства для добавления отношений типа ksi: Z -> X
-            FiniteStateMachine<StructAtom<Enum>, StructAtom<Enum>> S1 = new FiniteStateMachine<StructAtom<Enum>, StructAtom<Enum>>();
+            FiniteStateMachine<StructAtom<Enum>, StructAtom<Enum>> S1 = new FiniteStateMachine<StructAtom<Enum>, StructAtom<Enum>>("a");
             FSMState<StructAtom<Enum>, StructAtom<Enum>> b1 = new FSMState<StructAtom<Enum>, StructAtom<Enum>>(S1, B.b1);
             FSMState<StructAtom<Enum>, StructAtom<Enum>> b2 = new FSMState<StructAtom<Enum>, StructAtom<Enum>>(S1, B.b2);
             FSMState<StructAtom<Enum>, StructAtom<Enum>> b3 = new FSMState<StructAtom<Enum>, StructAtom<Enum>>(S1, B.b3);
@@ -185,12 +257,13 @@ namespace Test
             x3
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnDecompose_Click(object sender, EventArgs e)
         {
-            frmFSMEdit frm = new frmFSMEdit();
-            frm.fsm = fsm;
-            frm.SetFSMToView();
-            frm.Show();
+            if (fsmEditControl.fsm != null)
+            {
+                var frm = new frmPatitionsEdit();
+                frm.Show(fsmEditControl.fsm);
+            }
         }
     }
 }

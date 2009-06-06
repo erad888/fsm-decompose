@@ -49,6 +49,7 @@
     <Compile Include="EventableDictionary.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IStringKeyable.cs" />
     <Compile Include="Partition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

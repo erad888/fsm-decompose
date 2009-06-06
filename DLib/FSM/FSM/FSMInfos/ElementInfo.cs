@@ -1,3 +1,5 @@
+using LogicUtils;
+
 namespace FSM
 {
     public class ElementInfo:IStringKeyable

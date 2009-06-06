@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FSM
+namespace LogicUtils
 {
     public interface IStringKeyable
     {

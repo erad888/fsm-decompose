@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using DLib.WinForms.Drawing;
+using LogicUtils;
 
 namespace FSM.FSMWinControls
 {

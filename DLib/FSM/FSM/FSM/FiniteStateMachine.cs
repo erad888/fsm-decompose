@@ -14,15 +14,16 @@ namespace FSM
     /// <summary>
     /// Конечный автомат
     /// </summary>
-    public /*abstract*/ class FiniteStateMachine<TInput, TOutput> : FSM, IFSM<TInput, TOutput>
+    public /*abstract*/ class FiniteStateMachine<TInput, TOutput> : FSM, IFSM<TInput, TOutput>, IStringKeyable
         where TInput : FSMAtomBase, IStringKeyable
         where TOutput : FSMAtomBase, IStringKeyable
     {
         /// <summary>
         /// Конструктор
         /// </summary>
-        public FiniteStateMachine()
+        public FiniteStateMachine(string KeyName)
         {
+            this.KeyName = KeyName;
         }
 
         /// <summary>
@@ -483,7 +484,10 @@ namespace FSM
 
         private double random = 0;
 
-
+        public override string ToString()
+        {
+            return KeyName;
+        }
 
         #region Isomorphic
         public bool IsSubMachineOf(FiniteStateMachine<TInput, TOutput> other)
@@ -863,6 +867,12 @@ namespace FSM
             //public BidirectionalDictionary<TInput, TInput> InputCorrespondence { get; set; }
             public BidirectionalDictionary<TOutput, TOutput> OutputCorrespondence { get; set; }
         }
+
+        #endregion
+
+        #region IStringKeyable Members
+
+        public string KeyName { get; private set; }
 
         #endregion
     }
