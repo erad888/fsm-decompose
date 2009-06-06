@@ -155,6 +155,52 @@ namespace FSM
 
         public Transition<TInput, TOutput> Transition { get; set; }
 
+        public bool ChangeValues(FSMState<TInput, TOutput> newDestState, TOutput newOutput, double newProbability)
+        {
+            if (newDestState == null) throw new ArgumentNullException("newDestState");
+            if (newOutput == null) throw new ArgumentNullException("newOutput");
+            if(newDestState.FSM != DestState.FSM) throw new ArgumentException("newDestState");
+
+            bool result = false;
+            TransitionRes<TInput, TOutput> trR = new TransitionRes<TInput, TOutput>()
+            {
+                DestState = newDestState,
+                Output = newOutput
+            };
+
+
+            double avProb = 0;
+            foreach (var destinationState in Transition.destinationStates)
+            {
+                if (destinationState.KeyName != this.KeyName)
+                    avProb += destinationState.Probability;
+                else
+                    avProb += newProbability;
+            }
+            if (avProb > 1) throw new ArgumentException("Probability must be in (0;1]", "newProbability");
+
+
+            if (trR.KeyName == this.KeyName)
+            {
+                this.Probability = newProbability;
+                result = true;
+            }
+            else
+            {
+                var existTrRes = Transition.destinationStates.FirstOrDefault(t => t.KeyName == trR.KeyName);
+                if (existTrRes == null)
+                {
+                    this.DestState = newDestState;
+                    this.Output = newOutput;
+                    this.Probability = newProbability;
+                    result = true;
+                }
+                else
+                    throw new ArgumentException("Перехода с указанными параметрами уже существует");
+            }
+            return result;
+        }
+
         public bool RemoveFromTransition()
         {
             if (Transition == null)

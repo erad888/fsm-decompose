@@ -15,6 +15,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace Test
 {
@@ -98,7 +99,7 @@ namespace Test
             OutputRepositoryItem.Buttons.Add(EllButton);
             OutputRepositoryItem.Buttons.Add(DeleteButton);
             OutputRepositoryItem.ButtonPressed += RepositoryItem_ButtonPressed;
-            OutputRepositoryItem.SelectedValueChanged += new EventHandler(OutputRepositoryItem_SelectedValueChanged);
+            OutputRepositoryItem.TextEditStyle = TextEditStyles.DisableTextEditor;
             OutputRepositoryItem.EndInit();
 
             DestStateRepositoryItem.BeginInit();
@@ -108,6 +109,7 @@ namespace Test
             DestStateRepositoryItem.Buttons.Add(EllButton);
             DestStateRepositoryItem.Buttons.Add(DeleteButton);
             DestStateRepositoryItem.ButtonPressed += RepositoryItem_ButtonPressed;
+            DestStateRepositoryItem.TextEditStyle = TextEditStyles.DisableTextEditor;
             DestStateRepositoryItem.EndInit();
 
             ProbabilityRepositoryItem.BeginInit();
@@ -128,13 +130,46 @@ namespace Test
             EmptyCellRepositoryItem.Buttons.Add(EllButton);
             EmptyCellRepositoryItem.ButtonPressed += RepositoryItem_ButtonPressed;
             EmptyCellRepositoryItem.EndInit();
-            
 
+            gvTransitions.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(gvTransitions_CellValueChanged);
         }
 
-        void OutputRepositoryItem_SelectedValueChanged(object sender, EventArgs e)
+        void gvTransitions_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
+            try
+            {
+                var gv = sender as GridView;
+                if (gv != null)
+                {
+                    string trResKey = gv.GetRowCellValue(e.RowHandle, "Key") as string;
+                    var trRes = Transition.destinationStates.FirstOrDefault(d => d.KeyName == trResKey);
+                    if (trRes != null)
+                    {
+                        var state =
+                            gv.GetRowCellValue(e.RowHandle, "DestinationState") as
+                            FSMState<StructAtom<string>, StructAtom<string>>;
+                        var output = gv.GetRowCellValue(e.RowHandle, "Output") as StructAtom<string>;
+                        var probability = (double)gv.GetRowCellValue(e.RowHandle, "Probability");
+
+                        if (state != null && output != null && probability != null)
+                        {
+                            if (trRes.ChangeValues(state, output, probability))
+                            {
+                                DataChangedNotify();
+                                PopulateChart();
+                            }
+                            UpdateGrid();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Изменение значения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UpdateGrid();
+            }
         }
+
 
         void ProbabilityRepositoryItem_Validating(object sender, CancelEventArgs e)
         {
