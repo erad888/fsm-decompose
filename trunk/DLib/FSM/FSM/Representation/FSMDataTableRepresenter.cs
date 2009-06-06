@@ -34,6 +34,11 @@ namespace FSM.Representation
             dc.DataType = typeof (double);
             result.Columns.Add(dc);
 
+            dc = new DataColumn();
+            dc.ColumnName = "Key";
+            dc.DataType = typeof(string);
+            result.Columns.Add(dc);
+
             foreach (var destinationState in transition.destinationStates)
             {
                 DataRow row = result.NewRow();
@@ -41,6 +46,7 @@ namespace FSM.Representation
                 row[0] = destinationState.Output;
                 row[1] = destinationState.DestState;
                 row[2] = destinationState.Probability;
+                row[3] = destinationState.KeyName;
 
                 result.Rows.Add(row);
             }
