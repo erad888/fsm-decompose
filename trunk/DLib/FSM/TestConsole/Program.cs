@@ -60,7 +60,7 @@ namespace TestConsole
             var w3 = new StructAtom<string>("w3");
 
             FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm =
-                new FiniteStateMachine<StructAtom<string>, StructAtom<string>>();
+                new FiniteStateMachine<StructAtom<string>, StructAtom<string>>("b");
 
             var a1 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a1);
             var a2 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a2);
@@ -210,7 +210,8 @@ namespace TestConsole
 
             IEnumerable<Partition<FSMState<StructAtom<string>, StructAtom<string>>>> partitions =
                 Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllPartitions(set, 2).Where(p => p.Count() >= 2 && p.Count() <= 4);
-            List<List<Partition<FSMState<StructAtom<string>, StructAtom<string>>>>> partsLists = Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllOrtPartitionSets(
+            List<List<Partition<FSMState<StructAtom<string>, StructAtom<string>>>>> partsLists = Partition<FSMState<StructAtom<string>, StructAtom<string>>>.
+                GetAllOrtPartitionSets(
                 Partition<FSMState<StructAtom<string>, StructAtom<string>>>.FilterSamePartitions(partitions).ToArray(),
                 new[] {pi1, pi2},
                 set,

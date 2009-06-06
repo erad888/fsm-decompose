@@ -1,6 +1,6 @@
 ﻿namespace Test
 {
-    partial class frmFSMEdit
+    partial class FSMEditControl
     {
         /// <summary>
         /// Required designer variable.
@@ -28,39 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.splitContainerControl2 = new DevExpress.XtraEditors.SplitContainerControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gvEdit = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.listEdit1 = new Test.ListEdit();
-            this.listEdit2 = new Test.ListEdit();
-            this.listEdit3 = new Test.ListEdit();
-            this.listEdit4 = new Test.ListEdit();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.leStates = new Test.ListEdit();
             this.leInput = new Test.ListEdit();
             this.leOutput = new Test.ListEdit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
-            this.splitContainerControl1.SuspendLayout();
+            this.listEdit1 = new Test.ListEdit();
+            this.listEdit2 = new Test.ListEdit();
+            this.listEdit3 = new Test.ListEdit();
+            this.listEdit4 = new Test.ListEdit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl2)).BeginInit();
             this.splitContainerControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEdit)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // splitContainerControl1
-            // 
-            this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerControl1.Name = "splitContainerControl1";
-            this.splitContainerControl1.Panel1.Text = "Panel1";
-            this.splitContainerControl1.Panel2.Controls.Add(this.splitContainerControl2);
-            this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(897, 612);
-            this.splitContainerControl1.SplitterPosition = 151;
-            this.splitContainerControl1.TabIndex = 0;
-            this.splitContainerControl1.Text = "splitContainerControl1";
             // 
             // splitContainerControl2
             // 
@@ -74,7 +58,7 @@
             this.splitContainerControl2.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.splitContainerControl2.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.splitContainerControl2.Panel2.Text = "Panel2";
-            this.splitContainerControl2.Size = new System.Drawing.Size(736, 608);
+            this.splitContainerControl2.Size = new System.Drawing.Size(897, 612);
             this.splitContainerControl2.SplitterPosition = 342;
             this.splitContainerControl2.TabIndex = 1;
             this.splitContainerControl2.Text = "splitContainerControl2";
@@ -86,7 +70,7 @@
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gvEdit;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(736, 342);
+            this.gridControl1.Size = new System.Drawing.Size(897, 342);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvEdit});
@@ -95,6 +79,50 @@
             // 
             this.gvEdit.GridControl = this.gridControl1;
             this.gvEdit.Name = "gvEdit";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Controls.Add(this.leStates, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.leInput, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.leOutput, 2, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 264);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // leStates
+            // 
+            this.leStates.CreationRule = null;
+            this.leStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leStates.Location = new System.Drawing.Point(3, 3);
+            this.leStates.Name = "leStates";
+            this.leStates.Size = new System.Drawing.Size(293, 258);
+            this.leStates.TabIndex = 0;
+            // 
+            // leInput
+            // 
+            this.leInput.CreationRule = null;
+            this.leInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leInput.Location = new System.Drawing.Point(302, 3);
+            this.leInput.Name = "leInput";
+            this.leInput.Size = new System.Drawing.Size(293, 258);
+            this.leInput.TabIndex = 1;
+            // 
+            // leOutput
+            // 
+            this.leOutput.CreationRule = null;
+            this.leOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leOutput.Location = new System.Drawing.Point(601, 3);
+            this.leOutput.Name = "leOutput";
+            this.leOutput.Size = new System.Drawing.Size(293, 258);
+            this.leOutput.TabIndex = 2;
             // 
             // listEdit1
             // 
@@ -128,60 +156,13 @@
             this.listEdit4.Size = new System.Drawing.Size(324, 198);
             this.listEdit4.TabIndex = 0;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.leStates, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.leInput, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.leOutput, 2, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(736, 260);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // leStates
-            // 
-            this.leStates.CreationRule = null;
-            this.leStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leStates.Location = new System.Drawing.Point(3, 3);
-            this.leStates.Name = "leStates";
-            this.leStates.Size = new System.Drawing.Size(239, 254);
-            this.leStates.TabIndex = 0;
-            // 
-            // leInput
-            // 
-            this.leInput.CreationRule = null;
-            this.leInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leInput.Location = new System.Drawing.Point(248, 3);
-            this.leInput.Name = "leInput";
-            this.leInput.Size = new System.Drawing.Size(239, 254);
-            this.leInput.TabIndex = 1;
-            // 
-            // leOutput
-            // 
-            this.leOutput.CreationRule = null;
-            this.leOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leOutput.Location = new System.Drawing.Point(493, 3);
-            this.leOutput.Name = "leOutput";
-            this.leOutput.Size = new System.Drawing.Size(240, 254);
-            this.leOutput.TabIndex = 2;
-            // 
-            // frmFSMEdit
+            // FSMEditControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(897, 612);
-            this.Controls.Add(this.splitContainerControl1);
-            this.Name = "frmFSMEdit";
-            this.Text = "frmFSMEdit";
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
-            this.splitContainerControl1.ResumeLayout(false);
+            this.Controls.Add(this.splitContainerControl2);
+            this.Name = "FSMEditControl";
+            this.Size = new System.Drawing.Size(897, 612);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl2)).EndInit();
             this.splitContainerControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
@@ -193,10 +174,8 @@
 
         #endregion
 
-        private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gvEdit;
-        private DevExpress.XtraEditors.SplitContainerControl splitContainerControl2;
         private ListEdit listEdit1;
         private ListEdit listEdit2;
         private ListEdit listEdit3;
@@ -205,5 +184,6 @@
         private ListEdit leStates;
         private ListEdit leInput;
         private ListEdit leOutput;
+        public DevExpress.XtraEditors.SplitContainerControl splitContainerControl2;
     }
 }

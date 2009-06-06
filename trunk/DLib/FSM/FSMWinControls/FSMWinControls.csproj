@@ -56,6 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LogicUtils\LogicUtils.csproj">
+      <Project>{F1172195-C45E-43CD-B7E3-CC89BB6D8219}</Project>
+      <Name>LogicUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WinForms\DLib.WinForms.Drawing\DLib.WinForms.Drawing.csproj">
       <Project>{310E86A6-8D2B-433E-88D7-766486EA6FF2}</Project>
       <Name>DLib.WinForms.Drawing</Name>

@@ -14,12 +14,13 @@ using FSM;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraEditors.Repository;
 using FSM.Representation;
+using DevExpress.XtraEditors;
 
 namespace Test
 {
-    public partial class frmFSMEdit : Form
+    public partial class FSMEditControl : UserControl
     {
-        public frmFSMEdit()
+        public FSMEditControl()
         {
             InitializeComponent();
             
@@ -34,7 +35,10 @@ namespace Test
             leStates.CreationRule = s => s;
             leInput.CreationRule = i => i;
             leOutput.CreationRule = o => o;
-            
+
+            leStates.Caption = "Состояния";
+            leInput.Caption = "Входные символы";
+            leOutput.Caption = "Выходные символы";
         }
 
         private void InitGrid()
@@ -385,23 +389,32 @@ namespace Test
                 leOutput.SyncControl();
                 leOutput.RestoreSelectedPosition();
             }
-
-            //gridControl1.
-            
-            //gvEdit.AddNewRow();
-
+            else
+            {
+                leStates.Items.Clear();
+                leStates.SyncControl();
+                leInput.Items.Clear();
+                leInput.SyncControl();
+                leOutput.Items.Clear();
+                leOutput.SyncControl();
+            }
 
             UpdateGrid();
-            
-            //gvEdit.DataController.DataSource = dt;
-
         }
 
         private void UpdateGrid()
         {
-            var dt = FSMDataTableRepresenter.Convert(fsm);
-            gridControl1.DataSource = dt;
-            DataTable = dt;
+            if (fsm != null)
+            {
+                var dt = FSMDataTableRepresenter.Convert(fsm);
+                gridControl1.DataSource = dt;
+                DataTable = dt;
+            }
+            else
+            {
+                gridControl1.DataSource = null;
+                DataTable = null;
+            }
         }
     }
 }

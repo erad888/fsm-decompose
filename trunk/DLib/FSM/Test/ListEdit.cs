@@ -20,7 +20,24 @@ namespace Test
         private void Init()
         {
             Items = new List<object>();
+            lbxItemsSet.SelectedValueChanged += lbxItemsSet_SelectedValueChanged;
+            lbxItemsSet.SelectedIndexChanged += lbxItemsSet_SelectedIndexChanged;
         }
+
+        void lbxItemsSet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(SelectedIndexChanged != null)
+                SelectedIndexChanged(this, new TemplateEventArgs<int>(lbxItemsSet.SelectedIndex));
+        }
+
+        void lbxItemsSet_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if(SelectedValueChanged != null)
+                SelectedValueChanged(this, new TemplateEventArgs<object>(lbxItemsSet.SelectedValue));
+        }
+
+        public event EventHandler<TemplateEventArgs<object>> SelectedValueChanged;
+        public event EventHandler<TemplateEventArgs<int>> SelectedIndexChanged;
 
         public void SyncControl()
         {
@@ -32,6 +49,18 @@ namespace Test
 
         public List<object> Items { get; private set; }
         public CreationRuleDelegate CreationRule { get; set; }
+
+        public string Caption
+        {
+            get { return gcMain.Text; }
+            set
+            {
+                if (value != null)
+                {
+                    gcMain.Text = value;
+                }
+            }
+        }
 
         private int savedPosition = -1;
 
@@ -78,27 +107,43 @@ namespace Test
 
         private void AddHandler()
         {
-            if (CreationRule == null)
-                throw new NullReferenceException("Не задано правило создание объектов.");
+            try
+            {
+                if (CreationRule == null)
+                    throw new NullReferenceException("Не задано правило создание объектов.");
 
-            if (string.IsNullOrEmpty(tbxNewItem.Text))
-                throw new NullReferenceException("Значение не задано");
+                if (string.IsNullOrEmpty(tbxNewItem.Text))
+                    throw new NullReferenceException("Значение не задано");
 
-            object value = CreationRule(tbxNewItem.Text);
-            if (value == null)
-                throw new NullReferenceException("Объект пуст");
+                object value = CreationRule(tbxNewItem.Text);
+                if (value == null)
+                    throw new NullReferenceException("Объект пуст");
 
-            tbxNewItem.Text = string.Empty;
-            Add(value);
+                tbxNewItem.Text = string.Empty;
+                Add(value);
+                lbxItemsSet.SelectedItem = value;
+                tbxNewItem.Focus();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void MinusHandler()
         {
-            if (lbxItemsSet.SelectedIndex >= 0)
+            try
             {
-                int position = lbxItemsSet.SelectedIndex;
-                Remove(lbxItemsSet.SelectedItem);
-                SetSelectedPosition(position);
+                if (lbxItemsSet.SelectedIndex >= 0)
+                {
+                    int position = lbxItemsSet.SelectedIndex;
+                    Remove(lbxItemsSet.SelectedItem);
+                    SetSelectedPosition(position);
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Удаление", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -140,6 +185,7 @@ namespace Test
     }
 
     public delegate object CreationRuleDelegate(string StrObject);
+    public delegate string PresentationRuleDelegate(object EntityObject);
 
     public class TemplateEventArgs<T> : EventArgs
     {

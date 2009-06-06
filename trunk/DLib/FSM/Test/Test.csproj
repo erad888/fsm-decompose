@@ -38,6 +38,7 @@
     <Reference Include="DevExpress.XtraEditors.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
     <Reference Include="DevExpress.XtraGrid.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
     <Reference Include="DevExpress.XtraLayout.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
+    <Reference Include="DevExpress.XtraTreeList.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -57,11 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmFSMEdit.cs">
+    <Compile Include="frmPatitionsEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFSMEdit.Designer.cs">
-      <DependentUpon>frmFSMEdit.cs</DependentUpon>
+    <Compile Include="frmPatitionsEdit.Designer.cs">
+      <DependentUpon>frmPatitionsEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSMEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FSMEditControl.Designer.cs">
+      <DependentUpon>FSMEditControl.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTest.cs">
       <SubType>Form</SubType>
@@ -86,10 +93,19 @@
     <Compile Include="ListEdit.Designer.cs">
       <DependentUpon>ListEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="PartitionsEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PartitionsEditControl.Designer.cs">
+      <DependentUpon>PartitionsEditControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmFSMEdit.resx">
-      <DependentUpon>frmFSMEdit.cs</DependentUpon>
+    <EmbeddedResource Include="frmPatitionsEdit.resx">
+      <DependentUpon>frmPatitionsEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSMEditControl.resx">
+      <DependentUpon>FSMEditControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTest.resx">
       <DependentUpon>frmTest.cs</DependentUpon>
@@ -99,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListEdit.resx">
       <DependentUpon>ListEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PartitionsEditControl.resx">
+      <DependentUpon>PartitionsEditControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

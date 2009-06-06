@@ -7,7 +7,7 @@ using LogicUtils;
 
 namespace LogicUtils
 {
-    public class Partition<T>:IEnumerable<HashSet<T>>
+    public class Partition<T>:IEnumerable<HashSet<T>>, IStringKeyable
     {
         #region static
         public static Partition<T> GetSingleElementPartition(HashSet<T> set)
@@ -347,15 +347,21 @@ namespace LogicUtils
         public override string ToString()
         {
             string result = string.Empty;
-            for (int i = 0; i < items.Count; i++)
+            if (string.IsNullOrEmpty(KeyName))
             {
-                foreach (var t in items[i])
+
+                for (int i = 0; i < items.Count; i++)
                 {
-                    result += t.ToString() + " ";
+                    foreach (var t in items[i])
+                    {
+                        result += t.ToString() + " ";
+                    }
+                    if (i != items.Count - 1)
+                        result += ", ";
                 }
-                if (i != items.Count - 1)
-                    result += ", ";
             }
+            else
+                result = KeyName;
             return result;
         }
 
@@ -387,6 +393,12 @@ namespace LogicUtils
         {
             return GetEnumerator();
         }
+
+        #endregion
+
+        #region IStringKeyable Members
+
+        public string KeyName { get; set; }
 
         #endregion
     }
