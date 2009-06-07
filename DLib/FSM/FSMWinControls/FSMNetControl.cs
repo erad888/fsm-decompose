@@ -24,7 +24,7 @@ namespace FSM.FSMWinControls
             BlockPen = new Pen(Color.Black, 1);
         }
 
-        public void InitHandlers()
+        private void InitHandlers()
         {
             this.MouseClick += new MouseEventHandler(FSMNetControl_MouseClick);
             //this.MouseMove += FSMNetControl_MouseClick;

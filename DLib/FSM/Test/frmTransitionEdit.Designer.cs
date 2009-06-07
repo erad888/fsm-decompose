@@ -1,6 +1,6 @@
 ﻿namespace Test
 {
-    partial class frmTransitionsEdit
+    partial class frmTransitionEdit
     {
         /// <summary>
         /// Required designer variable.

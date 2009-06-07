@@ -1,6 +1,6 @@
 ﻿namespace Test
 {
-    partial class frmPatitionsEdit
+    partial class frmDecomposeResult
     {
         /// <summary>
         /// Required designer variable.
@@ -28,31 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pec = new Test.PartitionsEditControl();
-            this.SuspendLayout();
-            // 
-            // pec
-            // 
-            this.pec.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pec.Location = new System.Drawing.Point(0, 0);
-            this.pec.Name = "pec";
-            this.pec.Size = new System.Drawing.Size(586, 388);
-            this.pec.TabIndex = 0;
-            // 
-            // frmPatitionsEdit
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 388);
-            this.Controls.Add(this.pec);
-            this.Name = "frmPatitionsEdit";
-            this.Text = "frmPatitionsEdit";
-            this.ResumeLayout(false);
-
+            this.Text = "frmDecomposeResult";
         }
 
         #endregion
-
-        private PartitionsEditControl pec;
     }
 }
