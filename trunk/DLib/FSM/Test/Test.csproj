@@ -58,11 +58,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmPatitionsEdit.cs">
+    <Compile Include="frmChooseOrtPartition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPatitionsEdit.Designer.cs">
-      <DependentUpon>frmPatitionsEdit.cs</DependentUpon>
+    <Compile Include="frmChooseOrtPartition.Designer.cs">
+      <DependentUpon>frmChooseOrtPartition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDecomposeResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDecomposeResult.Designer.cs">
+      <DependentUpon>frmDecomposeResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOrtPartitionSetEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOrtPartitionSetEdit.Designer.cs">
+      <DependentUpon>frmOrtPartitionSetEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPatitionEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPatitionEdit.Designer.cs">
+      <DependentUpon>frmPatitionEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="FSMEditControl.cs">
       <SubType>UserControl</SubType>
@@ -76,11 +94,11 @@
     <Compile Include="frmTest.Designer.cs">
       <DependentUpon>frmTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTransitionsEdit.cs">
+    <Compile Include="frmTransitionEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTransitionsEdit.Designer.cs">
-      <DependentUpon>frmTransitionsEdit.cs</DependentUpon>
+    <Compile Include="frmTransitionEdit.Designer.cs">
+      <DependentUpon>frmTransitionEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="GridEditorButton.cs">
     </Compile>
@@ -93,16 +111,22 @@
     <Compile Include="ListEdit.Designer.cs">
       <DependentUpon>ListEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="PartitionsEditControl.cs">
+    <Compile Include="PartitionEditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PartitionsEditControl.Designer.cs">
-      <DependentUpon>PartitionsEditControl.cs</DependentUpon>
+    <Compile Include="PartitionEditControl.Designer.cs">
+      <DependentUpon>PartitionEditControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmPatitionsEdit.resx">
-      <DependentUpon>frmPatitionsEdit.cs</DependentUpon>
+    <EmbeddedResource Include="frmChooseOrtPartition.resx">
+      <DependentUpon>frmChooseOrtPartition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOrtPartitionSetEdit.resx">
+      <DependentUpon>frmOrtPartitionSetEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPatitionEdit.resx">
+      <DependentUpon>frmPatitionEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FSMEditControl.resx">
       <DependentUpon>FSMEditControl.cs</DependentUpon>
@@ -110,14 +134,14 @@
     <EmbeddedResource Include="frmTest.resx">
       <DependentUpon>frmTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTransitionsEdit.resx">
-      <DependentUpon>frmTransitionsEdit.cs</DependentUpon>
+    <EmbeddedResource Include="frmTransitionEdit.resx">
+      <DependentUpon>frmTransitionEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListEdit.resx">
       <DependentUpon>ListEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PartitionsEditControl.resx">
-      <DependentUpon>PartitionsEditControl.cs</DependentUpon>
+    <EmbeddedResource Include="PartitionEditControl.resx">
+      <DependentUpon>PartitionEditControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

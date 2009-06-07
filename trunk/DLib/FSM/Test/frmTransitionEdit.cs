@@ -19,9 +19,9 @@ using DevExpress.XtraGrid.Views.Grid;
 
 namespace Test
 {
-    public partial class frmTransitionsEdit : Form
+    public partial class frmTransitionEdit : Form
     {
-        public frmTransitionsEdit()
+        public frmTransitionEdit()
         {
             InitializeComponent();
             Init(splitContainerControl1.Panel1);
@@ -96,7 +96,7 @@ namespace Test
             //OutputRepositoryItem.Items.AddRange(Transition.destinationStates.Select(t => t.Output).ToArray());
             OutputRepositoryItem.Items.AddRange(Transition.OwnerFSM.OutputSet.ToArray());
             OutputRepositoryItem.Buttons.Add(new GridEditorButton(ButtonPredefines.Combo));
-            OutputRepositoryItem.Buttons.Add(EllButton);
+            //OutputRepositoryItem.Buttons.Add(EllButton);
             OutputRepositoryItem.Buttons.Add(DeleteButton);
             OutputRepositoryItem.ButtonPressed += RepositoryItem_ButtonPressed;
             OutputRepositoryItem.TextEditStyle = TextEditStyles.DisableTextEditor;
@@ -106,7 +106,7 @@ namespace Test
             //DestStateRepositoryItem.Items.AddRange(Transition.destinationStates.Select(t => t.DestState).ToArray());
             DestStateRepositoryItem.Items.AddRange(Transition.OwnerFSM.StateSet.ToArray());
             DestStateRepositoryItem.Buttons.Add(new GridEditorButton(ButtonPredefines.Combo));
-            DestStateRepositoryItem.Buttons.Add(EllButton);
+            //DestStateRepositoryItem.Buttons.Add(EllButton);
             DestStateRepositoryItem.Buttons.Add(DeleteButton);
             DestStateRepositoryItem.ButtonPressed += RepositoryItem_ButtonPressed;
             DestStateRepositoryItem.TextEditStyle = TextEditStyles.DisableTextEditor;
@@ -115,7 +115,7 @@ namespace Test
             ProbabilityRepositoryItem.BeginInit();
             ProbabilityRepositoryItem.EditFormat.FormatType = FormatType.Numeric;
             ProbabilityRepositoryItem.Buttons.Add(new GridEditorButton());
-            ProbabilityRepositoryItem.Buttons.Add(EllButton);
+            //ProbabilityRepositoryItem.Buttons.Add(EllButton);
             ProbabilityRepositoryItem.Buttons.Add(DeleteButton);
             ProbabilityRepositoryItem.Increment = (decimal)0.1;
             ProbabilityRepositoryItem.MinValue = 0;

@@ -226,7 +226,7 @@ namespace Test
 
         private void EllHandler(TransitionRes<StructAtom<string>, StructAtom<string>> transitionRes, GridEditorButton button)
         {
-            frmTransitionsEdit frm = new frmTransitionsEdit();
+            frmTransitionEdit frm = new frmTransitionEdit();
             frm.DataChanged += frm_DataChanged;
             frm.Show(transitionRes.Transition);
         }
@@ -245,7 +245,7 @@ namespace Test
 
             if (state != null && input != null)
             {
-                frmTransitionsEdit frm = new frmTransitionsEdit();
+                frmTransitionEdit frm = new frmTransitionEdit();
                 frm.DataChanged += frm_DataChanged;
 
                 var trans = fsm.Transitions.Values.FirstOrDefault(tr => tr.Input.KeyName == input && tr.SourceState.StateCore == state.StateCore);

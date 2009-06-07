@@ -261,8 +261,28 @@ namespace Test
         {
             if (fsmEditControl.fsm != null)
             {
-                var frm = new frmPatitionsEdit();
-                frm.Show(fsmEditControl.fsm);
+                var frm = new frmOrtPartitionSetEdit();
+                if (frm.Show(fsmEditControl.fsm) == System.Windows.Forms.DialogResult.OK)
+                {
+                    FSMNet<StructAtom<string>, StructAtom<string>> net = null;
+                    try
+                    {
+                        var alg = new DecompositionAlgorithm<StructAtom<string>, StructAtom<string>>(fsmEditControl.fsm, frm.Partitions);
+                        net = alg.Solve();
+
+                    }
+                    catch (Exception exc)
+                    {
+                        net = null;
+                        MessageBox.Show("Ошибка при декомпозиции автомата: " + exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    if (net != null)
+                    {
+                        var frmResult = new frmDecomposeResult();
+                        frmResult.Show(net);
+                    }
+                }
             }
         }
     }
