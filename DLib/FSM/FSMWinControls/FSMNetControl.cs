@@ -75,8 +75,13 @@ namespace FSM.FSMWinControls
         //TODO: Вынести в константы
         private int Unit
         {
-            get { return 50; }
+            get { return unit; }
+            set { unit = value; }
         }
+
+        private int unit = 50;
+        private const double cnstRatio = 0.9;
+
         private int PointRadius
         {
             get { return (int)BlockPen.Width * 2; }
@@ -165,6 +170,17 @@ namespace FSM.FSMWinControls
             Invalidate();
         }
 
+        private Size CalcSize()
+        {
+            var result = new Size();
+            int width = SubMachineBlocks.Count * (SubFSMBlockSpace * 2 + SubFSMBlockWidth + FBlockWidth);
+            width += 2 * SubFSMBlockSpace + GBlockWidth;
+            var heigth = SubFSMBlockSpace + GBlockHeigth;
+            result.Width = width;
+            result.Height = heigth;
+            return result;
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             var old = e.Graphics.SmoothingMode;
@@ -172,8 +188,20 @@ namespace FSM.FSMWinControls
 
             if (LogicComponent != null)
             {
-                InputPoint = new Point(ClientRectangle.Width/20,
-                    ClientRectangle.Height / 5);
+                var size = CalcSize();
+
+                if (Size.Width > 0 && Size.Height > 0)
+                {
+                    double widthRatio = (double)size.Width/Size.Width;
+                    double heigthRatio = (double)size.Height/Size.Height;
+
+                    double k = cnstRatio / Math.Max(widthRatio, heigthRatio);
+                    unit = (int)(unit*k);
+
+                    size = CalcSize();
+                }
+
+                InputPoint = new Point((Size.Width - size.Width) / 2, (Size.Height - size.Height) / 2);
 
                 Point pt = new Point(InputPoint.X + SubFSMBlockSpace*4,
                                      InputPoint.Y + SubFSMBlockSpace*2 +SubFSMBlockHeight/2 + KsiBlockHeigth);
@@ -215,6 +243,7 @@ namespace FSM.FSMWinControls
 
                 var pointG = new Point(pt.X + SubFSMBlockWidth / 2 + SubFSMBlockSpace * 2, pt.Y);
                 DrawGBlock(e.Graphics, pointG);
+                DrawOutputArrow(e.Graphics);
                 DrawBoundArrows(e.Graphics, SubMachineBlocks.Values.First(), SubMachineBlocks.Values.Last());
                 DrawInputArrows(e.Graphics, InputPoint);
 
@@ -239,7 +268,6 @@ namespace FSM.FSMWinControls
 
             e.Graphics.SmoothingMode = old;
         }
-
 
         private void DrawOutputArrows(Graphics graphics, SubMachineBlock block)
         {
@@ -378,6 +406,17 @@ namespace FSM.FSMWinControls
             graphics.DrawPath(BlockPen, GBlock.ToRoundedRect(GBlockRadius));
         }
 
+        private void DrawOutputArrow(Graphics graphics)
+        {
+            graphics.DrawArrow(BlockPen,
+                GBlock.X + GBlock.Width,
+                GBlock.Y + GBlock.Height / 2,
+                GBlock.X + GBlock.Width + SubFSMBlockSpace,
+                GBlock.Y + GBlock.Height / 2,
+                ArrowheadLength,
+                ArrowheadAngle);
+        }
+
         private void DrawArrowsBetweenBlocks(Graphics graphics, SubMachineBlock firstBlock, SubMachineBlock secondBlock)
         {
             graphics.DrawArrow(firstBlock.ArrowPen,
@@ -443,6 +482,23 @@ namespace FSM.FSMWinControls
                                          pointY - PointRadius,
                                          2 * PointRadius,
                                          2 * PointRadius);
+        }
+
+        public Size GetSize()
+        {
+            if (SubMachineBlocks.Count > 0)
+            {
+                return new Size(
+                    Math.Abs(
+                        GBlock.X + 2*SubFSMBlockSpace) -
+                        Math.Min(0, Math.Min(SubMachineBlocks.First().Value.LeftConnector.X - SubFSMBlockSpace, InputPoint.X) - SubFSMBlockSpace),
+                    Math.Abs(
+                        (GBlock.Y + GBlock.Height) -
+                        (InputPoint.Y - SubFSMBlockSpace))
+                    );
+
+            }
+            return Size.Empty;
         }
     }
 }

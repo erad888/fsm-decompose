@@ -93,18 +93,23 @@ namespace FSM
                 if (stateSet.FirstOrDefault(s => s.StateCore == state.StateCore) == null)
                     result = stateSet.Add(state);
             }
+            if(result)
+                SyncInitialState();
             return result;
         }
 
         public bool AddState(object stateCore)
         {
+            bool result = false;
             var st = stateSet.FirstOrDefault(s => s.StateCore.Equals(stateCore));
             if (st == null)
             {
                 var state = new FSMState<TInput, TOutput>(this, stateCore);
-                return stateSet.FirstOrDefault(s => s.StateCore == stateCore) != null;
+                result = stateSet.FirstOrDefault(s => s.StateCore == stateCore) != null;
             }
-            return false;
+            if(result)
+                SyncInitialState();
+            return result;
         }
 
         /// <summary>
@@ -115,7 +120,14 @@ namespace FSM
         public bool AddOutput(TOutput output)
         {
             if (output == null) throw new ArgumentNullException("output");
-            return outputSet.Add(output);
+
+            bool result = false;
+
+            var value = outputSet.FirstOrDefault(s => s.KeyName == output.KeyName);
+            if (value == null)
+                result = outputSet.Add(output);
+
+            return result;
         }
         /// <summary>
         /// Добавить входной символ
@@ -125,7 +137,14 @@ namespace FSM
         public bool AddInput(TInput input)
         {
             if (input == null) throw new ArgumentNullException("input");
-            return inputSet.Add(input);
+            
+            bool result = false;
+
+            var value = inputSet.FirstOrDefault(s => s.KeyName == input.KeyName);
+            if (value == null)
+                result = inputSet.Add(input);
+
+            return result;
         }
 
         public bool RemoveInput(string inputKeyName)
@@ -270,7 +289,15 @@ namespace FSM
                     Debug.WriteLine(e.Message);
                 }
             }
+            if (result)
+                SyncInitialState();
             return result;
+        }
+
+        private void SyncInitialState()
+        {
+            if (!stateSet.Contains(InitialState))
+                InitialState = stateSet.FirstOrDefault();
         }
 
         public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState, TOutput output)

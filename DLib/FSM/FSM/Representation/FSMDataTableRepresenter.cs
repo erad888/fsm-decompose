@@ -70,7 +70,6 @@ namespace FSM.Representation
             {
                 DataColumn dc = new DataColumn(state.KeyName);
                 dc.DataType = typeof(TransitionRes<TInput, TOutput>);
-                //dc.DataType = fsm.
                 result.Columns.Add(dc);
             }
 
@@ -86,8 +85,6 @@ namespace FSM.Representation
                     maxRows = 1;
                 DataRow[] drs = new DataRow[maxRows];
 
-                //drs[0] = result.NewRow();
-                //drs[0]["Zs"] = input;
                 for (int i = 0; i < drs.Count(); ++i)
                 {
                     drs[i] = result.NewRow();

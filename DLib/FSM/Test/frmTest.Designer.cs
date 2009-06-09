@@ -31,8 +31,8 @@
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.gcFSMEdit = new DevExpress.XtraEditors.GroupControl();
             this.fsmEditControl = new Test.FSMEditControl();
-            this.leFSMs = new Test.ListEdit();
             this.splitContainerControl2 = new DevExpress.XtraEditors.SplitContainerControl();
+            this.leFSMs = new Test.ListEdit();
             this.btnDecompose = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
@@ -77,16 +77,6 @@
             this.fsmEditControl.Size = new System.Drawing.Size(750, 592);
             this.fsmEditControl.TabIndex = 0;
             // 
-            // leFSMs
-            // 
-            this.leFSMs.Caption = "";
-            this.leFSMs.CreationRule = null;
-            this.leFSMs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leFSMs.Location = new System.Drawing.Point(0, 0);
-            this.leFSMs.Name = "leFSMs";
-            this.leFSMs.Size = new System.Drawing.Size(279, 190);
-            this.leFSMs.TabIndex = 1;
-            // 
             // splitContainerControl2
             // 
             this.splitContainerControl2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -103,6 +93,16 @@
             this.splitContainerControl2.SplitterPosition = 190;
             this.splitContainerControl2.TabIndex = 2;
             this.splitContainerControl2.Text = "splitContainerControl2";
+            // 
+            // leFSMs
+            // 
+            this.leFSMs.Caption = "";
+            this.leFSMs.CreationRule = null;
+            this.leFSMs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leFSMs.Location = new System.Drawing.Point(0, 0);
+            this.leFSMs.Name = "leFSMs";
+            this.leFSMs.Size = new System.Drawing.Size(279, 190);
+            this.leFSMs.TabIndex = 1;
             // 
             // btnDecompose
             // 

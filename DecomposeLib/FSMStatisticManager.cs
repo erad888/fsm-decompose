@@ -52,6 +52,7 @@ namespace DecomposeLib
                 result.ProcessData(TargetFSM.CurrentState);
                 for (int j = 0; j < conditions.InputSequence.Count; ++j)
                 {
+                    TargetFSM.Randomize();
                     TOutput output = TargetFSM.ProcessInput(conditions.InputSequence[j]);
                     result.ProcessData(TargetFSM.CurrentState, output);
                 }
