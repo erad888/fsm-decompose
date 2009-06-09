@@ -23,5 +23,7 @@ namespace FSM
 
         FSMState<TInput, TOutput> Sigma(FSMState<TInput, TOutput> state, TInput input, double p);
         TOutput Lambda(FSMState<TInput, TOutput> state, TInput input, double p);
+
+        void Randomize();
     }
 }

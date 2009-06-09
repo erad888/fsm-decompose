@@ -21,8 +21,11 @@ namespace Test
             
             //fsmNetControl1.LogicComponent = GetNet();
 
-            GetNet();
+            InitTestFSM();
             InitListEdit(leFSMs);
+
+            leFSMs.Items.Add(fsm);
+            leFSMs.SyncControl();
         }
 
         private void InitListEdit(ListEdit le)
@@ -95,6 +98,69 @@ namespace Test
         }
 
         public FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm = new FiniteStateMachine<StructAtom<string>, StructAtom<string>>("fsm");
+
+        private void InitTestFSM()
+        {
+            var z1 = new StructAtom<string>("z1");
+            var z2 = new StructAtom<string>("z2");
+            var z3 = new StructAtom<string>("z3");
+            var z4 = new StructAtom<string>("z4");
+
+
+            var w1 = new StructAtom<string>("w1");
+            var w2 = new StructAtom<string>("w2");
+            var w3 = new StructAtom<string>("w3");
+
+            var a1 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a1.ToString());
+            var a2 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a2.ToString());
+            var a3 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a3.ToString());
+            var a4 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a4.ToString());
+            var a5 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a5.ToString());
+            var a6 = new FSMState<StructAtom<string>, StructAtom<string>>(fsm, StateCores.a6.ToString());
+
+            fsm.AddState(a1);
+            fsm.AddState(a2);
+            fsm.AddState(a3);
+            fsm.AddState(a4);
+            fsm.AddState(a5);
+            fsm.AddState(a6);
+
+            fsm.AddOutgoing(a1, z1, a1, w2, 0.5);
+            fsm.AddOutgoing(a1, z1, a2, w1, 0.5);
+            fsm.AddOutgoing(a1, z2, a6, w2);
+            fsm.AddOutgoing(a1, z3, a6, w1);
+            fsm.AddOutgoing(a1, z4, a2, w3);
+
+            fsm.AddOutgoing(a2, z1, a5, w2, 0.3);
+            fsm.AddOutgoing(a2, z1, a1, w2, 0.2);
+            fsm.AddOutgoing(a2, z1, a2, w2, 0.3);
+            fsm.AddOutgoing(a2, z2, a1, w1);
+            fsm.AddOutgoing(a2, z3, a1, w1);
+            fsm.AddOutgoing(a2, z4, a5, w3);
+
+            fsm.AddOutgoing(a3, z1, a1, w1);
+            fsm.AddOutgoing(a3, z2, a5, w3);
+            fsm.AddOutgoing(a3, z3, a5, w1);
+            fsm.AddOutgoing(a3, z4, a1, w1);
+
+            fsm.AddOutgoing(a4, z1, a6, w1);
+            fsm.AddOutgoing(a4, z2, a2, w2, 0.8);
+            fsm.AddOutgoing(a4, z3, a2, w2);
+            fsm.AddOutgoing(a4, z4, a6, w3);
+
+            fsm.AddOutgoing(a5, z1, a1, w3);
+            fsm.AddOutgoing(a5, z2, a1, w1, 0.3);
+            fsm.AddOutgoing(a5, z2, a2, w2, 0.7);
+            fsm.AddOutgoing(a5, z3, a2, w3);
+            fsm.AddOutgoing(a5, z4, a4, w1);
+
+            fsm.AddOutgoing(a6, z1, a2, w2);
+            fsm.AddOutgoing(a6, z2, a6, w2);
+            fsm.AddOutgoing(a6, z3, a5, w3);
+            fsm.AddOutgoing(a6, z4, a3, w1);
+
+            fsm.InitialState = a1;
+        }
 
         public FSMNet<StructAtom<string>, StructAtom<string>> GetNet()
         {

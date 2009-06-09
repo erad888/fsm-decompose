@@ -192,6 +192,15 @@ namespace FSM
             throw new NotImplementedException();
         }
 
+        public void Randomize()
+        {
+            var c = componentFSMs.Values.FirstOrDefault();
+            if (c != null)
+            {
+                c.FiniteStateMachine.DecomposeAlg.FSM.Randomize();
+            }
+        }
+
         #endregion
 
         #region Implementation of INetComponentInfosContainer

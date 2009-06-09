@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FSM;
 using FSM.FSMWinControls;
+using DecomposeLib;
 
 namespace Test
 {
@@ -21,15 +22,15 @@ namespace Test
         }
 
         FSMNetControl nc = new FSMNetControl();
-        public INetComponentInfosContainer LogicComponent { get; private set; }
+        public FSMNet<StructAtom<string>, StructAtom<string>> LogicComponent { get; private set; }
 
         private void InitNetControl()
         {
             nc.Dock = DockStyle.Fill;
-            this.Controls.Add(nc);
+            splitContainerControl1.Panel1.Controls.Add(nc);
         }
 
-        public void Show(INetComponentInfosContainer logicComponent)
+        public void Show(FSMNet<StructAtom<string>, StructAtom<string>> logicComponent)
         {
             if (logicComponent == null) throw new ArgumentNullException("logicComponent");
 
@@ -41,6 +42,12 @@ namespace Test
         private void SyncLComponent()
         {
             nc.LogicComponent = LogicComponent;
+        }
+
+        private void btnChart_Click(object sender, EventArgs e)
+        {
+            var frm = new frmStatistics();
+            frm.Show(LogicComponent);
         }
     }
 }
