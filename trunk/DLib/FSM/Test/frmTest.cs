@@ -124,41 +124,74 @@ namespace Test
             fsm.AddState(a4);
             fsm.AddState(a5);
             fsm.AddState(a6);
-
+            //
             fsm.AddOutgoing(a1, z1, a1, w2, 0.5);
             fsm.AddOutgoing(a1, z1, a2, w1, 0.5);
+            
             fsm.AddOutgoing(a1, z2, a6, w2);
+            
             fsm.AddOutgoing(a1, z3, a6, w1);
+            
             fsm.AddOutgoing(a1, z4, a2, w3);
-
+            //
             fsm.AddOutgoing(a2, z1, a5, w2, 0.3);
             fsm.AddOutgoing(a2, z1, a1, w2, 0.2);
             fsm.AddOutgoing(a2, z1, a2, w2, 0.3);
-            fsm.AddOutgoing(a2, z2, a1, w1);
+
+            fsm.AddOutgoing(a2, z2, a1, w1, 0.2);
+            fsm.AddOutgoing(a2, z2, a2, w2, 0.2);
+            fsm.AddOutgoing(a2, z2, a3, w3, 0.2);
+            fsm.AddOutgoing(a2, z2, a4, w3, 0.2);
+            
             fsm.AddOutgoing(a2, z3, a1, w1);
-            fsm.AddOutgoing(a2, z4, a5, w3);
-
-            fsm.AddOutgoing(a3, z1, a1, w1);
-            fsm.AddOutgoing(a3, z2, a5, w3);
-            fsm.AddOutgoing(a3, z3, a5, w1);
-            fsm.AddOutgoing(a3, z4, a1, w1);
-
+            
+            fsm.AddOutgoing(a2, z4, a5, w3, 0.7);
+            fsm.AddOutgoing(a2, z4, a6, w2, 0.3);
+            //
+            fsm.AddOutgoing(a3, z1, a1, w1, 0.6);
+            fsm.AddOutgoing(a3, z1, a2, w1, 0.2);
+            
+            fsm.AddOutgoing(a3, z2, a5, w3, 0.8);
+            fsm.AddOutgoing(a3, z2, a2, w3, 0.1);
+            
+            fsm.AddOutgoing(a3, z3, a5, w1, 0.9);
+            fsm.AddOutgoing(a3, z3, a6, w1, 0.1);
+            
+            fsm.AddOutgoing(a3, z4, a1, w1, 0.5);
+            fsm.AddOutgoing(a3, z4, a1, w2, 0.5);
+            //
             fsm.AddOutgoing(a4, z1, a6, w1);
+            
             fsm.AddOutgoing(a4, z2, a2, w2, 0.8);
-            fsm.AddOutgoing(a4, z3, a2, w2);
+            
+            fsm.AddOutgoing(a4, z3, a2, w2, 0.6);
+            fsm.AddOutgoing(a4, z3, a2, w2, 0.4);
+            
             fsm.AddOutgoing(a4, z4, a6, w3);
-
+            //
             fsm.AddOutgoing(a5, z1, a1, w3);
+            
             fsm.AddOutgoing(a5, z2, a1, w1, 0.3);
             fsm.AddOutgoing(a5, z2, a2, w2, 0.7);
-            fsm.AddOutgoing(a5, z3, a2, w3);
-            fsm.AddOutgoing(a5, z4, a4, w1);
-
-            fsm.AddOutgoing(a6, z1, a2, w2);
+            
+            fsm.AddOutgoing(a5, z3, a2, w3, 0.8);
+            fsm.AddOutgoing(a5, z3, a3, w3, 0.2);
+            
+            fsm.AddOutgoing(a5, z4, a4, w1, 0.9);
+            //
+            fsm.AddOutgoing(a6, z1, a2, w2, 0.6);
+            fsm.AddOutgoing(a6, z1, a1, w2, 0.1);
+            fsm.AddOutgoing(a6, z1, a3, w3, 0.1);
+            fsm.AddOutgoing(a6, z1, a4, w3, 0.1);
+            fsm.AddOutgoing(a6, z1, a5, w1, 0.1);
+            
             fsm.AddOutgoing(a6, z2, a6, w2);
-            fsm.AddOutgoing(a6, z3, a5, w3);
+            
+            fsm.AddOutgoing(a6, z3, a5, w3, 0.7);
+            fsm.AddOutgoing(a6, z3, a6, w3, 0.3);
+            
             fsm.AddOutgoing(a6, z4, a3, w1);
-
+            //
             fsm.InitialState = a1;
         }
 
