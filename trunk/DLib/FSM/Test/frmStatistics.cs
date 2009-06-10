@@ -39,7 +39,7 @@ namespace Test
         {
             seRepeatsNumber.Properties.MinValue = 1;
             seRepeatsNumber.Properties.Increment = 1;
-            seRepeatsNumber.Properties.MaxValue = 10000;
+            seRepeatsNumber.Properties.MaxValue = 100000;
             cbxInputSequence.Properties.Buttons.Add(new EditorButton(ButtonPredefines.Ellipsis));
             cbxInputSequence.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
             cbxInputSequence.Properties.ButtonClick += Properties_ButtonClick;

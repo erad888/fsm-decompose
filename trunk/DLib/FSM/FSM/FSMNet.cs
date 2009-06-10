@@ -58,7 +58,7 @@ namespace FSM
 
         private HashSet<TOutput> outputSet = new HashSet<TOutput>();
         private HashSet<TInput> inputSet = new HashSet<TInput>();
-        private Dictionary<int, NetComponent> componentFSMs = new Dictionary<int, NetComponent>();
+        public Dictionary<int, NetComponent> componentFSMs = new Dictionary<int, NetComponent>();
 
         private TOutput G(IEnumerable<HashSet<FSMState<TInput, TOutput>>> states, TInput input)
         {
@@ -82,12 +82,17 @@ namespace FSM
 
         public TOutput ProcessInput(TInput input)
         {
+            componentFSMs.First().Value.FiniteStateMachine.DecomposeAlg.RefreshWorkSets();
+
             Dictionary<int, HashSet<FSMState<TInput, TOutput>>> componentOutputs = new Dictionary<int, HashSet<FSMState<TInput, TOutput>>>();
             for (int i = 0; i < componentFSMs.Count; i++)
             {
                 // Вроде так должно быть
                 componentOutputs.Add(i, componentFSMs[i].FiniteStateMachine.CurrentState);
             }
+
+            Dictionary<int, HashSet<FSMState<TInput, TOutput>>> resultComponentsStates = new Dictionary<int, HashSet<FSMState<TInput, TOutput>>>();
+            bool hasRejections = false;
             for (int i = 0; i < componentFSMs.Count; i++)
             {
                 HashSet<FSMState<TInput, TOutput>> Z = componentFSMs[i].F(componentOutputs.Where(pi => pi.Key != i).Select(pi => pi.Value));
@@ -95,9 +100,26 @@ namespace FSM
 
                 var resultComponentState = componentFSMs[i].FiniteStateMachine.Sigma(Z, ZZ);
                 //componentOutputs[i] = resultComponentState;
-                componentFSMs[i].FiniteStateMachine.CurrentState = resultComponentState;
+
+
+                //componentFSMs[i].FiniteStateMachine.CurrentState = resultComponentState;
+                if (resultComponentState == null)
+                {
+                    hasRejections = true;
+                    break;
+                }
+                resultComponentsStates.Add(i, resultComponentState);
             }
-            TOutput result = G(componentOutputs.Values, input);
+
+            TOutput result = null;
+            if (!hasRejections)
+            {
+                foreach (var resultComponentsState in resultComponentsStates)
+                {
+                    componentFSMs[resultComponentsState.Key].FiniteStateMachine.CurrentState = resultComponentsState.Value;
+                }
+                result = G(componentOutputs.Values, input);
+            }
             return result;
         }
 
@@ -198,6 +220,24 @@ namespace FSM
             if (c != null)
             {
                 c.FiniteStateMachine.DecomposeAlg.FSM.Randomize();
+            }
+        }
+
+        public double Random
+        {
+            get
+            {
+                var c = componentFSMs.Values.FirstOrDefault();
+                if(c == null)
+                    throw new NullReferenceException("FSMNet.Random");
+                return c.FiniteStateMachine.DecomposeAlg.FSM.Random;
+            }
+            set
+            {
+                var c = componentFSMs.Values.FirstOrDefault();
+                if (c == null)
+                    throw new NullReferenceException("FSMNet.Random");
+                c.FiniteStateMachine.DecomposeAlg.FSM.Random = value;
             }
         }
 

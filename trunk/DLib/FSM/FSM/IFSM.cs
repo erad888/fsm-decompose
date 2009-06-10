@@ -25,5 +25,6 @@ namespace FSM
         TOutput Lambda(FSMState<TInput, TOutput> state, TInput input, double p);
 
         void Randomize();
+        double Random { get; set; }
     }
 }

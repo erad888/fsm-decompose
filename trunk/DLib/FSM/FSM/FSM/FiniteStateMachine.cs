@@ -509,6 +509,12 @@ namespace FSM
             random = rnd.NextDouble();
         }
 
+        public double Random
+        {
+            get { return random; }
+            set { random = value; }
+        }
+
         private double random = 0;
 
         public override string ToString()

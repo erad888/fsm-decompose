@@ -46,15 +46,25 @@ namespace DecomposeLib
 
             StatisticsResult<TInput, TOutput> result = new StatisticsResult<TInput, TOutput>(conditions);
 
+            //TargetFSM.Random = 0.66461;
             for (int i = 0; i < conditions.RepeatsNumber; ++i)
             {
                 TargetFSM.CurrentState = conditions.InitialState;
                 result.ProcessData(TargetFSM.CurrentState);
+                TargetFSM.Randomize();
                 for (int j = 0; j < conditions.InputSequence.Count; ++j)
                 {
-                    TargetFSM.Randomize();
+                    var r = TargetFSM.Random;
+                    var s = TargetFSM.CurrentState;
+                    var z = conditions.InputSequence[j];
+
+
                     TOutput output = TargetFSM.ProcessInput(conditions.InputSequence[j]);
+
                     result.ProcessData(TargetFSM.CurrentState, output);
+
+                    TargetFSM.Randomize();
+
                 }
             }
             return result;

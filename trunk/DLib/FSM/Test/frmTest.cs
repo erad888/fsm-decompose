@@ -158,14 +158,14 @@ namespace Test
             fsm.AddOutgoing(a3, z3, a6, w1, 0.1);
             
             fsm.AddOutgoing(a3, z4, a1, w1, 0.5);
-            fsm.AddOutgoing(a3, z4, a1, w2, 0.5);
+            fsm.AddOutgoing(a3, z4, a2, w2, 0.5);
             //
             fsm.AddOutgoing(a4, z1, a6, w1);
             
             fsm.AddOutgoing(a4, z2, a2, w2, 0.8);
             
             fsm.AddOutgoing(a4, z3, a2, w2, 0.6);
-            fsm.AddOutgoing(a4, z3, a2, w2, 0.4);
+            //fsm.AddOutgoing(a4, z3, a2, w2, 0.4);
             
             fsm.AddOutgoing(a4, z4, a6, w3);
             //

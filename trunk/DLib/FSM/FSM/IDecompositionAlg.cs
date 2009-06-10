@@ -16,6 +16,8 @@ namespace FSM
             HashSet<TInput> gamma);
         TOutput G(IEnumerable<HashSet<FSMState<TInput, TOutput>>> ts, TInput input);
 
+        void RefreshWorkSets();
+
         FiniteStateMachine<TInput, TOutput> FSM { get; }
     }
 }

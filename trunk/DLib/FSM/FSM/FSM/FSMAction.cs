@@ -54,7 +54,9 @@ namespace FSM
             var transRes = new TransitionRes<TInput, TOutput>()
             {
                 DestState = destState,
-                Output = output
+                Output = output,
+                //
+                Probability = probability
             };
             if (!SubTransitions.ContainsKey(transRes))
             {
