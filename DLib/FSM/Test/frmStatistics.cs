@@ -67,17 +67,30 @@ namespace Test
         private void EllipsisHandle()
         {
             // Тестовая последовательность
-            var tst = new InputCollection(TargetEntity.InputSet);
-            tst.Items.AddRange(TargetEntity.InputSet);
-            tst.Items.AddRange(TargetEntity.InputSet);
-            cbxInputSequence.Properties.Items.Add(tst);
+            //var tst = new InputCollection(TargetEntity.InputSet);
+            //tst.Items.AddRange(TargetEntity.InputSet);
+            //tst.Items.AddRange(TargetEntity.InputSet);
+            //cbxInputSequence.Properties.Items.Add(tst);
 
-            if (cbxInputSequence.Properties.Items.Count > 0)
-                cbxInputSequence.SelectedIndex = 0;
+            var frm = new frmInputSeqEdit();
+            if (frm.Show(TargetEntity.InputSet) == System.Windows.Forms.DialogResult.OK)
+            {
+                if (frm.Items.Count > 0)
+                {
+                    var sec = new InputCollection(frm.Items);
+
+                    cbxInputSequence.Properties.Items.Add(sec);
+
+                    if (cbxInputSequence.Properties.Items.Count > 0)
+                        cbxInputSequence.SelectedIndex = 0;
+                }
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            ClearResultSection();
+
             var stat = CollectStat();
 
             if (chc.Series.Count > 0)
@@ -86,7 +99,15 @@ namespace Test
                 s.Points.Clear();
                 
                 s.Points.AddRange(stat.StateFrequency.Select(sf => new SeriesPoint(sf.Key.KeyName, new double[] {sf.Value})).ToArray());
+
+                lblRejectionCountValue.Text = stat.RejectionCount.ToString();
             }
+        }
+
+        private void ClearResultSection()
+        {
+            lblRejectionCountValue.Text = 0.ToString();
+            lblTimeValue.Text = 0.ToString();
         }
 
         private StatisticsResult<StructAtom<string>, StructAtom<string>> CollectStat()
