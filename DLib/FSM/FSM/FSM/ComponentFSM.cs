@@ -34,10 +34,18 @@ namespace FSM
                 if (PI == null)
                     throw new NullReferenceException();
 
-                var stateBlock = PI.FirstOrDefault(b => b.Except(value).Count() > 0);
+                //var stateBlock = PI.FirstOrDefault(b => b.Except(value).Count() > 0);
+                var stateBlock = PI.FirstOrDefault(b => b.Except(value).Count() == 0);
                 if (stateBlock != null)
                 {
-                    currentState = value;
+                    //currentState = value;
+                    currentState = stateBlock;
+                }
+                else
+                {
+                }
+                if(!stateBlock.AreSame(value))
+                {
                 }
             }
         }
@@ -55,6 +63,9 @@ namespace FSM
                 {
                     initialState = value;
                     CurrentState = stateBlock;
+                }
+                else
+                {
                 }
             }
         }

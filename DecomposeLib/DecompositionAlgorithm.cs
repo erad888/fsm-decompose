@@ -31,11 +31,8 @@ namespace DecomposeLib
             FSMNet<TInput, TOutput> result = null;
             try
             {
-                SolveTAUs();
-                SolveNs();
-                SolveEPSs();
-                SolveTTs(PIs.Values);
-
+                RefreshWorkSets();
+                
                 result = new FSMNet<TInput, TOutput>();
                 foreach (var pi in PIs)
                 {
@@ -55,6 +52,14 @@ namespace DecomposeLib
             return result;
         }
 
+        public void RefreshWorkSets()
+        {
+            SolveTAUs();
+            SolveNs();
+            SolveEPSs();
+            SolveTTs(PIs.Values);
+        }
+
         public FiniteStateMachine<TInput, TOutput> FSM { get; private set; }
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> PIs = null;
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> EPSs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
@@ -71,6 +76,8 @@ namespace DecomposeLib
         }
         private void SolveTAUs()
         {
+            TAUs.Clear();
+
             foreach (var pi in PIs)
             {
                 Partition<FSMState<TInput, TOutput>> p = new Partition<FSMState<TInput, TOutput>>();
@@ -91,6 +98,8 @@ namespace DecomposeLib
         }
         private void SolveNs()
         {
+            Ns.Clear();
+
             foreach (var pi in PIs)
             {
                 Partition<TInput> p = new Partition<TInput>();
@@ -111,13 +120,18 @@ namespace DecomposeLib
         }
         private void SolveEPSs()
         {
-            List<List<Partition<FSMState<TInput, TOutput>>>> combs =
-                (new List<Partition<FSMState<TInput, TOutput>>>(PIs.Values)).GetSubsets();
+            EPSs.Clear();
+
+            //List<List<Partition<FSMState<TInput, TOutput>>>> combs =
+            //    (new List<Partition<FSMState<TInput, TOutput>>>(PIs.Values)).GetSubsets();
+
+            if(PIsCombs == null)
+                PIsCombs = (new List<Partition<FSMState<TInput, TOutput>>>(PIs.Values)).GetSubsets();
 
             foreach (var pi in PIs)
             {
                 var tau = TAUs[pi.Key];
-                foreach (var comb in combs)
+                foreach (var comb in PIsCombs)
                 {
                     if (Partition<FSMState<TInput, TOutput>>.Intersect(comb.ToArray()).LessThen(tau))
                     {
@@ -137,6 +151,8 @@ namespace DecomposeLib
             if(PIs.Count != EPSs.Count)
                 throw new ArithmeticException();
         }
+
+        private List<List<Partition<FSMState<TInput, TOutput>>>> PIsCombs = null;
 
         public HashSet<FSMState<TInput, TOutput>> Sigma(
             int i,
@@ -158,9 +174,16 @@ namespace DecomposeLib
                     //return null;
                 }
             }
+            else
+            {
+            }
             FSMState<TInput, TOutput> state = FSM.Sigma(r.First(), gamma.First());
             if (state == null)
-                state = r.First();
+            {
+                // Перехода нет (такая уж вероятность)
+                //state = r.First();
+                return null;
+            }
             return PIs[i].GetBlock(state);
         }
 
@@ -173,7 +196,11 @@ namespace DecomposeLib
 
         private void SolveTTs(IEnumerable<Partition<FSMState<TInput, TOutput>>> pis)
         {
-            List<List<HashSet<FSMState<TInput, TOutput>>>> Ts = fRec(pis);
+            TTs.Clear();
+
+            if (Ts == null)
+                Ts = fRec(pis);
+
             foreach (var t in Ts)
             {
                 HashSet<FSMState<TInput, TOutput>> ti = t.Intersect();
@@ -184,6 +211,8 @@ namespace DecomposeLib
             }
         }
 
+        private List<List<HashSet<FSMState<TInput, TOutput>>>> Ts = null;
+
         public HashSet<FSMState<TInput, TOutput>> F(int i, IEnumerable<HashSet<FSMState<TInput, TOutput>>> ts)
         {
             HashSet<FSMState<TInput, TOutput>> result = null;
@@ -191,6 +220,9 @@ namespace DecomposeLib
             if (tIntersect.Count > 0)
             {
                 result = EPSs[i].FirstOrDefault(b => tIntersect.IsSubsetOf(b));
+            }
+            else
+            {
             }
             return result;
         }
