@@ -72,6 +72,12 @@
     <Compile Include="frmDecomposeResult.Designer.cs">
       <DependentUpon>frmDecomposeResult.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmInputSeqEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInputSeqEdit.Designer.cs">
+      <DependentUpon>frmInputSeqEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmOrtPartitionSetEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDecomposeResult.resx">
       <DependentUpon>frmDecomposeResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInputSeqEdit.resx">
+      <DependentUpon>frmInputSeqEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmOrtPartitionSetEdit.resx">
       <DependentUpon>frmOrtPartitionSetEdit.cs</DependentUpon>

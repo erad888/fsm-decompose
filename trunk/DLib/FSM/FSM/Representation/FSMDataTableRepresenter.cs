@@ -10,6 +10,39 @@ namespace FSM.Representation
     {
         #region static
 
+        public static DataTable Convert<TInput>(IEnumerable<TInput> inputs)
+            where TInput : FSMAtomBase, IStringKeyable
+        {
+            if (inputs == null) throw new ArgumentNullException("inputs");
+
+            DataTable result = new DataTable();
+
+            DataColumn dc = new DataColumn();
+            dc.ColumnName = "Order";
+            dc.Caption = "№";
+            dc.DataType = typeof(int);
+            result.Columns.Add(dc);
+
+            dc = new DataColumn();
+            dc.ColumnName = "Input";
+            dc.Caption = "Входной символ";
+            dc.DataType = typeof(TInput);
+            result.Columns.Add(dc);
+
+            for (int i = 0; i < inputs.Count(); ++i)
+            {
+                DataRow row = result.NewRow();
+
+                row[0] = i;
+                row[1] = inputs.ElementAt(i);
+                result.Rows.Add(row);
+            }
+
+            result.Rows.Add(result.NewRow());
+
+            return result;
+        }
+
         public static DataTable Convert<TInput, TOutput>(Transition<TInput, TOutput> transition)
             where TInput : FSMAtomBase, IStringKeyable
             where TOutput : FSMAtomBase, IStringKeyable
@@ -120,24 +153,6 @@ namespace FSM.Representation
 
             return result;
         }
-
-        #endregion
-
-        #region Constructors
-
-
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Fields
-
-        #endregion
-
-        #region Methods
 
         #endregion
     }
