@@ -174,7 +174,7 @@ namespace FSM.FSMWinControls
         {
             var result = new Size();
             int width = SubMachineBlocks.Count * (SubFSMBlockSpace * 2 + SubFSMBlockWidth + FBlockWidth);
-            width += 2 * SubFSMBlockSpace + GBlockWidth;
+            width += 3 * SubFSMBlockSpace + GBlockWidth;
             var heigth = SubFSMBlockSpace + GBlockHeigth;
             result.Width = width;
             result.Height = heigth;
