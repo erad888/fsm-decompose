@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSMWinControls", "FSMWinCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLib.WinForms.Drawing", "..\WinForms\DLib.WinForms.Drawing\DLib.WinForms.Drawing.csproj", "{310E86A6-8D2B-433E-88D7-766486EA6FF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportExport", "..\ImportExport\ImportExport.csproj", "{8FADFA05-26CA-4FD1-B898-D0C2038818FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{310E86A6-8D2B-433E-88D7-766486EA6FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FADFA05-26CA-4FD1-B898-D0C2038818FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FADFA05-26CA-4FD1-B898-D0C2038818FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FADFA05-26CA-4FD1-B898-D0C2038818FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FADFA05-26CA-4FD1-B898-D0C2038818FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
