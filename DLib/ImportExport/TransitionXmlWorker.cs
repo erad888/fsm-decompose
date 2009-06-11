@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FSM;
-using LogicUtils;
 using System.Xml;
+using FSM;
 
 namespace ImportExport
 {
-    public class TransitionResXmlWorker : IXmlWorker
+    public class TransitionXmlWorker:IXmlWorker
     {
-        public TransitionResXmlWorker()
+        public TransitionXmlWorker()
         {
-
-        }
-        public TransitionResXmlWorker(TransitionRes<StructAtom<string>, StructAtom<string>> transitionRes)
-        {
-            value = transitionRes;
         }
 
-        private TransitionRes<StructAtom<string>, StructAtom<string>> value = null;
+        public TransitionXmlWorker(Transition<StructAtom<string>, StructAtom<string>> transition)
+        {
+            value = transition;
+        }
+
+        private Transition<StructAtom<string>, StructAtom<string>> value = null;
         public FiniteStateMachine<StructAtom<string>, StructAtom<string>> FSM { get; set; }
 
         #region IXmlWorker Members
@@ -35,16 +34,20 @@ namespace ImportExport
                 throw new NullReferenceException();
 
             XmlNode result = doc.CreateElement(nodeName);
-            
-            StateXmlWorker w = new StateXmlWorker(value.DestState);
-            result.AppendChild(w.CreateXmlNode(doc, "DestState"));
 
-            XmlElement element = doc.CreateElement("Output");
-            element.InnerText = value.Output.Value;
+            StateXmlWorker w = new StateXmlWorker(value.SourceState);
+            result.AppendChild(w.CreateXmlNode(doc, "SourceState"));
+
+            XmlElement element = doc.CreateElement("Input");
+            element.InnerText = value.Input.Value;
             result.AppendChild(element);
 
-            element = doc.CreateElement("Probability");
-            element.InnerText = value.Probability.ToString();
+            element = doc.CreateElement("TransitionResults");
+            foreach (var destinationState in value.destinationStates)
+            {
+                TransitionResXmlWorker worker = new TransitionResXmlWorker(destinationState);
+                element.AppendChild(worker.CreateXmlNode(doc));
+            }
             result.AppendChild(element);
 
             return result;
@@ -55,7 +58,7 @@ namespace ImportExport
             if (node == null) throw new ArgumentNullException("node");
             if (FSM == null) throw new NullReferenceException("FSM");
 
-            value = new TransitionRes<StructAtom<string>, StructAtom<string>>();
+            value = new Transition<StructAtom<string>, StructAtom<string>>(FSM);
 
             try
             {
@@ -64,29 +67,40 @@ namespace ImportExport
                     var childNode = node.ChildNodes[i];
                     switch (childNode.Name.ToLower())
                     {
-                        case "deststate":
+                        case "sourcestate":
                             {
                                 StateXmlWorker w = new StateXmlWorker();
                                 w.FSM = this.FSM;
-                                w.ParseFromNode(node.ChildNodes[i]);
+                                w.ParseFromNode(childNode);
                                 var state = w.Value as FSMState<StructAtom<string>, StructAtom<string>>;
-                                if (state != null)
+                                if(state != null)
                                 {
-                                    var exState = FSM.StateSet.First(s => s.KeyName == state.KeyName);
+                                    var exState = this.FSM.StateSet.FirstOrDefault(s => s.KeyName == state.KeyName);
                                     if (exState != null)
                                         state = exState;
-                                    value.DestState = state;
+                                    value.SourceState = state;
                                 }
                             }
                             break;
-                        case "output":
+                        case "input":
                             {
-                                value.Output = new StructAtom<string>(childNode.InnerText);
+                                value.Input = new StructAtom<string>(childNode.InnerText);
                             }
                             break;
-                        case "probability":
+                        case "transitionresults":
                             {
-                                value.Probability = double.Parse(childNode.InnerText);
+                                for (int j = 0; j < childNode.ChildNodes.Count; ++j)
+                                {
+                                    var childChildNodes = childNode.ChildNodes[j];
+                                    if (childChildNodes.Name.ToLower() == "transitionresult")
+                                    {
+                                        TransitionResXmlWorker w = new TransitionResXmlWorker();
+                                        w.FSM = this.FSM;
+                                        w.ParseFromNode(childChildNodes);
+                                        if(w.Value is TransitionRes<StructAtom<string>, StructAtom<string>>)
+                                            value.destinationStates.Add(w.Value as TransitionRes<StructAtom<string>, StructAtom<string>>);
+                                    }
+                                }
                             }
                             break;
                     }
@@ -116,7 +130,7 @@ namespace ImportExport
 
         public string NodeName
         {
-            get { return "TransitionResult"; }
+            get { return "Transition"; }
         }
 
         #endregion
