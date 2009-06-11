@@ -200,6 +200,10 @@
       <Project>{A4E7C152-CA25-4E56-A99D-33719F99EC98}</Project>
       <Name>DecomposeLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ImportExport\ImportExport.csproj">
+      <Project>{8FADFA05-26CA-4FD1-B898-D0C2038818FC}</Project>
+      <Name>ImportExport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\LogicUtils\LogicUtils.csproj">
       <Project>{F1172195-C45E-43CD-B7E3-CC89BB6D8219}</Project>
       <Name>LogicUtils</Name>

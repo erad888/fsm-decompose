@@ -26,6 +26,10 @@ namespace FSM
             this.KeyName = KeyName;
         }
 
+        public FiniteStateMachine()
+        {
+        }
+
         /// <summary>
         /// Начальное состояние
         /// </summary>
@@ -90,7 +94,8 @@ namespace FSM
             bool result = false;
             if (state.FSM == this)
             {
-                if (stateSet.FirstOrDefault(s => s.StateCore == state.StateCore) == null)
+                //if (stateSet.FirstOrDefault(s => s.StateCore == state.StateCore) == null)
+                if (stateSet.FirstOrDefault(s => s.KeyName == state.KeyName) == null)
                     result = stateSet.Add(state);
             }
             if(result)
@@ -905,7 +910,7 @@ namespace FSM
 
         #region IStringKeyable Members
 
-        public string KeyName { get; private set; }
+        public string KeyName { get; set; }
 
         #endregion
     }

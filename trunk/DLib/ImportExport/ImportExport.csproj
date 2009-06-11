@@ -45,10 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FSMXmlWorker.cs" />
     <Compile Include="IXmlWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateXmlWorker.cs" />
+    <Compile Include="StructAtomStringXmlWorker.cs" />
     <Compile Include="TransitionResXmlWorker.cs" />
+    <Compile Include="TransitionXmlWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FSM\FSM\FSM.csproj">

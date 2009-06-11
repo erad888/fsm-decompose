@@ -7,20 +7,18 @@ using FSM;
 
 namespace ImportExport
 {
-    public class StateXmlWorker: IXmlWorker
+    public class StructAtomStringXmlWorker:IXmlWorker
     {
-        public StateXmlWorker()
-        {
+        public StructAtomStringXmlWorker()
+        {    
         }
 
-        public StateXmlWorker(FSMState<StructAtom<string>, StructAtom<string>> state)
+        public StructAtomStringXmlWorker(StructAtom<string> atom)
         {
-            value = state;
+            value = atom;
         }
 
-        public FiniteStateMachine<StructAtom<string>, StructAtom<string>> FSM { get; set; }
-
-        private FSMState<StructAtom<string>, StructAtom<string>> value = null;
+        private StructAtom<string> value = null;
 
         #region IXmlWorker Members
 
@@ -35,7 +33,7 @@ namespace ImportExport
                 throw new NullReferenceException();
 
             XmlElement result = doc.CreateElement(nodeName);
-            result.InnerText = value.StateCore as string;
+            result.InnerText = value.Value;
 
             return result;
         }
@@ -43,12 +41,11 @@ namespace ImportExport
         public void ParseFromNode(XmlNode node)
         {
             if (node == null) throw new ArgumentNullException("node");
-            if (FSM == null) throw new NullReferenceException("FSM");
 
             try
             {
-                //if(node.ChildNodes.Count == 0)
-                    value = new FSMState<StructAtom<string>, StructAtom<string>>(FSM, node.InnerText);
+                //if (node.ChildNodes.Count == 0)
+                    value = new StructAtom<string>(node.InnerText);
             }
             catch (Exception exc)
             {
@@ -74,7 +71,7 @@ namespace ImportExport
 
         public string NodeName
         {
-            get { return "State"; }
+            get { return "Atom"; }
         }
 
         #endregion

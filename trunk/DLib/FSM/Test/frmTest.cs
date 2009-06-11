@@ -6,10 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 using DecomposeLib;
 using DevExpress.XtraTreeList.Nodes;
 using FSM;
 using LogicUtils;
+using ImportExport;
 
 namespace Test
 {
@@ -358,6 +360,18 @@ namespace Test
 
         private void btnDecompose_Click(object sender, EventArgs e)
         {
+            System.Xml.XmlDocument doc = new XmlDocument();
+            //FSMXmlWorker w = new FSMXmlWorker(fsmEditControl.fsm);
+            //doc.AppendChild(w.CreateXmlNode(doc));
+            //doc.Save("test.xml");
+            doc.Load("test.xml");
+            FSMXmlWorker w = new FSMXmlWorker();
+            w.ParseFromNode(doc.ChildNodes[0]);
+
+            fsmEditControl.fsm = w.Value as FiniteStateMachine<StructAtom<string>, StructAtom<string>>;
+            fsmEditControl.SetFSMToView();
+            return;
+
             if (fsmEditControl.fsm != null)
             {
                 var frm = new frmOrtPartitionSetEdit();
