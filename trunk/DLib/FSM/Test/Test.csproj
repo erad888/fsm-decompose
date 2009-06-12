@@ -60,6 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ChartTabPage.Designer.cs">
+      <DependentUpon>ChartTabPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChooseOrtPartition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -216,6 +223,15 @@
       <Project>{D14D9F6B-9637-445A-B697-8529DDD9963E}</Project>
       <Name>FSM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\deleteAll.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

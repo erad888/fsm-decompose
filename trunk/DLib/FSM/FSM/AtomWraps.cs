@@ -24,12 +24,12 @@ namespace FSM
             StructAtom<T> other = obj as StructAtom<T>;
             if (other == null)
                 return false;
-            return Value == other.Value;
+            return KeyName == other.KeyName;
         }
 
         public override int GetHashCode()
         {
-            return Value.GetHashCode();
+            return KeyName.GetHashCode();
         }
 
         public override string KeyName

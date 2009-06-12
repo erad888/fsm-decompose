@@ -23,6 +23,17 @@ namespace DecomposeLib
             }
         }
 
+        public DecompositionAlgorithm(FiniteStateMachine<TInput, TOutput> fsm)
+        {
+            FSM = fsm;
+            PIs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
+        }
+
+        public void AddPI(Partition<FSMState<TInput, TOutput>> pi)
+        {
+            PIs.Add(PIs.Count, pi);
+        }
+
         public FSMNet<TInput, TOutput> Solve()
         {
             if (FSM == null)
@@ -33,7 +44,9 @@ namespace DecomposeLib
             {
                 RefreshWorkSets();
                 
-                result = new FSMNet<TInput, TOutput>();
+                result = new FSMNet<TInput, TOutput>(FSM);
+                result.DecomposeAlg = this;
+
                 foreach (var pi in PIs)
                 {
                     result.AddToEnd(new FSMNet<TInput, TOutput>.NetComponent(new ComponentFSM<TInput, TOutput>(this, pi.Value, FSM.InitialState, pi.Key))
@@ -61,6 +74,10 @@ namespace DecomposeLib
         }
 
         public FiniteStateMachine<TInput, TOutput> FSM { get; private set; }
+        public Partition<FSMState<TInput, TOutput>>[] OrtPartitionsSet
+        {
+            get { return PIs.Values.ToArray(); }
+        }
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> PIs = null;
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> EPSs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> TAUs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();

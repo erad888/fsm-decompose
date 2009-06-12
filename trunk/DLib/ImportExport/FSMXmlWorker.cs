@@ -173,7 +173,13 @@ namespace ImportExport
                                         w.ParseFromNode(childChildNode);
                                         var tr = w.Value as Transition<StructAtom<string>, StructAtom<string>>;
                                         if (tr != null)
-                                            value.Transitions.Add(tr.ToString(), tr);
+                                        {
+                                            foreach (var destinationState in tr.destinationStates)
+                                            {
+                                                value.AddOutgoing(tr.SourceState, tr.Input, destinationState.DestState, destinationState.Output, destinationState.Probability);
+                                            }
+                                            //value.Transitions.Add(tr.ToString(), tr);
+                                        }
                                     }
                                 }
                             }

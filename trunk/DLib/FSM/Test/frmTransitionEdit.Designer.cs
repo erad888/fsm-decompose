@@ -67,14 +67,14 @@
             this.gvTransitions.GridControl = this.gcTransitions;
             this.gvTransitions.Name = "gvTransitions";
             // 
-            // frmTransitionsEdit
+            // frmTransitionEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 354);
             this.Controls.Add(this.splitContainerControl1);
-            this.Name = "frmTransitionsEdit";
-            this.Text = "frmTransitionsEdit";
+            this.Name = "frmTransitionEdit";
+            this.Text = "Редактирование переходов ";
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcTransitions)).EndInit();

@@ -16,8 +16,11 @@ namespace FSM
             HashSet<TInput> gamma);
         TOutput G(IEnumerable<HashSet<FSMState<TInput, TOutput>>> ts, TInput input);
 
+        FSMNet<TInput, TOutput> Solve();
+        void AddPI(Partition<FSMState<TInput, TOutput>> pi);
         void RefreshWorkSets();
 
         FiniteStateMachine<TInput, TOutput> FSM { get; }
+        Partition<FSMState<TInput, TOutput>>[] OrtPartitionsSet { get; }
     }
 }

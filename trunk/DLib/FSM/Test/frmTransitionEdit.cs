@@ -42,6 +42,7 @@ namespace Test
             PopulateChart();
             PopulateGrid();
             InitRepItems();
+            this.Text += string.Format(" ({0}, {1})", transition.SourceState.KeyName, transition.Input.KeyName);
             this.ShowDialog();
             return System.Windows.Forms.DialogResult.OK;
         }

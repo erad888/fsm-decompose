@@ -166,6 +166,11 @@ namespace DecomposeLib
         public int RejectionCount { get; private set; }
 
         /// <summary>
+        /// Продолжительность полезной работы
+        /// </summary>
+        public long WorkTime { get; internal set; }
+
+        /// <summary>
         /// Обработать данные
         /// </summary>
         /// <param name="state">Состояние автомата</param>

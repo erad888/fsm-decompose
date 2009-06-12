@@ -417,7 +417,11 @@ namespace FSM
             try
             {
                 var oldState = CurrentState;
-                var newState = CurrentState.Transit(initialEvent, out tempOutput, random);
+
+                FSMState<TInput, TOutput> newState = Sigma(CurrentState, initialEvent);
+                tempOutput = Lambda(CurrentState, initialEvent);
+
+                //var newState = CurrentState.Transit(initialEvent, out tempOutput, random);
 
                 if (newState != null)
                 {
@@ -508,9 +512,9 @@ namespace FSM
             CurrentState = InitialState;
         }
 
+        Random rnd = new Random(DateTime.Now.Millisecond);
         public void Randomize()
         {
-            Random rnd = new Random(DateTime.Now.Millisecond);
             random = rnd.NextDouble();
         }
 
@@ -518,6 +522,11 @@ namespace FSM
         {
             get { return random; }
             set { random = value; }
+        }
+
+        public void SetRandomTicket(int seed)
+        {
+            rnd = new Random(seed);
         }
 
         private double random = 0;
