@@ -11,6 +11,7 @@ using DevExpress.XtraEditors.Repository;
 using FSM;
 using FSM.Representation;
 using DevExpress.XtraGrid.Columns;
+using ImportExport;
 
 namespace Test
 {
@@ -166,12 +167,20 @@ namespace Test
 
         private void tsbtnLoad_Click(object sender, EventArgs e)
         {
-
+            Items = new List<StructAtom<string>>(StructAtomStringXmlWorker.LoadInputSeqFromFile());
+            SyncItems();
         }
 
         private void tsbtnSave_Click(object sender, EventArgs e)
         {
-
+            if (StructAtomStringXmlWorker.SaveInputSeqToFile(Items))
+            {
+                MessageBox.Show("Последовательность сохранена", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Последовательность не сохранена", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)

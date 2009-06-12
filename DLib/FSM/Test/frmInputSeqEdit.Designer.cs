@@ -28,17 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInputSeqEdit));
             this.gc = new DevExpress.XtraGrid.GridControl();
             this.gv = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnLoad = new System.Windows.Forms.ToolStripButton();
             this.tsbtnSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbtnClearAll = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbtnClearAll = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.gc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -79,22 +78,37 @@
             // tsbtnLoad
             // 
             this.tsbtnLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnLoad.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnLoad.Image")));
+            this.tsbtnLoad.Image = global::Test.Properties.Resources.load;
             this.tsbtnLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnLoad.Name = "tsbtnLoad";
             this.tsbtnLoad.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnLoad.Text = "toolStripButton1";
+            this.tsbtnLoad.Text = "Загрузить";
             this.tsbtnLoad.Click += new System.EventHandler(this.tsbtnLoad_Click);
             // 
             // tsbtnSave
             // 
             this.tsbtnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnSave.Image")));
+            this.tsbtnSave.Image = global::Test.Properties.Resources.save;
             this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSave.Name = "tsbtnSave";
             this.tsbtnSave.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnSave.Text = "toolStripButton1";
+            this.tsbtnSave.Text = "Сохранить";
             this.tsbtnSave.Click += new System.EventHandler(this.tsbtnSave_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbtnClearAll
+            // 
+            this.tsbtnClearAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnClearAll.Image = global::Test.Properties.Resources.deleteAll;
+            this.tsbtnClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnClearAll.Name = "tsbtnClearAll";
+            this.tsbtnClearAll.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnClearAll.Text = "Очистить список";
+            this.tsbtnClearAll.Click += new System.EventHandler(this.tsbtnClearAll_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -132,21 +146,6 @@
             this.btnCancel.Text = "Отмена";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsbtnClearAll
-            // 
-            this.tsbtnClearAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnClearAll.Image")));
-            this.tsbtnClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnClearAll.Name = "tsbtnClearAll";
-            this.tsbtnClearAll.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnClearAll.Text = "toolStripButton1";
-            this.tsbtnClearAll.Click += new System.EventHandler(this.tsbtnClearAll_Click);
-            // 
             // frmInputSeqEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,7 +154,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "frmInputSeqEdit";
-            this.Text = "frmInputSeqEdit";
+            this.Text = "Входная последовательность";
             ((System.ComponentModel.ISupportInitialize)(this.gc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv)).EndInit();
             this.toolStrip1.ResumeLayout(false);

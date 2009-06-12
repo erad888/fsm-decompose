@@ -64,7 +64,7 @@
             this.ClientSize = new System.Drawing.Size(968, 434);
             this.Controls.Add(this.splitContainerControl1);
             this.Name = "frmDecomposeResult";
-            this.Text = "frmDecomposeResult";
+            this.Text = "Результаты декомпозиции";
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
             this.ResumeLayout(false);

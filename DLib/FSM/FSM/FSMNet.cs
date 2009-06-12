@@ -56,6 +56,11 @@ namespace FSM
         public delegate TOutput FuncG(params object[] As);
         #endregion
 
+        public FSMNet(FiniteStateMachine<TInput, TOutput> fsm)
+        {
+            this.FSM = fsm;
+        }
+
         private HashSet<TOutput> outputSet = new HashSet<TOutput>();
         private HashSet<TInput> inputSet = new HashSet<TInput>();
         public Dictionary<int, NetComponent> componentFSMs = new Dictionary<int, NetComponent>();
@@ -67,6 +72,9 @@ namespace FSM
                 result = componentFSMs.First().Value.FiniteStateMachine.DecomposeAlg.G(states, input);
             return result;
         }
+
+        public FiniteStateMachine<TInput, TOutput> FSM { get; set; }
+        public IDecompositionAlg<TInput, TOutput> DecomposeAlg { get; set; }
 
         public FSMState<TInput, TOutput> InitialState { get; set; }
 
@@ -220,6 +228,15 @@ namespace FSM
             if (c != null)
             {
                 c.FiniteStateMachine.DecomposeAlg.FSM.Randomize();
+            }
+        }
+
+        public void SetRandomTicket(int seed)
+        {
+            var c = componentFSMs.Values.FirstOrDefault();
+            if (c != null)
+            {
+                c.FiniteStateMachine.DecomposeAlg.FSM.SetRandomTicket(seed);
             }
         }
 

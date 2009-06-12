@@ -120,7 +120,7 @@
             this.ClientSize = new System.Drawing.Size(1051, 622);
             this.Controls.Add(this.splitContainerControl1);
             this.Name = "frmTest";
-            this.Text = "Form1";
+            this.Text = "Декомпозиция вероятностного автомата";
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcFSMEdit)).EndInit();

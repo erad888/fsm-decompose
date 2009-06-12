@@ -112,7 +112,9 @@ namespace FSM
             if(other == null)
                 return false;
 
-            return StateCore == other.StateCore;
+            //TODO: ->
+            //return StateCore == other.StateCore;
+            return KeyName == other.KeyName;
         }
 
         public override int GetHashCode()

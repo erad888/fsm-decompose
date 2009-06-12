@@ -51,7 +51,7 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(568, 264);
@@ -61,9 +61,9 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.lbx, 3);
             this.lbx.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbx.Location = new System.Drawing.Point(3, 33);
+            this.lbx.Location = new System.Drawing.Point(3, 42);
             this.lbx.Name = "lbx";
-            this.lbx.Size = new System.Drawing.Size(562, 199);
+            this.lbx.Size = new System.Drawing.Size(562, 190);
             this.lbx.TabIndex = 0;
             // 
             // btnOK
@@ -91,12 +91,13 @@
             // 
             this.labelControl1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tableLayoutPanel1.SetColumnSpan(this.labelControl1, 3);
-            this.labelControl1.Location = new System.Drawing.Point(30, 8);
-            this.labelControl1.Margin = new System.Windows.Forms.Padding(30, 3, 3, 3);
+            this.labelControl1.Location = new System.Drawing.Point(30, 10);
+            this.labelControl1.Margin = new System.Windows.Forms.Padding(30, 10, 3, 3);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(366, 13);
+            this.labelControl1.Size = new System.Drawing.Size(456, 26);
             this.labelControl1.TabIndex = 2;
-            this.labelControl1.Text = "Выберете одно из предлагаемых ортогональных множеств разбиений :";
+            this.labelControl1.Text = "Обнаружены следующие множества разбиений, содержащие указанные Вами элементы.\r\nВы" +
+                "берете одно из них :";
             // 
             // frmChooseOrtPartition
             // 
@@ -107,7 +108,8 @@
             this.ClientSize = new System.Drawing.Size(568, 264);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "frmChooseOrtPartition";
-            this.Text = "frmChooseOrtPartition";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Предполагаемые множества ортогональных разбиений";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbx)).EndInit();

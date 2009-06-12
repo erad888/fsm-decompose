@@ -11,7 +11,9 @@ using DecomposeLib;
 using DevExpress.Utils;
 using DevExpress.XtraCharts;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraTab;
 using FSM;
+using System.Drawing.Imaging;
 
 namespace Test
 {
@@ -24,13 +26,13 @@ namespace Test
         }
 
         //private List<StructAtom<string>> InputSequence = new List<StructAtom<string>>();
-        public IFSM<StructAtom<string>, StructAtom<string>> TargetEntity { get; private set; }
+        public FSMNet<StructAtom<string>, StructAtom<string>> TargetNet { get; private set; }
 
-        public void Show(IFSM<StructAtom<string>, StructAtom<string>> target)
+        public void Show(FSMNet<StructAtom<string>, StructAtom<string>> target)
         {
             if (target == null) throw new ArgumentNullException("target");
 
-            TargetEntity = target;
+            TargetNet = target;
             SyncInitialState();
             this.Show();
         }
@@ -40,9 +42,32 @@ namespace Test
             seRepeatsNumber.Properties.MinValue = 1;
             seRepeatsNumber.Properties.Increment = 1;
             seRepeatsNumber.Properties.MaxValue = 100000;
-            cbxInputSequence.Properties.Buttons.Add(new EditorButton(ButtonPredefines.Ellipsis));
+            cbxInputSequence.Properties.Buttons.Add(new EditorButton(ButtonPredefines.Plus));
             cbxInputSequence.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
             cbxInputSequence.Properties.ButtonClick += Properties_ButtonClick;
+
+            tcCharts.HeaderButtons = TabButtons.Close;
+            tcCharts.CloseButtonClick += new EventHandler(tcCharts_CloseButtonClick);
+            tcCharts.SelectedPageChanged += new TabPageChangedEventHandler(tcCharts_SelectedPageChanged);
+        }
+
+        void tcCharts_SelectedPageChanged(object sender, TabPageChangedEventArgs e)
+        {
+            var ctp = e.Page as ChartTabPage;
+            if(ctp != null)
+            {
+                lblNetRejectionCountValue.Text = ctp.NetResults.RejectionCount.ToString();
+                lblNetTimeValue.Text = ctp.NetResults.WorkTime.ToString();
+                lblFSMRejectionCountValue.Text = ctp.FSMResults.RejectionCount.ToString();
+                lblFSMTimeValue.Text = ctp.FSMResults.WorkTime.ToString();
+                lblCountOfRepeatsValue.Text = ctp.NetResults.Conditions.RepeatsNumber.ToString();
+            }
+        }
+
+        void tcCharts_CloseButtonClick(object sender, EventArgs e)
+        {
+            if(tcCharts.SelectedTabPage != null)
+                tcCharts.TabPages.Remove(tcCharts.SelectedTabPage);
         }
 
         void Properties_ButtonClick(object sender, ButtonPressedEventArgs e)
@@ -50,6 +75,7 @@ namespace Test
             switch (e.Button.Kind)
             {
                 case ButtonPredefines.Ellipsis:
+                case ButtonPredefines.Plus:
                     EllipsisHandle();
                     break;
             }
@@ -58,7 +84,7 @@ namespace Test
         private void SyncInitialState()
         {
             cbxInitialState.Properties.Items.Clear();
-            cbxInitialState.Properties.Items.AddRange(TargetEntity.StateSet);
+            cbxInitialState.Properties.Items.AddRange(TargetNet.StateSet);
 
             if (cbxInitialState.Properties.Items.Count > 0)
                 cbxInitialState.SelectedIndex = 0;
@@ -66,14 +92,8 @@ namespace Test
 
         private void EllipsisHandle()
         {
-            // Тестовая последовательность
-            //var tst = new InputCollection(TargetEntity.InputSet);
-            //tst.Items.AddRange(TargetEntity.InputSet);
-            //tst.Items.AddRange(TargetEntity.InputSet);
-            //cbxInputSequence.Properties.Items.Add(tst);
-
             var frm = new frmInputSeqEdit();
-            if (frm.Show(TargetEntity.InputSet) == System.Windows.Forms.DialogResult.OK)
+            if (frm.Show(TargetNet.InputSet) == System.Windows.Forms.DialogResult.OK)
             {
                 if (frm.Items.Count > 0)
                 {
@@ -91,42 +111,73 @@ namespace Test
         {
             ClearResultSection();
 
-            var stat = CollectStat();
+            int seed = DateTime.Now.Millisecond;
 
-            if (chc.Series.Count > 0)
-            {
-                var s = chc.Series[0];
-                s.Points.Clear();
-                
-                s.Points.AddRange(stat.StateFrequency.Select(sf => new SeriesPoint(sf.Key.KeyName, new double[] {sf.Value})).ToArray());
+            TargetNet.SetRandomTicket(seed);
+            var netStat = CollectNetStat();
 
-                lblRejectionCountValue.Text = stat.RejectionCount.ToString();
-            }
+            if (!chbxSyncronize.Checked)
+                seed = DateTime.Now.Millisecond;
+
+            TargetNet.FSM.SetRandomTicket(seed);
+            var fsmStat = CollectFSMStat();
+
+            var tp = new ChartTabPage();
+            tp.Text = (tcCharts.TabPages.Count + 1).ToString();
+            
+            tp.NetResults = netStat;
+            tp.Net = TargetNet;
+            tp.FSMResults = fsmStat;
+            tp.FSM = TargetNet.FSM;
+            tp.SyncData();
+            
+            tp.chartControlStates.ContextMenuStrip = cmsCharts1;
+            tp.chartControlOutputs.ContextMenuStrip = cmsCharts2;
+
+            tcCharts.TabPages.Add(tp);
+            tcCharts.SelectedTabPage = tp;
         }
 
         private void ClearResultSection()
         {
-            lblRejectionCountValue.Text = 0.ToString();
-            lblTimeValue.Text = 0.ToString();
+            lblNetRejectionCountValue.Text = 0.ToString();
+            lblNetTimeValue.Text = 0.ToString();
         }
 
-        private StatisticsResult<StructAtom<string>, StructAtom<string>> CollectStat()
+        private StatisticCollectCondition<StructAtom<string>, StructAtom<string>> GetConditions()
         {
-            if(TargetEntity == null)
+            if (TargetNet == null)
                 throw new NullReferenceException();
 
             var inputSec = cbxInputSequence.SelectedItem as InputCollection;
-            if(inputSec == null)
+            if (inputSec == null)
                 throw new NullReferenceException();
 
             var initState = cbxInitialState.SelectedItem as FSMState<StructAtom<string>, StructAtom<string>>;
-            if(initState == null)
+            if (initState == null)
                 throw new NullReferenceException();
 
             int repeats = (int)seRepeatsNumber.Value;
 
-            var statisticManager = new FSMStatisticManager<StructAtom<string>, StructAtom<string>>(TargetEntity);
-            var result = statisticManager.CollectStatistics(new StatisticCollectCondition<StructAtom<string>, StructAtom<string>>(inputSec.Items) { RepeatsNumber = repeats, InitialState = initState});
+            return new StatisticCollectCondition<StructAtom<string>, StructAtom<string>>(inputSec.Items) { RepeatsNumber = repeats, InitialState = initState };
+        }
+
+        private StatisticsResult<StructAtom<string>, StructAtom<string>> CollectNetStat()
+        {
+            var conditions = GetConditions();
+
+            var statisticManager = new FSMStatisticManager<StructAtom<string>, StructAtom<string>>(TargetNet);
+            var result = statisticManager.CollectStatistics(conditions);
+
+            return result;
+        }
+
+        private StatisticsResult<StructAtom<string>, StructAtom<string>> CollectFSMStat()
+        {
+            var conditions = GetConditions();
+
+            var statisticManager = new FSMStatisticManager<StructAtom<string>, StructAtom<string>>(TargetNet.FSM);
+            var result = statisticManager.CollectStatistics(conditions);
 
             return result;
         }
@@ -163,6 +214,66 @@ namespace Test
 
                 return result;
             }
+        }
+
+        private void tsmiSaveToFile1_Click(object sender, EventArgs e)
+        {
+            if (tcCharts.SelectedTabPage != null)
+            {
+                if (SaveChartToFile((tcCharts.SelectedTabPage as ChartTabPage).chartControlStates))
+                    MessageBox.Show("Файл успешно сохранён", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void tsmiSaveToFile2_Click(object sender, EventArgs e)
+        {
+            if (tcCharts.SelectedTabPage != null)
+            {
+                if (SaveChartToFile((tcCharts.SelectedTabPage as ChartTabPage).chartControlOutputs))
+                    MessageBox.Show("Файл успешно сохранён", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private bool SaveChartToFile(ChartControl chartControl)
+        {
+            if (chartControl == null) throw new ArgumentNullException("chartControl");
+
+            bool result = false;
+
+            try
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "bmp-файл (*.bmp)|*.bmp|jpeg-файл (*.jpeg)|*.jpeg|png-файл (*.png)|*.png";
+
+                if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var fi = new System.IO.FileInfo(sfd.FileName);
+                    ImageFormat format = null;
+                    switch (fi.Extension)
+                    {
+                        case ".bmp":
+                            format = ImageFormat.Bmp;
+                            break;
+                        case ".jpeg":
+                            format = ImageFormat.Jpeg;
+                            break;
+                        case ".png":
+                            format = ImageFormat.Png;
+                            break;
+                    }
+                    if (format != null)
+                    {
+                        chartControl.ExportToImage(fi.FullName, format);
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 }

@@ -28,22 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pec = new Test.PartitionEditControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.pec = new Test.PartitionEditControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pec
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.pec, 3);
-            this.pec.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pec.Location = new System.Drawing.Point(0, 0);
-            this.pec.Margin = new System.Windows.Forms.Padding(0);
-            this.pec.Name = "pec";
-            this.pec.Size = new System.Drawing.Size(586, 359);
-            this.pec.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -84,6 +74,16 @@
             this.btnCancel.Text = "Отмена";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // pec
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.pec, 3);
+            this.pec.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pec.Location = new System.Drawing.Point(0, 0);
+            this.pec.Margin = new System.Windows.Forms.Padding(0);
+            this.pec.Name = "pec";
+            this.pec.Size = new System.Drawing.Size(586, 359);
+            this.pec.TabIndex = 0;
+            // 
             // frmPatitionEdit
             // 
             this.AcceptButton = this.btnOK;
@@ -93,7 +93,8 @@
             this.ClientSize = new System.Drawing.Size(586, 388);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "frmPatitionEdit";
-            this.Text = "frmPatitionsEdit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Редактирование разбиения";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
