@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecompositionAlgorithm.cs" />
+    <Compile Include="Extentions.cs" />
     <Compile Include="FSMStatisticManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

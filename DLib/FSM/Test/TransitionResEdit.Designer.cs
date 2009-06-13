@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransitionResEdit));
             this.gc = new DevExpress.XtraEditors.GroupControl();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
@@ -146,6 +147,7 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(284, 264);
             this.Controls.Add(this.gc);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TransitionResEdit";
             this.Text = "Добавление перехода";
             ((System.ComponentModel.ISupportInitialize)(this.gc)).EndInit();

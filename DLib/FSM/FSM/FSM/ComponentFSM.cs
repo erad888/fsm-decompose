@@ -23,7 +23,7 @@ namespace FSM
 
         #region Properties
         public int OrderNumber { get; private set; }
-        internal IDecompositionAlg<TInput, TOutput> DecomposeAlg { get; set; }
+        public IDecompositionAlg<TInput, TOutput> DecomposeAlg { get; set; }
 
         public Partition<FSMState<TInput, TOutput>> PI { get; private set; }
         public HashSet<FSMState<TInput, TOutput>> CurrentState

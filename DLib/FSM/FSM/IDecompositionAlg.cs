@@ -22,5 +22,6 @@ namespace FSM
 
         FiniteStateMachine<TInput, TOutput> FSM { get; }
         Partition<FSMState<TInput, TOutput>>[] OrtPartitionsSet { get; }
+        Dictionary<int, Partition<FSMState<TInput, TOutput>>> PIs { get; }
     }
 }

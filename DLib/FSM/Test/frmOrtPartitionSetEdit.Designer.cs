@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrtPartitionSetEdit));
             this.lbxPartitions = new DevExpress.XtraEditors.ListBoxControl();
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.btnRemove = new DevExpress.XtraEditors.SimpleButton();
@@ -134,6 +135,7 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(446, 322);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmOrtPartitionSetEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ортогональное множество разбиений";

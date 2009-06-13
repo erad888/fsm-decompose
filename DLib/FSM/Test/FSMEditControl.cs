@@ -74,50 +74,68 @@ namespace Test
 
         void leOutput_ItemRemoved(object sender, TemplateEventArgs<object> e)
         {
-            if (fsm.RemoveOutput(e.Value as string))
-                SetFSMToView();
-            else
-                e.Cancel = true;
+            if (fsm != null)
+            {
+                if (fsm.RemoveOutput(e.Value as string))
+                    SetFSMToView();
+                else
+                    e.Cancel = true;
+            }
         }
 
         void leOutput_ItemAdded(object sender, TemplateEventArgs<object> e)
         {
-            if (fsm.AddOutput(new StructAtom<string>(e.Value as string)))
-                SetFSMToView();
-            else
-                e.Cancel = true;
+            if (fsm != null)
+            {
+                if (fsm.AddOutput(new StructAtom<string>(e.Value as string)))
+                    SetFSMToView();
+                else
+                    e.Cancel = true;
+            }
         }
 
         void leInput_ItemRemoved(object sender, TemplateEventArgs<object> e)
         {
-            if (fsm.RemoveInput(e.Value as string))
-                SetFSMToView();
-            else
-                e.Cancel = true;
+            if (fsm != null)
+            {
+                if (fsm.RemoveInput(e.Value as string))
+                    SetFSMToView();
+                else
+                    e.Cancel = true;
+            }
         }
 
         void leInput_ItemAdded(object sender, TemplateEventArgs<object> e)
         {
-            if (fsm.AddInput(new StructAtom<string>(e.Value as string)))
-                SetFSMToView();
-            else
-                e.Cancel = true;
+            if (fsm != null)
+            {
+                if (fsm.AddInput(new StructAtom<string>(e.Value as string)))
+                    SetFSMToView();
+                else
+                    e.Cancel = true;
+            }
         }
 
         void leStates_ItemRemoved(object sender, TemplateEventArgs<object> e)
         {
-            if (fsm.RemoveState(e.Value))
-                SetFSMToView();
-            else
-                e.Cancel = true;
+            if (fsm != null)
+            {
+                if (fsm.RemoveState(e.Value))
+                    SetFSMToView();
+                else
+                    e.Cancel = true;
+            }
         }
 
         void leStates_ItemAdded(object sender, TemplateEventArgs<object> e)
         {
-            if(fsm.AddState(e.Value))
-                SetFSMToView();
-            else
-                e.Cancel = true;
+            if (fsm != null)
+            {
+                if (fsm.AddState(e.Value))
+                    SetFSMToView();
+                else
+                    e.Cancel = true;
+            }
         }
 
         private void InitRepItems()

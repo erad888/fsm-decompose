@@ -58,6 +58,8 @@ namespace Test
                         partitions.Count,
                         partitions.Count + 1);
 
+
+
                     var frm = new frmChooseOrtPartition();
                     if (frm.Show(partsListList) == System.Windows.Forms.DialogResult.OK)
                     {

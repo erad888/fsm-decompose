@@ -47,6 +47,8 @@ namespace Test
                 lbxItemsSet.SelectedIndex = 0;
         }
 
+        public bool AllowRename { get; set; }
+
         public List<object> Items { get; private set; }
         public CreationRuleDelegate CreationRule { get; set; }
 
@@ -110,7 +112,7 @@ namespace Test
             try
             {
                 if (CreationRule == null)
-                    throw new NullReferenceException("Не задано правило создание объектов.");
+                    throw new NullReferenceException("Не задано правило создания объектов.");
 
                 if (string.IsNullOrEmpty(tbxNewItem.Text))
                     throw new NullReferenceException("Значение не задано");
