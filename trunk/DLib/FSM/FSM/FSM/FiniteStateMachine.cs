@@ -21,13 +21,14 @@ namespace FSM
         /// <summary>
         /// Конструктор
         /// </summary>
-        public FiniteStateMachine(string KeyName)
+        public FiniteStateMachine(string KeyName):this()
         {
             this.KeyName = KeyName;
         }
 
         public FiniteStateMachine()
         {
+            IsProbabilityMachine = false;
         }
 
         /// <summary>
@@ -58,6 +59,11 @@ namespace FSM
             {
                 StateChanging(this, new FSMTransitionEventArgs<TInput, TOutput>(fromState, toState));
             }
+        }
+
+        public bool CheckInitialization()
+        {
+            return stateSet.Count > 0 && inputSet.Count > 0 && outputSet.Count > 0;
         }
 
         public FSMState<TInput, TOutput>[] StateSet
@@ -305,6 +311,25 @@ namespace FSM
                 InitialState = stateSet.FirstOrDefault();
         }
 
+        public bool IsProbabilityMachine { get; private set; }
+
+        public bool CalcIsProbabilityMachine()
+        {
+            foreach (var transition in Transitions)
+            {
+                foreach (var destinationState in transition.Value.destinationStates)
+                {
+                    if (destinationState.Probability > 0 && destinationState.Probability < 1)
+                    {
+                        IsProbabilityMachine = true;
+                        break;
+                    }
+                }
+            }
+
+            return IsProbabilityMachine;
+        }
+
         public bool AddOutgoing(FSMState<TInput, TOutput> sourceState, TInput action, FSMState<TInput, TOutput> destinationState, TOutput output)
         {
             return AddOutgoing(sourceState, action, destinationState, output, 1);
@@ -340,6 +365,11 @@ namespace FSM
                         result = Transitions[transition.ToString()].AddDestination(destinationState, output, probability);
                 }
             }
+
+            if(result)
+                if(probability < 1)
+                    IsProbabilityMachine = true;
+
             return result;
         }
 
@@ -456,7 +486,8 @@ namespace FSM
         public FSMState<TInput, TOutput> Sigma(FSMState<TInput, TOutput> a, TInput z)
         {
             FSMState<TInput, TOutput> result = null;
-            var thisA = StateSet.FirstOrDefault(s => s.StateCore == a.StateCore);
+            //var thisA = StateSet.FirstOrDefault(s => s.StateCore == a.StateCore);
+            var thisA = StateSet.FirstOrDefault(s => s.KeyName == a.KeyName);
             if (thisA == null)
                 throw new NullReferenceException();
             if (thisA.Outgoing.ContainsKey(z.KeyName))
@@ -471,7 +502,8 @@ namespace FSM
         public TOutput Lambda(FSMState<TInput, TOutput> a, TInput z)
         {
             TOutput result = null;
-            var thisA = StateSet.FirstOrDefault(s => s.StateCore == a.StateCore);
+            //var thisA = StateSet.FirstOrDefault(s => s.StateCore == a.StateCore);
+            var thisA = StateSet.FirstOrDefault(s => s.KeyName == a.KeyName);
             if (thisA == null)
                 throw new NullReferenceException();
             if (thisA.Outgoing.ContainsKey(z.KeyName))

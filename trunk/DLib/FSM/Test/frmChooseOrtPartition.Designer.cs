@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChooseOrtPartition));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbx = new DevExpress.XtraEditors.ListBoxControl();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
@@ -107,6 +108,7 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(568, 264);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmChooseOrtPartition";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Предполагаемые множества ортогональных разбиений";

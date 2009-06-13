@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTransitionEdit));
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.gcTransitions = new DevExpress.XtraGrid.GridControl();
             this.gvTransitions = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -73,6 +74,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 354);
             this.Controls.Add(this.splitContainerControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmTransitionEdit";
             this.Text = "Редактирование переходов ";
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();

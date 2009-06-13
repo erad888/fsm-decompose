@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 using FSM;
 
@@ -215,5 +217,87 @@ namespace ImportExport
         }
 
         #endregion
+
+
+        public static bool SaveFSMToFile(FiniteStateMachine<StructAtom<string>, StructAtom<string>> fsm)
+        {
+            if (fsm == null) throw new ArgumentNullException("fsm");
+
+            bool result = false;
+
+            try
+            {
+                var sfd = new SaveFileDialog();
+                sfd.Filter = "xml-файл (*.xml)|*.xml";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    var fi = new FileInfo(sfd.FileName);
+                    if (fi.Extension == ".xml")
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        FSMXmlWorker w = new FSMXmlWorker(fsm);
+                        doc.AppendChild(w.CreateXmlNode(doc));
+                        doc.Save(fi.FullName);
+                        result = true;
+                    }
+                    else
+                        MessageBox.Show("Файл должен иметь расширение .xml", "Сохранение автомата",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception exc)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public static FiniteStateMachine<StructAtom<string>, StructAtom<string>> LoadFSMFromFile()
+        {
+            FiniteStateMachine<StructAtom<string>, StructAtom<string>> result = null;
+
+            try
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "xml-файл (*.xml)|*.xml";
+                ofd.Multiselect = false;
+                ofd.RestoreDirectory = true;
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    var fi = new FileInfo(ofd.FileName);
+                    if (fi.Extension == ".xml")
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load(fi.FullName);
+                        if (doc.ChildNodes.Count > 0)
+                        {
+                            var rootNode = doc.ChildNodes[0];
+                            FSMXmlWorker w = new FSMXmlWorker();
+                            if (rootNode.Name == w.NodeName)
+                            {
+                                w.ParseFromNode(rootNode);
+                                result = w.value;
+                            }
+                            else
+                                MessageBox.Show("Файл содержит некорректные данные", "Загрузка автомата",
+                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                            MessageBox.Show("Файл пуст", "Загрузка автомата",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                        MessageBox.Show("Файл должен иметь расширение .xml", "Загрузка автомата",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception exc)
+            {
+                result = null;
+            }
+
+            return result;
+        }
     }
 }

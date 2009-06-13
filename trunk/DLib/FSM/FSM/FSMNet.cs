@@ -47,7 +47,7 @@ namespace FSM
 
             private FSMInfo info = null;
 
-            private static int No = 0;
+            public static int No = 0;
 
             #endregion
         }
@@ -59,6 +59,8 @@ namespace FSM
         public FSMNet(FiniteStateMachine<TInput, TOutput> fsm)
         {
             this.FSM = fsm;
+
+            NetComponent.No = 0;
         }
 
         private HashSet<TOutput> outputSet = new HashSet<TOutput>();
@@ -90,7 +92,8 @@ namespace FSM
 
         public TOutput ProcessInput(TInput input)
         {
-            componentFSMs.First().Value.FiniteStateMachine.DecomposeAlg.RefreshWorkSets();
+            if (FSM.IsProbabilityMachine)
+                componentFSMs.First().Value.FiniteStateMachine.DecomposeAlg.RefreshWorkSets();
 
             Dictionary<int, HashSet<FSMState<TInput, TOutput>>> componentOutputs = new Dictionary<int, HashSet<FSMState<TInput, TOutput>>>();
             for (int i = 0; i < componentFSMs.Count; i++)

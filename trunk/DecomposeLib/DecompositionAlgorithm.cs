@@ -62,6 +62,8 @@ namespace DecomposeLib
                 TTs.Clear();
                 throw exc;
             }
+            if (result != null)
+                result.FSM.CalcIsProbabilityMachine();
             return result;
         }
 
@@ -78,7 +80,7 @@ namespace DecomposeLib
         {
             get { return PIs.Values.ToArray(); }
         }
-        private Dictionary<int, Partition<FSMState<TInput, TOutput>>> PIs = null;
+        public Dictionary<int, Partition<FSMState<TInput, TOutput>>> PIs { get; set; }
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> EPSs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
         private Dictionary<int, Partition<FSMState<TInput, TOutput>>> TAUs = new Dictionary<int, Partition<FSMState<TInput, TOutput>>>();
         private Dictionary<int, Partition<TInput>> Ns = new Dictionary<int, Partition<TInput>>();

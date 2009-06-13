@@ -109,33 +109,40 @@ namespace Test
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            ClearResultSection();
+            try
+            {
+                ClearResultSection();
 
-            int seed = DateTime.Now.Millisecond;
+                int seed = DateTime.Now.Millisecond;
 
-            TargetNet.SetRandomTicket(seed);
-            var netStat = CollectNetStat();
+                TargetNet.SetRandomTicket(seed);
+                var netStat = CollectNetStat();
 
-            if (!chbxSyncronize.Checked)
-                seed = DateTime.Now.Millisecond;
+                if (!chbxSyncronize.Checked)
+                    seed = DateTime.Now.Millisecond;
 
-            TargetNet.FSM.SetRandomTicket(seed);
-            var fsmStat = CollectFSMStat();
+                TargetNet.FSM.SetRandomTicket(seed);
+                var fsmStat = CollectFSMStat();
 
-            var tp = new ChartTabPage();
-            tp.Text = (tcCharts.TabPages.Count + 1).ToString();
-            
-            tp.NetResults = netStat;
-            tp.Net = TargetNet;
-            tp.FSMResults = fsmStat;
-            tp.FSM = TargetNet.FSM;
-            tp.SyncData();
-            
-            tp.chartControlStates.ContextMenuStrip = cmsCharts1;
-            tp.chartControlOutputs.ContextMenuStrip = cmsCharts2;
+                var tp = new ChartTabPage();
+                tp.Text = (tcCharts.TabPages.Count + 1).ToString();
 
-            tcCharts.TabPages.Add(tp);
-            tcCharts.SelectedTabPage = tp;
+                tp.NetResults = netStat;
+                tp.Net = TargetNet;
+                tp.FSMResults = fsmStat;
+                tp.FSM = TargetNet.FSM;
+                tp.SyncData();
+
+                tp.chartControlStates.ContextMenuStrip = cmsCharts1;
+                tp.chartControlOutputs.ContextMenuStrip = cmsCharts2;
+
+                tcCharts.TabPages.Add(tp);
+                tcCharts.SelectedTabPage = tp;
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ClearResultSection()
@@ -151,11 +158,11 @@ namespace Test
 
             var inputSec = cbxInputSequence.SelectedItem as InputCollection;
             if (inputSec == null)
-                throw new NullReferenceException();
+                throw new NullReferenceException("Не задана входная последовательность");
 
             var initState = cbxInitialState.SelectedItem as FSMState<StructAtom<string>, StructAtom<string>>;
             if (initState == null)
-                throw new NullReferenceException();
+                throw new NullReferenceException("Не указано начальное состояние");
 
             int repeats = (int)seRepeatsNumber.Value;
 

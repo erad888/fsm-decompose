@@ -99,6 +99,8 @@
             // 
             // leStates
             // 
+            this.leStates.AllowRename = false;
+            this.leStates.Caption = "";
             this.leStates.CreationRule = null;
             this.leStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leStates.Location = new System.Drawing.Point(3, 3);
@@ -108,6 +110,8 @@
             // 
             // leInput
             // 
+            this.leInput.AllowRename = false;
+            this.leInput.Caption = "";
             this.leInput.CreationRule = null;
             this.leInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leInput.Location = new System.Drawing.Point(302, 3);
@@ -117,6 +121,8 @@
             // 
             // leOutput
             // 
+            this.leOutput.AllowRename = false;
+            this.leOutput.Caption = "";
             this.leOutput.CreationRule = null;
             this.leOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leOutput.Location = new System.Drawing.Point(601, 3);
@@ -126,6 +132,8 @@
             // 
             // listEdit1
             // 
+            this.listEdit1.AllowRename = false;
+            this.listEdit1.Caption = "";
             this.listEdit1.CreationRule = null;
             this.listEdit1.Location = new System.Drawing.Point(0, 0);
             this.listEdit1.Name = "listEdit1";
@@ -134,6 +142,8 @@
             // 
             // listEdit2
             // 
+            this.listEdit2.AllowRename = false;
+            this.listEdit2.Caption = "";
             this.listEdit2.CreationRule = null;
             this.listEdit2.Location = new System.Drawing.Point(0, 0);
             this.listEdit2.Name = "listEdit2";
@@ -142,6 +152,8 @@
             // 
             // listEdit3
             // 
+            this.listEdit3.AllowRename = false;
+            this.listEdit3.Caption = "";
             this.listEdit3.CreationRule = null;
             this.listEdit3.Location = new System.Drawing.Point(0, 0);
             this.listEdit3.Name = "listEdit3";
@@ -150,6 +162,8 @@
             // 
             // listEdit4
             // 
+            this.listEdit4.AllowRename = false;
+            this.listEdit4.Caption = "";
             this.listEdit4.CreationRule = null;
             this.listEdit4.Location = new System.Drawing.Point(0, 0);
             this.listEdit4.Name = "listEdit4";
@@ -174,7 +188,6 @@
 
         #endregion
 
-        private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gvEdit;
         private ListEdit listEdit1;
         private ListEdit listEdit2;
@@ -185,5 +198,6 @@
         private ListEdit leInput;
         private ListEdit leOutput;
         public DevExpress.XtraEditors.SplitContainerControl splitContainerControl2;
+        public DevExpress.XtraGrid.GridControl gridControl1;
     }
 }

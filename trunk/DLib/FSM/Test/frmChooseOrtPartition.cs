@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FSM;
 using LogicUtils;
+using DecomposeLib;
 
 namespace Test
 {
@@ -39,7 +40,7 @@ namespace Test
             if (partitions == null) throw new ArgumentNullException("partitions");
 
             lbx.Items.Clear();
-            lbx.Items.AddRange(partitions.Select(ps => new PartsCollection(ps)).ToArray());
+            lbx.Items.AddRange(partitions.OrderBy(p => p.SimpleCriteria()).Select(ps => new PartsCollection(ps)).ToArray());
             if (lbx.Items.Count > 0)
                 lbx.SelectedIndex = 0;
             return ShowDialog();

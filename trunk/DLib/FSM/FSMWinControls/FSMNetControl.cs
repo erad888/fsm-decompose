@@ -44,15 +44,35 @@ namespace FSM.FSMWinControls
 
         void FSMNetControl_MouseClick(object sender, MouseEventArgs e)
         {
+            var oldSelected = SelectedBlock;
+
+            SelectedBlock = null;
             foreach (var subMachineBlock in SubMachineBlocks.Values)
             {
                 if (subMachineBlock.BoundRect.Contains(e.X, e.Y))
+                {
                     subMachineBlock.SetPenWidth(2);
+                    SelectedBlock = subMachineBlock.FSMInfo;
+                }
                 else
+                {
                     subMachineBlock.SetPenWidth(1);
+                }
                 Invalidate();
             }
+
+            if (SelectedBlock != oldSelected)
+                NotifySelectedBlockChanged();
         }
+
+        public event EventHandler<EventArgs> SelectedBlockChanged;
+        private void NotifySelectedBlockChanged()
+        {
+            if (SelectedBlockChanged != null)
+                SelectedBlockChanged(this, EventArgs.Empty);
+        }
+
+        public FSMInfo SelectedBlock { get; private set; }
 
         public FSMNetControl(INetComponentInfosContainer netComponentInfosContainer):this()
         {
@@ -181,6 +201,8 @@ namespace FSM.FSMWinControls
             return result;
         }
 
+        bool flag = false;
+
         protected override void OnPaint(PaintEventArgs e)
         {
             var old = e.Graphics.SmoothingMode;
@@ -263,6 +285,12 @@ namespace FSM.FSMWinControls
                 foreach (var block in SubMachineBlocks.Values.Take(SubMachineBlocks.Count - 1))
                 {
                     DrawOutputArrows(e.Graphics, block);
+                }
+
+                if (!flag)
+                {
+                    flag = true;
+                    Invalidate();
                 }
             }
 
@@ -439,17 +467,21 @@ namespace FSM.FSMWinControls
         private void DrawSubFSMBlock(Graphics graphics, Point point, SubMachineBlock block)
         {
             graphics.DrawPath(block.FSMBlockPen, block.FSMBlock.ToRoundedRect(SubFSMBlockRadius));
-            graphics.DrawString(block.FSMInfo.KeyName, Font, BlockBrush, point.X, point.Y - Font.Size / 2);
+            graphics.DrawString(block.FSMInfo.KeyName, Font, BlockBrush, point.X - ((int)(block.FSMInfo.KeyName.Length * 0.8 * Font.Size)) / 2, point.Y - Font.Size);
         }
 
         private void DrawFBlock(Graphics graphics, Point point, SubMachineBlock block)
         {
             graphics.DrawPath(block.FBlockPen, block.F.ToRoundedRect(FBlockRadius));
+            Point center = new Point(block.F.X + block.F.Width / 2, block.F.Y + block.F.Height / 2);
+            graphics.DrawString("f" + block.KeyName, Font, BlockBrush, center.X - ((int)((block.FSMInfo.KeyName.Length + 1) * 0.8 * Font.Size)) / 2, center.Y - Font.Size);
         }
 
         private void DrawKsiBlock(Graphics graphics, Point point, SubMachineBlock block)
         {
             graphics.DrawPath(block.KsiBlockPen, block.Ksi.ToRoundedRect(KsiBlockRadius));
+            Point center = new Point(block.Ksi.X + block.Ksi.Width / 2, block.Ksi.Y + block.Ksi.Height / 2);
+            graphics.DrawString("ksi" + block.KeyName, Font, BlockBrush, center.X - ((int)((block.FSMInfo.KeyName.Length + 3) * 0.8 * Font.Size)) / 2, center.Y - Font.Size);
         }
 
         private void DrawArrows(Graphics graphics, Point point, SubMachineBlock block)
