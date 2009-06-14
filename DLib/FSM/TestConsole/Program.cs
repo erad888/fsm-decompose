@@ -209,14 +209,17 @@ namespace TestConsole
 
 
             IEnumerable<Partition<FSMState<StructAtom<string>, StructAtom<string>>>> partitions =
-                Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllPartitions(set, 2).Where(p => p.Count() >= 2 && p.Count() <= 4);
+                Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllPartitions(set, 1);//.Where(p => p.Count() >= 2 && p.Count() <= 4);
+            var preParts = Partition<FSMState<StructAtom<string>, StructAtom<string>>>.FilterSamePartitions(partitions).ToArray();
             List<List<Partition<FSMState<StructAtom<string>, StructAtom<string>>>>> partsLists = Partition<FSMState<StructAtom<string>, StructAtom<string>>>.
                 GetAllOrtPartitionSets(
-                Partition<FSMState<StructAtom<string>, StructAtom<string>>>.FilterSamePartitions(partitions).ToArray(),
-                new[] {pi1, pi2},
+                preParts,
+                //new[] {pi1, pi2},
                 set,
                 2,
-                3);
+                //3);
+                preParts.Count()-1);
+
             //Console.WriteLine(Partition<FSMState<StructAtom<string>, StructAtom<string>>>.GetAllPartitions(set,1).Count().ToString());
             foreach (var partsList in partsLists.Take(100))
             {
