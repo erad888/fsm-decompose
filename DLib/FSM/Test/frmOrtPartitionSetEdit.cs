@@ -44,7 +44,7 @@ namespace Test
             }
             else
             {
-                if (partitions.Count > 1)
+                if (partitions.Count >= 1)
                 {
                     var partsListList = Partition<FSMState<StructAtom<string>, StructAtom<string>>>.
                         GetAllOrtPartitionSets(
