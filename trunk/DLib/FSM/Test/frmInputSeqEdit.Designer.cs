@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInputSeqEdit));
             this.gc = new DevExpress.XtraGrid.GridControl();
             this.gv = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -153,6 +154,7 @@
             this.ClientSize = new System.Drawing.Size(611, 354);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmInputSeqEdit";
             this.Text = "Входная последовательность";
             ((System.ComponentModel.ISupportInitialize)(this.gc)).EndInit();
