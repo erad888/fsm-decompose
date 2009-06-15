@@ -148,7 +148,8 @@ namespace LogicUtils
         public static List<List<Partition<T>>> GetAllOrtPartitionSets(Partition<T>[] partitions, Partition<T>[] fixedPartitions, HashSet<T> genuieSet, int minPartitionsCountInSet, int maxPartitionsCountInSet)
         {
             if (minPartitionsCountInSet >= maxPartitionsCountInSet) throw new ArgumentException("min >= max");
-            if (minPartitionsCountInSet <= 1) throw new ArgumentException("min is too low (<=1)");
+            //if (minPartitionsCountInSet <= 1) throw new ArgumentException("min is too low (<=1)");
+            if (minPartitionsCountInSet < 1) throw new ArgumentException("min is too low (<1)");
             if (maxPartitionsCountInSet >= partitions.Count()) throw new ArgumentException("max is too high (>= elements count)");
 
             HashSet<Partition<T>> partitionsSet = new HashSet<Partition<T>>(partitions);
