@@ -58,14 +58,15 @@ namespace Test
                         partitions.Count,
                         partitions.Count + 1);
 
-
-
-                    var frm = new frmChooseOrtPartition();
-                    if (frm.Show(partsListList) == System.Windows.Forms.DialogResult.OK)
+                    if (partsListList.Count > 0)
                     {
-                        partitions.Clear();
-                        partitions.AddRange(frm.SelectedPartitions);
-                        SyncPartitions();
+                        var frm = new frmChooseOrtPartition();
+                        if (frm.Show(partsListList) == System.Windows.Forms.DialogResult.OK)
+                        {
+                            partitions.Clear();
+                            partitions.AddRange(frm.SelectedPartitions);
+                            SyncPartitions();
+                        }
                     }
                 }
             }
