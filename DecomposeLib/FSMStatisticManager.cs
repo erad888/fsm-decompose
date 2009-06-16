@@ -46,7 +46,10 @@ namespace DecomposeLib
 
             StatisticsResult<TInput, TOutput> result = new StatisticsResult<TInput, TOutput>(conditions);
 
-            //TargetFSM.Random = 0.66461;
+            DebugTimer dt = new DebugTimer();
+
+            dt.Start();
+
             for (int i = 0; i < conditions.RepeatsNumber; ++i)
             {
                 TargetFSM.CurrentState = conditions.InitialState;
@@ -67,6 +70,8 @@ namespace DecomposeLib
 
                 }
             }
+
+            result.WorkTime = dt.GetSeconds();
             return result;
         }
     }
@@ -168,7 +173,7 @@ namespace DecomposeLib
         /// <summary>
         /// Продолжительность полезной работы
         /// </summary>
-        public long WorkTime { get; internal set; }
+        public double WorkTime { get; internal set; }
 
         /// <summary>
         /// Обработать данные
