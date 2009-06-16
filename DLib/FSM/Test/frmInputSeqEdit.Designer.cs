@@ -51,6 +51,8 @@
             this.gc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gc.EmbeddedNavigator.Name = "";
             this.gc.Location = new System.Drawing.Point(3, 3);
+            this.gc.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gc.LookAndFeel.UseWindowsXPTheme = true;
             this.gc.MainView = this.gv;
             this.gc.Name = "gc";
             this.gc.Size = new System.Drawing.Size(605, 294);
@@ -132,6 +134,8 @@
             // btnOK
             // 
             this.btnOK.Location = new System.Drawing.Point(452, 303);
+            this.btnOK.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnOK.LookAndFeel.UseWindowsXPTheme = true;
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 1;
@@ -141,6 +145,8 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(533, 303);
+            this.btnCancel.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnCancel.LookAndFeel.UseWindowsXPTheme = true;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;

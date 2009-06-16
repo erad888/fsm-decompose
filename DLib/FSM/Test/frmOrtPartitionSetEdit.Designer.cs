@@ -45,6 +45,8 @@
             this.tableLayoutPanel1.SetColumnSpan(this.lbxPartitions, 3);
             this.lbxPartitions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxPartitions.Location = new System.Drawing.Point(36, 31);
+            this.lbxPartitions.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.lbxPartitions.LookAndFeel.UseWindowsXPTheme = true;
             this.lbxPartitions.Name = "lbxPartitions";
             this.tableLayoutPanel1.SetRowSpan(this.lbxPartitions, 4);
             this.lbxPartitions.Size = new System.Drawing.Size(407, 258);
@@ -54,6 +56,8 @@
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdd.Location = new System.Drawing.Point(3, 62);
+            this.btnAdd.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAdd.LookAndFeel.UseWindowsXPTheme = true;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(27, 23);
             this.btnAdd.TabIndex = 1;
@@ -64,6 +68,8 @@
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.Location = new System.Drawing.Point(3, 91);
+            this.btnRemove.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnRemove.LookAndFeel.UseWindowsXPTheme = true;
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(27, 23);
             this.btnRemove.TabIndex = 1;
@@ -99,6 +105,8 @@
             // btnOK
             // 
             this.btnOK.Location = new System.Drawing.Point(287, 295);
+            this.btnOK.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnOK.LookAndFeel.UseWindowsXPTheme = true;
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 2;
@@ -109,6 +117,8 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(368, 295);
+            this.btnCancel.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnCancel.LookAndFeel.UseWindowsXPTheme = true;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;

@@ -79,6 +79,8 @@
             // 
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitContainerControl1.LookAndFeel.UseWindowsXPTheme = true;
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Controls.Add(this.grcStatParams);
             this.splitContainerControl1.Panel1.Controls.Add(this.gcSettings);
@@ -95,6 +97,8 @@
             this.grcStatParams.Controls.Add(this.tableLayoutPanel1);
             this.grcStatParams.Dock = System.Windows.Forms.DockStyle.Top;
             this.grcStatParams.Location = new System.Drawing.Point(0, 177);
+            this.grcStatParams.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grcStatParams.LookAndFeel.UseWindowsXPTheme = true;
             this.grcStatParams.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.grcStatParams.Name = "grcStatParams";
             this.grcStatParams.Size = new System.Drawing.Size(263, 180);
@@ -117,7 +121,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.lblCountOfRepeatsValue, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 20);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 18);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
@@ -125,7 +129,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(259, 158);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(259, 159);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -212,7 +216,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(45, 124);
+            this.label5.Location = new System.Drawing.Point(45, 125);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(110, 13);
             this.label5.TabIndex = 2;
@@ -222,7 +226,7 @@
             // 
             this.lblCountOfRepeatsValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCountOfRepeatsValue.AutoSize = true;
-            this.lblCountOfRepeatsValue.Location = new System.Drawing.Point(161, 124);
+            this.lblCountOfRepeatsValue.Location = new System.Drawing.Point(161, 125);
             this.lblCountOfRepeatsValue.Name = "lblCountOfRepeatsValue";
             this.lblCountOfRepeatsValue.Size = new System.Drawing.Size(13, 13);
             this.lblCountOfRepeatsValue.TabIndex = 1;
@@ -233,6 +237,8 @@
             this.gcSettings.Controls.Add(this.tableLayoutPanel2);
             this.gcSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.gcSettings.Location = new System.Drawing.Point(0, 0);
+            this.gcSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gcSettings.LookAndFeel.UseWindowsXPTheme = true;
             this.gcSettings.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.gcSettings.Name = "gcSettings";
             this.gcSettings.Size = new System.Drawing.Size(263, 177);
@@ -253,7 +259,7 @@
             this.tableLayoutPanel2.Controls.Add(this.btnRefresh, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.chbxSyncronize, 0, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 20);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 18);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -261,7 +267,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(259, 155);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(259, 156);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // labelControl3
@@ -330,6 +336,8 @@
             // 
             this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnRefresh.Location = new System.Drawing.Point(132, 106);
+            this.btnRefresh.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnRefresh.LookAndFeel.UseWindowsXPTheme = true;
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(124, 23);
             this.btnRefresh.TabIndex = 10;
@@ -351,8 +359,10 @@
             // 
             this.tcCharts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcCharts.Location = new System.Drawing.Point(0, 0);
+            this.tcCharts.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.tcCharts.LookAndFeel.UseWindowsXPTheme = true;
             this.tcCharts.Name = "tcCharts";
-            this.tcCharts.Size = new System.Drawing.Size(538, 564);
+            this.tcCharts.Size = new System.Drawing.Size(540, 563);
             this.tcCharts.TabIndex = 1;
             this.tcCharts.Text = "tcCharts";
             // 

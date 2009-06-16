@@ -57,6 +57,8 @@
             this.gc.Controls.Add(this.lblDestState);
             this.gc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gc.Location = new System.Drawing.Point(0, 0);
+            this.gc.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gc.LookAndFeel.UseWindowsXPTheme = true;
             this.gc.Name = "gc";
             this.gc.ShowCaption = false;
             this.gc.Size = new System.Drawing.Size(284, 264);
@@ -67,6 +69,8 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(197, 229);
+            this.btnCancel.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnCancel.LookAndFeel.UseWindowsXPTheme = true;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -76,6 +80,8 @@
             // btnOK
             // 
             this.btnOK.Location = new System.Drawing.Point(116, 229);
+            this.btnOK.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnOK.LookAndFeel.UseWindowsXPTheme = true;
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 6;

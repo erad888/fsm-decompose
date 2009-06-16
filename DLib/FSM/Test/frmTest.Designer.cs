@@ -37,9 +37,9 @@
             this.splitContainerControl2 = new DevExpress.XtraEditors.SplitContainerControl();
             this.btnDecompose = new DevExpress.XtraEditors.SimpleButton();
             this.tsMain = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnSaveFSM = new System.Windows.Forms.ToolStripButton();
             this.tsbtnLoadFSM = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnDecompose = new System.Windows.Forms.ToolStripButton();
             this.tsbtnToExcel = new System.Windows.Forms.ToolStripButton();
             this.fsmEditControl = new Test.FSMEditControl();
@@ -61,6 +61,7 @@
             this.splitContainerControl1.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.Panel2;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 25);
             this.splitContainerControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitContainerControl1.LookAndFeel.UseWindowsXPTheme = true;
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainerControl1.Panel1.Text = "Panel1";
@@ -85,7 +86,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(814, 589);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(816, 587);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // gcFSMEdit
@@ -93,9 +94,11 @@
             this.gcFSMEdit.Controls.Add(this.fsmEditControl);
             this.gcFSMEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcFSMEdit.Location = new System.Drawing.Point(3, 57);
+            this.gcFSMEdit.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gcFSMEdit.LookAndFeel.UseWindowsXPTheme = true;
             this.gcFSMEdit.Name = "gcFSMEdit";
             this.gcFSMEdit.ShowCaption = false;
-            this.gcFSMEdit.Size = new System.Drawing.Size(808, 529);
+            this.gcFSMEdit.Size = new System.Drawing.Size(810, 527);
             this.gcFSMEdit.TabIndex = 1;
             // 
             // tbxFSMName
@@ -103,7 +106,7 @@
             this.tbxFSMName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxFSMName.Location = new System.Drawing.Point(3, 31);
             this.tbxFSMName.Name = "tbxFSMName";
-            this.tbxFSMName.Size = new System.Drawing.Size(808, 20);
+            this.tbxFSMName.Size = new System.Drawing.Size(810, 20);
             this.tbxFSMName.TabIndex = 2;
             // 
             // label1
@@ -121,6 +124,8 @@
             this.splitContainerControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl2.Horizontal = false;
             this.splitContainerControl2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerControl2.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitContainerControl2.LookAndFeel.UseWindowsXPTheme = true;
             this.splitContainerControl2.Name = "splitContainerControl2";
             this.splitContainerControl2.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.splitContainerControl2.Panel1.Controls.Add(this.leFSMs);
@@ -128,7 +133,7 @@
             this.splitContainerControl2.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.splitContainerControl2.Panel2.Controls.Add(this.btnDecompose);
             this.splitContainerControl2.Panel2.Text = "Panel2";
-            this.splitContainerControl2.Size = new System.Drawing.Size(219, 589);
+            this.splitContainerControl2.Size = new System.Drawing.Size(219, 587);
             this.splitContainerControl2.SplitterPosition = 243;
             this.splitContainerControl2.TabIndex = 2;
             this.splitContainerControl2.Text = "splitContainerControl2";
@@ -136,6 +141,8 @@
             // btnDecompose
             // 
             this.btnDecompose.Location = new System.Drawing.Point(82, 13);
+            this.btnDecompose.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnDecompose.LookAndFeel.UseWindowsXPTheme = true;
             this.btnDecompose.Name = "btnDecompose";
             this.btnDecompose.Size = new System.Drawing.Size(134, 27);
             this.btnDecompose.TabIndex = 0;
@@ -156,11 +163,6 @@
             this.tsMain.TabIndex = 2;
             this.tsMain.Text = "toolStrip1";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // tsbtnSaveFSM
             // 
             this.tsbtnSaveFSM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -180,6 +182,11 @@
             this.tsbtnLoadFSM.Size = new System.Drawing.Size(23, 22);
             this.tsbtnLoadFSM.Text = "Загрузить автомат";
             this.tsbtnLoadFSM.Click += new System.EventHandler(this.tsbtnLoadFSM_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbtnDecompose
             // 
@@ -207,7 +214,7 @@
             this.fsmEditControl.fsm = null;
             this.fsmEditControl.Location = new System.Drawing.Point(2, 2);
             this.fsmEditControl.Name = "fsmEditControl";
-            this.fsmEditControl.Size = new System.Drawing.Size(804, 525);
+            this.fsmEditControl.Size = new System.Drawing.Size(806, 522);
             this.fsmEditControl.TabIndex = 0;
             // 
             // leFSMs

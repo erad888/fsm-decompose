@@ -77,6 +77,9 @@ namespace Test
         {
             splitContainer.Horizontal = false;
             splitContainer.Dock = DockStyle.Fill;
+            splitContainer.LookAndFeel.UseDefaultLookAndFeel = false;
+            splitContainer.LookAndFeel.UseWindowsXPTheme = true;
+
             Controls.Add(splitContainer);
 
             InitChart();

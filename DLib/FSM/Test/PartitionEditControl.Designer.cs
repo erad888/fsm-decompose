@@ -85,6 +85,8 @@
             // 
             this.lbxStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxStates.Location = new System.Drawing.Point(3, 3);
+            this.lbxStates.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.lbxStates.LookAndFeel.UseWindowsXPTheme = true;
             this.lbxStates.Name = "lbxStates";
             this.tableLayoutPanel1.SetRowSpan(this.lbxStates, 6);
             this.lbxStates.Size = new System.Drawing.Size(172, 305);
@@ -94,6 +96,8 @@
             // 
             this.btnToTemp.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnToTemp.Location = new System.Drawing.Point(181, 100);
+            this.btnToTemp.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnToTemp.LookAndFeel.UseWindowsXPTheme = true;
             this.btnToTemp.Name = "btnToTemp";
             this.btnToTemp.Size = new System.Drawing.Size(46, 23);
             this.btnToTemp.TabIndex = 3;
@@ -104,6 +108,8 @@
             // 
             this.btnAllToTemp.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAllToTemp.Location = new System.Drawing.Point(181, 129);
+            this.btnAllToTemp.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAllToTemp.LookAndFeel.UseWindowsXPTheme = true;
             this.btnAllToTemp.Name = "btnAllToTemp";
             this.btnAllToTemp.Size = new System.Drawing.Size(46, 23);
             this.btnAllToTemp.TabIndex = 4;
@@ -114,6 +120,8 @@
             // 
             this.btnFromTemp.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnFromTemp.Location = new System.Drawing.Point(181, 158);
+            this.btnFromTemp.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnFromTemp.LookAndFeel.UseWindowsXPTheme = true;
             this.btnFromTemp.Name = "btnFromTemp";
             this.btnFromTemp.Size = new System.Drawing.Size(46, 23);
             this.btnFromTemp.TabIndex = 5;
@@ -124,6 +132,8 @@
             // 
             this.btnAllFromTemp.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAllFromTemp.Location = new System.Drawing.Point(181, 187);
+            this.btnAllFromTemp.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAllFromTemp.LookAndFeel.UseWindowsXPTheme = true;
             this.btnAllFromTemp.Name = "btnAllFromTemp";
             this.btnAllFromTemp.Size = new System.Drawing.Size(46, 23);
             this.btnAllFromTemp.TabIndex = 6;
@@ -135,6 +145,8 @@
             this.tableLayoutPanel1.SetColumnSpan(this.splitContainerControl1, 2);
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl1.Location = new System.Drawing.Point(233, 3);
+            this.splitContainerControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitContainerControl1.LookAndFeel.UseWindowsXPTheme = true;
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Controls.Add(this.lbxTempStates);
             this.splitContainerControl1.Panel1.Text = "Panel1";
@@ -150,8 +162,10 @@
             // 
             this.lbxTempStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxTempStates.Location = new System.Drawing.Point(0, 0);
+            this.lbxTempStates.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.lbxTempStates.LookAndFeel.UseWindowsXPTheme = true;
             this.lbxTempStates.Name = "lbxTempStates";
-            this.lbxTempStates.Size = new System.Drawing.Size(116, 301);
+            this.lbxTempStates.Size = new System.Drawing.Size(116, 300);
             this.lbxTempStates.TabIndex = 1;
             // 
             // gcBlocks
@@ -159,8 +173,10 @@
             this.gcBlocks.Controls.Add(this.tableLayoutPanel2);
             this.gcBlocks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcBlocks.Location = new System.Drawing.Point(0, 0);
+            this.gcBlocks.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gcBlocks.LookAndFeel.UseWindowsXPTheme = true;
             this.gcBlocks.Name = "gcBlocks";
-            this.gcBlocks.Size = new System.Drawing.Size(212, 301);
+            this.gcBlocks.Size = new System.Drawing.Size(214, 300);
             this.gcBlocks.TabIndex = 0;
             this.gcBlocks.Text = "Блоки разбиения :";
             // 
@@ -173,29 +189,33 @@
             this.tableLayoutPanel2.Controls.Add(this.btnAdd, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnRemove, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 20);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 18);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(208, 279);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(210, 279);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // lbxBlocks
             // 
             this.lbxBlocks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxBlocks.Location = new System.Drawing.Point(38, 3);
+            this.lbxBlocks.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.lbxBlocks.LookAndFeel.UseWindowsXPTheme = true;
             this.lbxBlocks.Name = "lbxBlocks";
             this.tableLayoutPanel2.SetRowSpan(this.lbxBlocks, 4);
-            this.lbxBlocks.Size = new System.Drawing.Size(167, 273);
+            this.lbxBlocks.Size = new System.Drawing.Size(169, 273);
             this.lbxBlocks.TabIndex = 0;
             // 
             // btnAdd
             // 
             this.btnAdd.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAdd.Location = new System.Drawing.Point(3, 25);
+            this.btnAdd.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAdd.LookAndFeel.UseWindowsXPTheme = true;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(29, 23);
             this.btnAdd.TabIndex = 1;
@@ -206,6 +226,8 @@
             // 
             this.btnRemove.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnRemove.Location = new System.Drawing.Point(3, 54);
+            this.btnRemove.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnRemove.LookAndFeel.UseWindowsXPTheme = true;
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(29, 23);
             this.btnRemove.TabIndex = 2;

@@ -46,6 +46,8 @@
             this.gcMain.Controls.Add(this.tableLayoutPanel1);
             this.gcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcMain.Location = new System.Drawing.Point(0, 0);
+            this.gcMain.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gcMain.LookAndFeel.UseWindowsXPTheme = true;
             this.gcMain.Name = "gcMain";
             this.gcMain.Size = new System.Drawing.Size(324, 198);
             this.gcMain.TabIndex = 0;
@@ -61,27 +63,31 @@
             this.tableLayoutPanel1.Controls.Add(this.btnPlus, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.tbxNewItem, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 20);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 18);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(320, 176);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(320, 177);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // lbxItemsSet
             // 
             this.lbxItemsSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxItemsSet.Location = new System.Drawing.Point(178, 3);
+            this.lbxItemsSet.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.lbxItemsSet.LookAndFeel.UseWindowsXPTheme = true;
             this.lbxItemsSet.Name = "lbxItemsSet";
             this.tableLayoutPanel1.SetRowSpan(this.lbxItemsSet, 3);
-            this.lbxItemsSet.Size = new System.Drawing.Size(139, 170);
+            this.lbxItemsSet.Size = new System.Drawing.Size(139, 171);
             this.lbxItemsSet.TabIndex = 2;
             // 
             // btnMinus
             // 
             this.btnMinus.Location = new System.Drawing.Point(148, 32);
+            this.btnMinus.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnMinus.LookAndFeel.UseWindowsXPTheme = true;
             this.btnMinus.Name = "btnMinus";
             this.btnMinus.Size = new System.Drawing.Size(24, 23);
             this.btnMinus.TabIndex = 3;
@@ -91,6 +97,8 @@
             // btnPlus
             // 
             this.btnPlus.Location = new System.Drawing.Point(148, 3);
+            this.btnPlus.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnPlus.LookAndFeel.UseWindowsXPTheme = true;
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.Size = new System.Drawing.Size(24, 23);
             this.btnPlus.TabIndex = 4;
