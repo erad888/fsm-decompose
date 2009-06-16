@@ -51,6 +51,8 @@
             this.splitContainerControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl2.Horizontal = false;
             this.splitContainerControl2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerControl2.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitContainerControl2.LookAndFeel.UseWindowsXPTheme = true;
             this.splitContainerControl2.Name = "splitContainerControl2";
             this.splitContainerControl2.Panel1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.splitContainerControl2.Panel1.Controls.Add(this.gridControl1);
@@ -68,6 +70,8 @@
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
+            this.gridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gridControl1.LookAndFeel.UseWindowsXPTheme = true;
             this.gridControl1.MainView = this.gvEdit;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(897, 342);
@@ -94,7 +98,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 264);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 266);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // leStates
@@ -105,7 +109,7 @@
             this.leStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leStates.Location = new System.Drawing.Point(3, 3);
             this.leStates.Name = "leStates";
-            this.leStates.Size = new System.Drawing.Size(293, 258);
+            this.leStates.Size = new System.Drawing.Size(293, 260);
             this.leStates.TabIndex = 0;
             // 
             // leInput
@@ -116,7 +120,7 @@
             this.leInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leInput.Location = new System.Drawing.Point(302, 3);
             this.leInput.Name = "leInput";
-            this.leInput.Size = new System.Drawing.Size(293, 258);
+            this.leInput.Size = new System.Drawing.Size(293, 260);
             this.leInput.TabIndex = 1;
             // 
             // leOutput
@@ -127,7 +131,7 @@
             this.leOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leOutput.Location = new System.Drawing.Point(601, 3);
             this.leOutput.Name = "leOutput";
-            this.leOutput.Size = new System.Drawing.Size(293, 258);
+            this.leOutput.Size = new System.Drawing.Size(293, 260);
             this.leOutput.TabIndex = 2;
             // 
             // listEdit1

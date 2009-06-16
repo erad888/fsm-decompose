@@ -42,6 +42,8 @@
             // 
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitContainerControl1.LookAndFeel.UseWindowsXPTheme = true;
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.gcTransitions);
@@ -56,9 +58,11 @@
             this.gcTransitions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcTransitions.EmbeddedNavigator.Name = "";
             this.gcTransitions.Location = new System.Drawing.Point(0, 0);
+            this.gcTransitions.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gcTransitions.LookAndFeel.UseWindowsXPTheme = true;
             this.gcTransitions.MainView = this.gvTransitions;
             this.gcTransitions.Name = "gcTransitions";
-            this.gcTransitions.Size = new System.Drawing.Size(382, 350);
+            this.gcTransitions.Size = new System.Drawing.Size(384, 349);
             this.gcTransitions.TabIndex = 0;
             this.gcTransitions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvTransitions});

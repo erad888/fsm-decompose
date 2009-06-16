@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPatitionEdit));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pec = new Test.PartitionEditControl();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.pec = new Test.PartitionEditControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,20 +54,12 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(586, 388);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // pec
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.pec, 3);
-            this.pec.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pec.Location = new System.Drawing.Point(0, 0);
-            this.pec.Margin = new System.Windows.Forms.Padding(0);
-            this.pec.Name = "pec";
-            this.pec.Size = new System.Drawing.Size(586, 359);
-            this.pec.TabIndex = 0;
-            // 
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.Location = new System.Drawing.Point(427, 362);
+            this.btnOK.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnOK.LookAndFeel.UseWindowsXPTheme = true;
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 1;
@@ -79,11 +71,23 @@
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(508, 362);
+            this.btnCancel.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnCancel.LookAndFeel.UseWindowsXPTheme = true;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // pec
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.pec, 3);
+            this.pec.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pec.Location = new System.Drawing.Point(0, 0);
+            this.pec.Margin = new System.Windows.Forms.Padding(0);
+            this.pec.Name = "pec";
+            this.pec.Size = new System.Drawing.Size(586, 359);
+            this.pec.TabIndex = 0;
             // 
             // frmPatitionEdit
             // 
