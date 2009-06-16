@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BidirectionalDictionary.cs" />
+    <Compile Include="DebugTimer.cs" />
+    <Compile Include="DllExport.cs" />
     <Compile Include="EventableDictionary.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Extensions.cs" />
