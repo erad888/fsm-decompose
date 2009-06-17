@@ -311,6 +311,11 @@ namespace FSM
                 InitialState = stateSet.FirstOrDefault();
         }
 
+        public void NormalizeStates()
+        {
+            stateSet = new HashSet<FSMState<TInput, TOutput>>(stateSet.OrderBy(s => s.KeyName));
+        }
+
         public bool IsProbabilityMachine { get; private set; }
 
         public bool CalcIsProbabilityMachine()

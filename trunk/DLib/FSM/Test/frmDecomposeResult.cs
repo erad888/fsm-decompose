@@ -155,6 +155,7 @@ namespace Test
             {
                 LogicComponent = net;
                 SyncLComponent();
+                nc.Reset();
             }
         }
     }

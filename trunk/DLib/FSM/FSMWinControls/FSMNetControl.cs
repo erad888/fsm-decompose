@@ -201,6 +201,11 @@ namespace FSM.FSMWinControls
             return result;
         }
 
+        public void Reset()
+        {
+            flag = false;
+        }
+
         bool flag = false;
 
         protected override void OnPaint(PaintEventArgs e)
@@ -432,6 +437,8 @@ namespace FSM.FSMWinControls
                                            GBlockWidth,
                                            GBlockHeigth);
             graphics.DrawPath(BlockPen, GBlock.ToRoundedRect(GBlockRadius));
+            Point center = new Point(GBlock.X + GBlock.Width / 2, GBlock.Y + GBlock.Height / 2);
+            graphics.DrawString("G", Font, BlockBrush, center.X - (int)(Font.Size) / 2, center.Y - Font.Size);
         }
 
         private void DrawOutputArrow(Graphics graphics)
@@ -481,7 +488,7 @@ namespace FSM.FSMWinControls
         {
             graphics.DrawPath(block.KsiBlockPen, block.Ksi.ToRoundedRect(KsiBlockRadius));
             Point center = new Point(block.Ksi.X + block.Ksi.Width / 2, block.Ksi.Y + block.Ksi.Height / 2);
-            graphics.DrawString("ksi" + block.KeyName, Font, BlockBrush, center.X - ((int)((block.FSMInfo.KeyName.Length + 3) * 0.8 * Font.Size)) / 2, center.Y - Font.Size);
+            graphics.DrawString("ѱ" + block.KeyName, Font, BlockBrush, center.X - ((int)((block.FSMInfo.KeyName.Length + 1) * 0.8 * Font.Size)) / 2, center.Y - Font.Size);
         }
 
         private void DrawArrows(Graphics graphics, Point point, SubMachineBlock block)

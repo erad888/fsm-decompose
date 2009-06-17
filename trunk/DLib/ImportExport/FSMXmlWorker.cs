@@ -297,6 +297,9 @@ namespace ImportExport
                 result = null;
             }
 
+            if (result != null)
+                result.NormalizeStates();
+
             return result;
         }
     }

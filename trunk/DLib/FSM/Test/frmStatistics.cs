@@ -56,11 +56,22 @@ namespace Test
             var ctp = e.Page as ChartTabPage;
             if(ctp != null)
             {
+                double netTime = ctp.NetResults.WorkTime / 5;
+                double fsmTime = ctp.FSMResults.WorkTime;
+                int repeats = ctp.NetResults.Conditions.RepeatsNumber;
+                int inputSeqLen = ctp.NetResults.Conditions.InputSequence.Count;
+
                 lblNetRejectionCountValue.Text = ctp.NetResults.RejectionCount.ToString();
-                lblNetTimeValue.Text = ctp.NetResults.WorkTime.ToString();
+                lblNetTimeValue.Text = netTime.ToString();
+                lblNetAvrWorkTimeValue.Text = (repeats > 0 && inputSeqLen > 0) ? (100 * netTime / (repeats * inputSeqLen)).ToString() : 0.ToString();
+                lblNetAvrWorkTimeValue.Text += " мс";
+
                 lblFSMRejectionCountValue.Text = ctp.FSMResults.RejectionCount.ToString();
-                lblFSMTimeValue.Text = ctp.FSMResults.WorkTime.ToString();
-                lblCountOfRepeatsValue.Text = ctp.NetResults.Conditions.RepeatsNumber.ToString();
+                lblFSMTimeValue.Text = fsmTime.ToString();
+                lblFSMAvrWorkTimeValue.Text = (repeats > 0 && inputSeqLen > 0) ? (100 * fsmTime / (repeats * inputSeqLen)).ToString() : 0.ToString();
+                lblFSMAvrWorkTimeValue.Text += " мс";
+
+                lblCountOfRepeatsValue.Text = repeats.ToString();
             }
         }
 
