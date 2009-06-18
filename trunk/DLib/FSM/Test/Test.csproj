@@ -36,6 +36,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Utils.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
+    <Reference Include="DevExpress.XtraBars.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
     <Reference Include="DevExpress.XtraCharts.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
     <Reference Include="DevExpress.XtraCharts.v7.2.UI, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
     <Reference Include="DevExpress.XtraEditors.v7.2, Version=7.2.4.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
