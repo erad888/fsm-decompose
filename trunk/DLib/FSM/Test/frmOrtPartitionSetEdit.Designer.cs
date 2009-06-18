@@ -42,14 +42,14 @@
             // 
             // lbxPartitions
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.lbxPartitions, 3);
+            this.tableLayoutPanel1.SetColumnSpan(this.lbxPartitions, 4);
             this.lbxPartitions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxPartitions.Location = new System.Drawing.Point(36, 31);
             this.lbxPartitions.LookAndFeel.UseDefaultLookAndFeel = false;
             this.lbxPartitions.LookAndFeel.UseWindowsXPTheme = true;
             this.lbxPartitions.Name = "lbxPartitions";
             this.tableLayoutPanel1.SetRowSpan(this.lbxPartitions, 4);
-            this.lbxPartitions.Size = new System.Drawing.Size(407, 258);
+            this.lbxPartitions.Size = new System.Drawing.Size(478, 258);
             this.lbxPartitions.TabIndex = 0;
             // 
             // btnAdd
@@ -78,17 +78,18 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.btnOK, 2, 5);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 3, 5);
             this.tableLayoutPanel1.Controls.Add(this.lbxPartitions, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnRemove, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnAdd, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 4, 5);
+            this.tableLayoutPanel1.Controls.Add(this.btnOK, 3, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -99,12 +100,12 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(446, 322);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(517, 322);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(287, 295);
+            this.btnOK.Location = new System.Drawing.Point(358, 295);
             this.btnOK.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnOK.LookAndFeel.UseWindowsXPTheme = true;
             this.btnOK.Name = "btnOK";
@@ -116,7 +117,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(368, 295);
+            this.btnCancel.Location = new System.Drawing.Point(439, 295);
             this.btnCancel.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnCancel.LookAndFeel.UseWindowsXPTheme = true;
             this.btnCancel.Name = "btnCancel";
@@ -129,7 +130,6 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.label1, 3);
             this.label1.Location = new System.Drawing.Point(36, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.label1.Name = "label1";
@@ -143,7 +143,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(446, 322);
+            this.ClientSize = new System.Drawing.Size(517, 322);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmOrtPartitionSetEdit";

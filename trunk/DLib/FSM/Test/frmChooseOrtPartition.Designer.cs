@@ -30,12 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChooseOrtPartition));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lbx = new DevExpress.XtraEditors.ListBoxControl();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.gc = new DevExpress.XtraGrid.GridControl();
+            this.gv = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gc)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -44,10 +46,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.lbx, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnOK, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnCancel, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.labelControl1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gc, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -57,17 +59,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(568, 264);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // lbx
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.lbx, 3);
-            this.lbx.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbx.Location = new System.Drawing.Point(3, 42);
-            this.lbx.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.lbx.LookAndFeel.UseWindowsXPTheme = true;
-            this.lbx.Name = "lbx";
-            this.lbx.Size = new System.Drawing.Size(562, 190);
-            this.lbx.TabIndex = 0;
             // 
             // btnOK
             // 
@@ -106,6 +97,26 @@
             this.labelControl1.Text = "Обнаружены следующие множества разбиений, содержащие указанные Вами элементы.\r\nВы" +
                 "берете одно из них :";
             // 
+            // gc
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.gc, 3);
+            this.gc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gc.EmbeddedNavigator.Name = "";
+            this.gc.Location = new System.Drawing.Point(3, 42);
+            this.gc.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.gc.LookAndFeel.UseWindowsXPTheme = true;
+            this.gc.MainView = this.gv;
+            this.gc.Name = "gc";
+            this.gc.Size = new System.Drawing.Size(562, 190);
+            this.gc.TabIndex = 3;
+            this.gc.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gv});
+            // 
+            // gv
+            // 
+            this.gv.GridControl = this.gc;
+            this.gv.Name = "gv";
+            // 
             // frmChooseOrtPartition
             // 
             this.AcceptButton = this.btnOK;
@@ -120,7 +131,8 @@
             this.Text = "Предполагаемые множества ортогональных разбиений";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -128,9 +140,10 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private DevExpress.XtraEditors.ListBoxControl lbx;
         private DevExpress.XtraEditors.SimpleButton btnOK;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraGrid.GridControl gc;
+        private DevExpress.XtraGrid.Views.Grid.GridView gv;
     }
 }

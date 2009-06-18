@@ -62,13 +62,21 @@ namespace Test
                 int inputSeqLen = ctp.NetResults.Conditions.InputSequence.Count;
 
                 lblNetRejectionCountValue.Text = ctp.NetResults.RejectionCount.ToString();
-                lblNetTimeValue.Text = netTime.ToString();
-                lblNetAvrWorkTimeValue.Text = (repeats > 0 && inputSeqLen > 0) ? (100 * netTime / (repeats * inputSeqLen)).ToString() : 0.ToString();
+                lblNetTimeValue.Text = netTime.ToString("0.000000");
+                lblNetTimeValue.Text += " сек";
+                double value = 0;
+                if(repeats > 0 && inputSeqLen > 0)
+                    value = 100 * netTime / (repeats * inputSeqLen);
+                lblNetAvrWorkTimeValue.Text = value.ToString("0.000000");
                 lblNetAvrWorkTimeValue.Text += " мс";
 
                 lblFSMRejectionCountValue.Text = ctp.FSMResults.RejectionCount.ToString();
-                lblFSMTimeValue.Text = fsmTime.ToString();
-                lblFSMAvrWorkTimeValue.Text = (repeats > 0 && inputSeqLen > 0) ? (100 * fsmTime / (repeats * inputSeqLen)).ToString() : 0.ToString();
+                lblFSMTimeValue.Text = fsmTime.ToString("0.000000");
+                lblFSMTimeValue.Text += " сек";
+                value = 0;
+                if (repeats > 0 && inputSeqLen > 0)
+                    value = 100 * fsmTime / (repeats * inputSeqLen);
+                lblFSMAvrWorkTimeValue.Text = value.ToString("0.000000");
                 lblFSMAvrWorkTimeValue.Text += " мс";
 
                 lblCountOfRepeatsValue.Text = repeats.ToString();

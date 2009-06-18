@@ -10,6 +10,37 @@ namespace FSM.Representation
     {
         #region static
 
+        public static DataTable Convert<TInput, TOutput>(IEnumerable<KeyValuePair<double, PartitionsCollection<TInput, TOutput>>> markedPartitions)
+            where TInput : FSMAtomBase, IStringKeyable
+            where TOutput : FSMAtomBase, IStringKeyable
+        {
+            if (markedPartitions == null) throw new ArgumentNullException("markedPartitions");
+
+            DataTable result = new DataTable();
+
+            DataColumn dc = new DataColumn();
+            dc.ColumnName = "Partitions";
+            dc.Caption = "Множество ортогональных рабиений";
+            dc.DataType = typeof(PartitionsCollection<TInput, TOutput>);
+            result.Columns.Add(dc);
+
+            dc = new DataColumn();
+            dc.ColumnName = "Mark";
+            dc.Caption = "Оценка";
+            dc.DataType = typeof(double);
+            result.Columns.Add(dc);
+
+            foreach (var markedPartition in markedPartitions)
+            {
+                DataRow row = result.NewRow();
+                row[0] = markedPartition.Value;
+                row[1] = markedPartition.Key;
+                result.Rows.Add(row);
+            }
+
+            return result;
+        }
+
         public static DataTable Convert<TInput>(IEnumerable<TInput> inputs)
             where TInput : FSMAtomBase, IStringKeyable
         {
