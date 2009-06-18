@@ -44,6 +44,17 @@
             this.tsbtnToExcel = new System.Windows.Forms.ToolStripButton();
             this.fsmEditControl = new Test.FSMEditControl();
             this.leFSMs = new Test.ListEdit();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenFSMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveFSMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FSMNetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.DecomposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -52,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl2)).BeginInit();
             this.splitContainerControl2.SuspendLayout();
             this.tsMain.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerControl1
@@ -59,7 +71,7 @@
             this.splitContainerControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Default;
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl1.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.Panel2;
-            this.splitContainerControl1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainerControl1.Location = new System.Drawing.Point(0, 49);
             this.splitContainerControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.splitContainerControl1.LookAndFeel.UseWindowsXPTheme = true;
             this.splitContainerControl1.Name = "splitContainerControl1";
@@ -67,7 +79,7 @@
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.splitContainerControl2);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1051, 597);
+            this.splitContainerControl1.Size = new System.Drawing.Size(1051, 573);
             this.splitContainerControl1.SplitterPosition = 223;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -86,7 +98,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(816, 587);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(816, 563);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // gcFSMEdit
@@ -98,7 +110,7 @@
             this.gcFSMEdit.LookAndFeel.UseWindowsXPTheme = true;
             this.gcFSMEdit.Name = "gcFSMEdit";
             this.gcFSMEdit.ShowCaption = false;
-            this.gcFSMEdit.Size = new System.Drawing.Size(810, 527);
+            this.gcFSMEdit.Size = new System.Drawing.Size(810, 503);
             this.gcFSMEdit.TabIndex = 1;
             // 
             // tbxFSMName
@@ -133,16 +145,18 @@
             this.splitContainerControl2.Panel2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.splitContainerControl2.Panel2.Controls.Add(this.btnDecompose);
             this.splitContainerControl2.Panel2.Text = "Panel2";
-            this.splitContainerControl2.Size = new System.Drawing.Size(219, 587);
+            this.splitContainerControl2.Size = new System.Drawing.Size(219, 563);
             this.splitContainerControl2.SplitterPosition = 243;
             this.splitContainerControl2.TabIndex = 2;
             this.splitContainerControl2.Text = "splitContainerControl2";
             // 
             // btnDecompose
             // 
-            this.btnDecompose.Location = new System.Drawing.Point(82, 13);
+            this.btnDecompose.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnDecompose.Location = new System.Drawing.Point(48, 2);
             this.btnDecompose.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnDecompose.LookAndFeel.UseWindowsXPTheme = true;
+            this.btnDecompose.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
             this.btnDecompose.Name = "btnDecompose";
             this.btnDecompose.Size = new System.Drawing.Size(134, 27);
             this.btnDecompose.TabIndex = 0;
@@ -157,7 +171,7 @@
             this.toolStripSeparator1,
             this.tsbtnDecompose,
             this.tsbtnToExcel});
-            this.tsMain.Location = new System.Drawing.Point(0, 0);
+            this.tsMain.Location = new System.Drawing.Point(0, 24);
             this.tsMain.Name = "tsMain";
             this.tsMain.Size = new System.Drawing.Size(1051, 25);
             this.tsMain.TabIndex = 2;
@@ -195,7 +209,7 @@
             this.tsbtnDecompose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnDecompose.Name = "tsbtnDecompose";
             this.tsbtnDecompose.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnDecompose.Text = "Декомпозиция";
+            this.tsbtnDecompose.Text = "Сеть";
             this.tsbtnDecompose.Click += new System.EventHandler(this.tsbtnDecompose_Click);
             // 
             // tsbtnToExcel
@@ -214,7 +228,7 @@
             this.fsmEditControl.fsm = null;
             this.fsmEditControl.Location = new System.Drawing.Point(2, 2);
             this.fsmEditControl.Name = "fsmEditControl";
-            this.fsmEditControl.Size = new System.Drawing.Size(806, 522);
+            this.fsmEditControl.Size = new System.Drawing.Size(806, 498);
             this.fsmEditControl.TabIndex = 0;
             // 
             // leFSMs
@@ -228,6 +242,91 @@
             this.leFSMs.Size = new System.Drawing.Size(219, 243);
             this.leFSMs.TabIndex = 1;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMenuItem,
+            this.ToolsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1051, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // FileToolStripMenuItem
+            // 
+            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OpenFSMToolStripMenuItem,
+            this.SaveFSMToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.ExitToolStripMenuItem});
+            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.FileToolStripMenuItem.Text = "&Файл";
+            // 
+            // OpenFSMToolStripMenuItem
+            // 
+            this.OpenFSMToolStripMenuItem.Name = "OpenFSMToolStripMenuItem";
+            this.OpenFSMToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.OpenFSMToolStripMenuItem.Text = "Открыть автомат...";
+            this.OpenFSMToolStripMenuItem.Click += new System.EventHandler(this.tsbtnLoadFSM_Click);
+            // 
+            // SaveFSMToolStripMenuItem
+            // 
+            this.SaveFSMToolStripMenuItem.Name = "SaveFSMToolStripMenuItem";
+            this.SaveFSMToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.SaveFSMToolStripMenuItem.Text = "Сохранить автомат...";
+            this.SaveFSMToolStripMenuItem.Click += new System.EventHandler(this.tsbtnSaveFSM_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(185, 6);
+            // 
+            // ExitToolStripMenuItem
+            // 
+            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.ExitToolStripMenuItem.Text = "Выход";
+            this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // ToolsToolStripMenuItem
+            // 
+            this.ToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ExportToExcelToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.FSMNetToolStripMenuItem,
+            this.DecomposeToolStripMenuItem});
+            this.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem";
+            this.ToolsToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.ToolsToolStripMenuItem.Text = "&Инструменты";
+            // 
+            // ExportToExcelToolStripMenuItem
+            // 
+            this.ExportToExcelToolStripMenuItem.Name = "ExportToExcelToolStripMenuItem";
+            this.ExportToExcelToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.ExportToExcelToolStripMenuItem.Text = "Экспорт в &Excel...";
+            this.ExportToExcelToolStripMenuItem.Click += new System.EventHandler(this.tsbtnToExcel_Click);
+            // 
+            // FSMNetToolStripMenuItem
+            // 
+            this.FSMNetToolStripMenuItem.Name = "FSMNetToolStripMenuItem";
+            this.FSMNetToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.FSMNetToolStripMenuItem.Text = "Сеть автоматов...";
+            this.FSMNetToolStripMenuItem.Click += new System.EventHandler(this.tsbtnDecompose_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 6);
+            // 
+            // DecomposeToolStripMenuItem
+            // 
+            this.DecomposeToolStripMenuItem.Name = "DecomposeToolStripMenuItem";
+            this.DecomposeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.DecomposeToolStripMenuItem.Text = "Декомпозировать...";
+            this.DecomposeToolStripMenuItem.Click += new System.EventHandler(this.btnDecompose_Click);
+            // 
             // frmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,7 +334,9 @@
             this.ClientSize = new System.Drawing.Size(1051, 622);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.tsMain);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmTest";
             this.Text = "Декомпозиция вероятностного автомата";
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
@@ -248,6 +349,8 @@
             this.splitContainerControl2.ResumeLayout(false);
             this.tsMain.ResumeLayout(false);
             this.tsMain.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,6 +373,17 @@
         private System.Windows.Forms.TextBox tbxFSMName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripButton tsbtnToExcel;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenFSMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveFSMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ExportToExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem FSMNetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DecomposeToolStripMenuItem;
     }
 }
 

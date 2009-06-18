@@ -60,6 +60,7 @@
     <Compile Include="IDecompositionAlg.cs" />
     <Compile Include="IFSM.cs" />
     <Compile Include="FSMInfos\INetComponentInfosContainer.cs" />
+    <Compile Include="PartitionsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Representation\FSMDataTableRepresenter.cs" />
   </ItemGroup>

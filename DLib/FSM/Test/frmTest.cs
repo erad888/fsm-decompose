@@ -50,6 +50,8 @@ namespace Test
             btnDecompose.Enabled = value;
             tsbtnSaveFSM.Enabled = value;
             tsbtnToExcel.Enabled = value;
+            DecomposeToolStripMenuItem.Enabled = value;
+            ExportToExcelToolStripMenuItem.Enabled = value;
         }
 
         private void InitListEdit(ListEdit le)
@@ -490,6 +492,11 @@ namespace Test
                 {
                 }
             }
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

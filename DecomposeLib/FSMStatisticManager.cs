@@ -53,7 +53,7 @@ namespace DecomposeLib
             for (int i = 0; i < conditions.RepeatsNumber; ++i)
             {
                 TargetFSM.CurrentState = conditions.InitialState;
-                result.ProcessData(TargetFSM.CurrentState);
+                //result.ProcessData(TargetFSM.CurrentState);
                 TargetFSM.Randomize();
                 for (int j = 0; j < conditions.InputSequence.Count; ++j)
                 {
@@ -182,7 +182,7 @@ namespace DecomposeLib
         public void ProcessData(FSMState<TInput, TOutput> state)
         {
             if (!StateFrequency.ContainsKey(state))
-                StateFrequency.Add(state, 1);
+                StateFrequency.Add(state, 0);
             ++StateFrequency[state];
         }
         /// <summary>
@@ -192,7 +192,7 @@ namespace DecomposeLib
         public void ProcessData(TOutput output)
         {
             if (!OutputFrequency.ContainsKey(output))
-                OutputFrequency.Add(output, 1);
+                OutputFrequency.Add(output, 0);
             ++OutputFrequency[output];
         }
         /// <summary>
