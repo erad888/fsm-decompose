@@ -474,7 +474,7 @@ namespace FSM.FSMWinControls
         private void DrawSubFSMBlock(Graphics graphics, Point point, SubMachineBlock block)
         {
             graphics.DrawPath(block.FSMBlockPen, block.FSMBlock.ToRoundedRect(SubFSMBlockRadius));
-            graphics.DrawString(block.FSMInfo.KeyName, Font, BlockBrush, point.X - ((int)(block.FSMInfo.KeyName.Length * 0.8 * Font.Size)) / 2, point.Y - Font.Size);
+            graphics.DrawString("П/автомат " + block.FSMInfo.KeyName, Font, BlockBrush, point.X - ((int)((block.FSMInfo.KeyName.Length + 10)* 0.8 * Font.Size)) / 2, point.Y - Font.Size);
         }
 
         private void DrawFBlock(Graphics graphics, Point point, SubMachineBlock block)
