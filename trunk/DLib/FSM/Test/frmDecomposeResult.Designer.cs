@@ -143,7 +143,7 @@
             // btnChart
             // 
             this.btnChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChart.Image = global::Test.Properties.Resources.statistics;
+            this.btnChart.Image = global::MainWinContainer.Properties.Resources.statistics;
             this.btnChart.Location = new System.Drawing.Point(90, 275);
             this.btnChart.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnChart.LookAndFeel.UseWindowsXPTheme = true;
@@ -156,7 +156,7 @@
             // btnSaveImage
             // 
             this.btnSaveImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveImage.Image = global::Test.Properties.Resources.image;
+            this.btnSaveImage.Image = global::MainWinContainer.Properties.Resources.image;
             this.btnSaveImage.Location = new System.Drawing.Point(90, 246);
             this.btnSaveImage.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnSaveImage.LookAndFeel.UseWindowsXPTheme = true;
@@ -169,7 +169,7 @@
             // btnSaveNet
             // 
             this.btnSaveNet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveNet.Image = global::Test.Properties.Resources.save;
+            this.btnSaveNet.Image = global::MainWinContainer.Properties.Resources.save;
             this.btnSaveNet.Location = new System.Drawing.Point(90, 188);
             this.btnSaveNet.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnSaveNet.LookAndFeel.UseWindowsXPTheme = true;
@@ -182,7 +182,7 @@
             // btnLoadNet
             // 
             this.btnLoadNet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLoadNet.Image = global::Test.Properties.Resources.load;
+            this.btnLoadNet.Image = global::MainWinContainer.Properties.Resources.load;
             this.btnLoadNet.Location = new System.Drawing.Point(90, 217);
             this.btnLoadNet.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnLoadNet.LookAndFeel.UseWindowsXPTheme = true;
@@ -209,7 +209,7 @@
             // tsbtnSaveNet
             // 
             this.tsbtnSaveNet.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSaveNet.Image = global::Test.Properties.Resources.save;
+            this.tsbtnSaveNet.Image = global::MainWinContainer.Properties.Resources.save;
             this.tsbtnSaveNet.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSaveNet.Name = "tsbtnSaveNet";
             this.tsbtnSaveNet.Size = new System.Drawing.Size(23, 22);
@@ -219,7 +219,7 @@
             // tsbtnLoadNet
             // 
             this.tsbtnLoadNet.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnLoadNet.Image = global::Test.Properties.Resources.load;
+            this.tsbtnLoadNet.Image = global::MainWinContainer.Properties.Resources.load;
             this.tsbtnLoadNet.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnLoadNet.Name = "tsbtnLoadNet";
             this.tsbtnLoadNet.Size = new System.Drawing.Size(23, 22);
@@ -229,7 +229,7 @@
             // tsbtnSaveImage
             // 
             this.tsbtnSaveImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSaveImage.Image = global::Test.Properties.Resources.image;
+            this.tsbtnSaveImage.Image = global::MainWinContainer.Properties.Resources.image;
             this.tsbtnSaveImage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSaveImage.Name = "tsbtnSaveImage";
             this.tsbtnSaveImage.Size = new System.Drawing.Size(23, 22);
@@ -244,7 +244,7 @@
             // tsbtnStatistics
             // 
             this.tsbtnStatistics.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnStatistics.Image = global::Test.Properties.Resources.statistics;
+            this.tsbtnStatistics.Image = global::MainWinContainer.Properties.Resources.statistics;
             this.tsbtnStatistics.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnStatistics.Name = "tsbtnStatistics";
             this.tsbtnStatistics.Size = new System.Drawing.Size(23, 22);
