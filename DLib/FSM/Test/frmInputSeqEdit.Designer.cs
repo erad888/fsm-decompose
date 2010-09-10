@@ -81,7 +81,7 @@
             // tsbtnLoad
             // 
             this.tsbtnLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnLoad.Image = global::Test.Properties.Resources.load;
+            this.tsbtnLoad.Image = global::MainWinContainer.Properties.Resources.load;
             this.tsbtnLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnLoad.Name = "tsbtnLoad";
             this.tsbtnLoad.Size = new System.Drawing.Size(23, 22);
@@ -91,7 +91,7 @@
             // tsbtnSave
             // 
             this.tsbtnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSave.Image = global::Test.Properties.Resources.save;
+            this.tsbtnSave.Image = global::MainWinContainer.Properties.Resources.save;
             this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSave.Name = "tsbtnSave";
             this.tsbtnSave.Size = new System.Drawing.Size(23, 22);
@@ -106,7 +106,7 @@
             // tsbtnClearAll
             // 
             this.tsbtnClearAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnClearAll.Image = global::Test.Properties.Resources.deleteAll;
+            this.tsbtnClearAll.Image = global::MainWinContainer.Properties.Resources.deleteAll;
             this.tsbtnClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnClearAll.Name = "tsbtnClearAll";
             this.tsbtnClearAll.Size = new System.Drawing.Size(23, 22);

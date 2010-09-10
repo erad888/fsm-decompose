@@ -303,8 +303,7 @@ namespace Test
             try
             {
                 Series series = null;
-
-
+                
                 for (int i = 0; i < transitionPie.Series.Count; ++i)
                 {
                     if (transitionPie.Series[i].Name == "probabilities")

@@ -180,7 +180,7 @@
             // tsbtnSaveFSM
             // 
             this.tsbtnSaveFSM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSaveFSM.Image = global::Test.Properties.Resources.save;
+            this.tsbtnSaveFSM.Image = global::MainWinContainer.Properties.Resources.save;
             this.tsbtnSaveFSM.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSaveFSM.Name = "tsbtnSaveFSM";
             this.tsbtnSaveFSM.Size = new System.Drawing.Size(23, 22);
@@ -190,7 +190,7 @@
             // tsbtnLoadFSM
             // 
             this.tsbtnLoadFSM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnLoadFSM.Image = global::Test.Properties.Resources.load;
+            this.tsbtnLoadFSM.Image = global::MainWinContainer.Properties.Resources.load;
             this.tsbtnLoadFSM.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnLoadFSM.Name = "tsbtnLoadFSM";
             this.tsbtnLoadFSM.Size = new System.Drawing.Size(23, 22);
@@ -205,7 +205,7 @@
             // tsbtnDecompose
             // 
             this.tsbtnDecompose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnDecompose.Image = global::Test.Properties.Resources.decompose;
+            this.tsbtnDecompose.Image = global::MainWinContainer.Properties.Resources.decompose;
             this.tsbtnDecompose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnDecompose.Name = "tsbtnDecompose";
             this.tsbtnDecompose.Size = new System.Drawing.Size(23, 22);
@@ -215,7 +215,7 @@
             // tsbtnToExcel
             // 
             this.tsbtnToExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnToExcel.Image = global::Test.Properties.Resources.excel;
+            this.tsbtnToExcel.Image = global::MainWinContainer.Properties.Resources.excel;
             this.tsbtnToExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnToExcel.Name = "tsbtnToExcel";
             this.tsbtnToExcel.Size = new System.Drawing.Size(23, 22);

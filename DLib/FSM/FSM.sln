@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSM", "FSM\FSM.csproj", "{D14D9F6B-9637-445A-B697-8529DDD9963E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecomposeLib", "..\..\DecomposeLib\DecomposeLib.csproj", "{A4E7C152-CA25-4E56-A99D-33719F99EC98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{0EF9A4DA-3C4A-49BE-9A39-91BE93001133}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainWinContainer", "Test\MainWinContainer.csproj", "{0EF9A4DA-3C4A-49BE-9A39-91BE93001133}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicUtils", "..\LogicUtils\LogicUtils.csproj", "{F1172195-C45E-43CD-B7E3-CC89BB6D8219}"
 EndProject
